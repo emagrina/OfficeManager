@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\OfficeManagerAPI",
+    "\\OfficeManagerAPI\\OfficeManagerAPI",
+    "\\OfficeManagerAPI\\OfficeManagerAPI\\DataAccess",
+    "\\OfficeManagerAPI\\OfficeManagerAPI\\Models",
+    "\\OfficeManagerAPI\\OfficeManagerAPI\\Models\\DataModels"
+  ],
+  "SelectedNode": "\\OfficeManagerAPI\\OfficeManagerAPI\\DataAccess",
+  "PreviewInSolutionExplorer": false
+}

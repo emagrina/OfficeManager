@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
-    public class Users: BaseEntity
+    public class User: BaseEntity
     {
 
         [Key]
@@ -22,6 +22,5 @@ namespace OfficeManagerAPI.Models.DataModels
 
         [Required, StringLength(100)]
         public string Passw { get; set; } = string.Empty;
-
     }
 }

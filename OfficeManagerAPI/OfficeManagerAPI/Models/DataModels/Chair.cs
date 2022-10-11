@@ -12,6 +12,6 @@ namespace OfficeManagerAPI.Models.DataModels
         public bool Aviable { get; set; } = false;
 
         [Required]
-        public string Room_Id { get; set; }
+        public string Room_Id { get; set; } = string.Empty;
     }
 }

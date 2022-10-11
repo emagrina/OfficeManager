@@ -10064,24 +10064,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ernest.magrina.ext\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ernest.magrina.ext\\Documents\\OfficeManager\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "projectUniqueName": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\office\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
       "projectName": "OfficeManagerAPI",
-      "projectPath": "C:\\Users\\ernest.magrina.ext\\Documents\\OfficeManager\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
-      "packagesPath": "C:\\Users\\ernest.magrina.ext\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ernest.magrina.ext\\Documents\\OfficeManager\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
+      "projectPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\office\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "packagesPath": "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\office\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ernest.magrina.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\pau.garcia.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
