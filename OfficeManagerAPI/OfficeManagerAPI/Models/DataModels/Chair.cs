@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
@@ -11,7 +12,7 @@ namespace OfficeManagerAPI.Models.DataModels
         [Required]
         public bool Aviable { get; set; } = false;
 
-        [Required]
-        public string Room_Id { get; set; } = string.Empty;
+
+        public ICollection<Zone> Zones { get; set; } = new List<Zone>();
     }
 }
