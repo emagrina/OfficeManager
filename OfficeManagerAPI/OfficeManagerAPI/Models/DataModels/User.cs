@@ -12,7 +12,7 @@ namespace OfficeManagerAPI.Models.DataModels
 
 
         [Required, StringLength(50), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
-        public string Name { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
 
         [Required, StringLength(50), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string LastName { get; set; } = string.Empty;
