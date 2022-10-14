@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+OfficeManagerApp/node_modules
+OfficeManagerApp/.pnp
+OfficeManagerApp/.pnp.js
+
+# testing
+OfficeManagerApp/coverage
+
+# production
+OfficeManagerApp/build
+
+# misc
+OfficeManagerApp/.DS_Store
+OfficeManagerApp/.env.local
+OfficeManagerApp/.env.development.local
+OfficeManagerApp/.env.test.local
+OfficeManagerApp/.env.production.local
+
+OfficeManagerApp/npm-debug.log*
+OfficeManagerApp/yarn-debug.log*
+OfficeManagerApp/yarn-error.log*
+
+# Ignore txt files
+*.txt
+
+# Ignora los archivos relacionados a API keys
+.env
+
+# Sass ignore cache
+.sass-cache
+
+# Ignore .vs
+OfficeManagerAPI/.vs
+OfficeManagerApp/.vs
+
+#Ignore .idea
+OfficeManagerAPI/.idea
+OfficeManagerApp/.idea
+
+# NuGet Packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
