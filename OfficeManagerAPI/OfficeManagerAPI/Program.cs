@@ -1,4 +1,15 @@
+// Usings to work with EntityFramework
+using Microsoft.EntityFrameworkCore;
+using OfficeManagerAPI.DBAccess;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Connection with SQL Server Express
+const string CONNECTIONNAME = "OfficeDB";
+var connectionString = builder.Configuration.GetConnectionString(CONNECTIONNAME);
+
+// 3. Add context
+builder.Services.AddDbContext<OfficeDBContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 

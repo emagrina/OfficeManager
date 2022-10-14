@@ -1,23 +1,18 @@
-﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:4473",
-      "sslPort": 44305
-    }
-  },
+{
   "profiles": {
     "OfficeManagerAPI": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7016;http://localhost:5016",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DBPASSWORD": "70r7¡11@d€p@7@7@",
+        "IP": "38.242.201.167",
+        "DBNAME": "OfficeManagerDB",
+        "DBUSERID": "develop"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7016;http://localhost:5016"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -26,6 +21,15 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:4473",
+      "sslPort": 44305
     }
   }
 }
