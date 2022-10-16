@@ -1,7 +1,0 @@
-tsconfig.json
-.eslintrc.json
-.prettierrc
-package.json
-package-lock.json
-public/manifest.json
-
