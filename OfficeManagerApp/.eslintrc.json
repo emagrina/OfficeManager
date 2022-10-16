@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:react/tsx-runtime",
-        "standard-with-typescript"
+        "standard-with-typescript",
+        "eslint-config-prettier"
     ],
     "overrides": [
     ],
