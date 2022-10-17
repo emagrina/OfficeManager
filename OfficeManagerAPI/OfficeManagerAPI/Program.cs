@@ -18,6 +18,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configuration Cores 
+var provider = builder.Services.BuildServiceProvider();
+var configuration = provider.GetRequiredService<IConfiguration>();
+
+builder.Services.AddCors(options =>
+{
+    var frontendURL = configuration.GetValue<string>("frontend_url");
+    
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+    });
+    
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +43,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+    
 app.UseAuthorization();
 
 app.MapControllers();
