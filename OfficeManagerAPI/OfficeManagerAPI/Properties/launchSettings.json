@@ -5,11 +5,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "DBPASSWORD": "70r7¡11@d€p@7@7@",
-        "IP": "38.242.201.167",
-        "DBNAME": "OfficeManagerDB",
-        "DBUSERID": "develop"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7016;http://localhost:5016"
