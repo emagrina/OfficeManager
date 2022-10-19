@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
@@ -17,7 +18,7 @@ namespace OfficeManagerAPI.Models.DataModels
         public string LastName { get; set; } = string.Empty;
         
         [Required, DefaultValue(false)]
-        public bool isAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false;
 
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
