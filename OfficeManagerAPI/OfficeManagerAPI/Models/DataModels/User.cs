@@ -9,13 +9,15 @@ namespace OfficeManagerAPI.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
-
-
+        
         [Required, StringLength(50), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string FirstName { get; set; } = string.Empty;
 
         [Required, StringLength(50), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string LastName { get; set; } = string.Empty;
+        
+        [Required, DefaultValue(false)]
+        public bool isAdmin { get; set; }
 
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
