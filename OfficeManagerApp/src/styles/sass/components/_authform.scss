@@ -16,8 +16,9 @@ body {
 .auth-error {
     color: $color-ligth-1;
     background-color: $color-danger;
-    padding: px;
+    padding: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 label {
@@ -27,6 +28,7 @@ label {
 
 a {
     color: $color-primary;
+    float: right;
 }
 
 input[type=email], input[type=password], input[type=submit] {
@@ -34,4 +36,16 @@ input[type=email], input[type=password], input[type=submit] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+    border: 2px solid $color-secondary;
+    border-radius: 4px;
+}
+
+input[type=email], [type=password] {
+    background-color: $color-secondary-light;
+}
+
+input[type=submit] {
+    color: $color-ligth-1;
+    font-size: 120%;
+    background-color: $color-primary;
 }

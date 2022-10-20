@@ -15,7 +15,7 @@ const AuthForm = () => {
                 <div className="auth-error"> ERROR: Usuario o contraseña incorrectos </div>
                 <input type="checkbox" id="remember" name="remember"/>
                 <label htmlFor="remember">Recuérdame</label>
-                <a href="#">¿Olvidaste la contraseña?</a><br/>
+                <a href="#">¿Olvidaste la contraseña?</a>
                 <input type="submit" value="Iniciar sesión"/>
             </form>
         </div>
