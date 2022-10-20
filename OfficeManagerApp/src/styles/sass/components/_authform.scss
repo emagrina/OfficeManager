@@ -1,0 +1,51 @@
+@import '../abstracts/variables';
+
+.container {
+    width: 30%;
+}
+
+h1 {
+    color: $color-primary;
+}
+
+body {
+    background-color: $color-secondary;
+    margin-left: 20px;
+}
+
+.auth-error {
+    color: $color-ligth-1;
+    background-color: $color-danger;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    color: $color-ligth-1;
+    padding: 5px;
+}
+
+a {
+    color: $color-primary;
+    float: right;
+}
+
+input[type=email], input[type=password], input[type=submit] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid $color-secondary;
+    border-radius: 4px;
+}
+
+input[type=email], [type=password] {
+    background-color: $color-secondary-light;
+}
+
+input[type=submit] {
+    color: $color-ligth-1;
+    font-size: 120%;
+    background-color: $color-primary;
+}
