@@ -4,7 +4,13 @@ import AuthForm from './components/AuthForm/AuthForm';
 export default function LoginUser() {
 	return (
 		<>
-		<AuthForm/>
+		<div className="authImage">
+			Imagen
+		</div>
+		<div className="authForm">
+			<AuthForm/>
+		</div>
+		
 		</>
 		
 	);

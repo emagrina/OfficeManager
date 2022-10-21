@@ -1,7 +1,9 @@
 @import '../abstracts/variables';
 
 .container {
-    width: 30%;
+    width: 60%;
+    margin: auto;
+    margin-top: 10%;
 }
 
 h1 {
@@ -19,6 +21,7 @@ body {
     padding: 5px;
     width: 100%;
     box-sizing: border-box;
+    display: none;
 }
 
 label {
