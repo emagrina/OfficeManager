@@ -2,7 +2,7 @@
 
 header {
 	width: 100%;
-	height: 100px;
+	height: 10vh;
 	left: 0;
 	top: 0;
 
@@ -13,10 +13,22 @@ header {
 	flex-direction: row;
 }
 
-img {
-	position: relative;
-	width: 150px;
-	height: 10em;
-	left: 80px;
-	top: -25px;
+.logo {
+	height: 80px;
+	left: 56px;
+	top: 16px;
+	
+	a {
+	 img {
+		 height: 3em;
+	 }	
+	}
+}
+.main-menu {
+	img {
+		width: 150px;
+		height: 10em;
+		left: 80px;
+		top: -25px;
+	}
 }
