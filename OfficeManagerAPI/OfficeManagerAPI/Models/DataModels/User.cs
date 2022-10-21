@@ -9,13 +9,8 @@ namespace OfficeManagerAPI.Models.DataModels
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-<<<<<<< HEAD
         public int Id { get; set; }
 
-=======
-        public int StudentId { get; set; }
-        
->>>>>>> 6264aa03578348272e2a9ef03f3207e66b5bc85d
         [Required, StringLength(50), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string FirstName { get; set; } = string.Empty;
 

@@ -12,5 +12,6 @@ namespace OfficeManagerAPI.Models.DataModels
         public int Size { get; set; }
 
         public virtual Zone Zone { get; set; }
+        //public virtual ICollection<Booking> Bookings { get; set; }
     }
 }

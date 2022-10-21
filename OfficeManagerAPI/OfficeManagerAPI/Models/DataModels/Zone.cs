@@ -9,7 +9,7 @@ namespace OfficeManagerAPI.Models.DataModels
         [Key]
         public int ZoneId { get; set; }
         [Required]
-        public ICollection<Chair> Chairs { get; set; }
-        public ICollection<Room> Rooms { get; set; }
+        public virtual ICollection<Chair> Chairs { get; set; }
+        public virtual ICollection<Room> Rooms { get; set; }
     }
 }
