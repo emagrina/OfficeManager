@@ -1,8 +1,8 @@
-import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
+import { Auth } from './pages';
 
-const app: any = <h1>Hello!</h1>;
-const container: any = document.getElementById('root');
-
-ReactDOM.render(<App />, container);
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<Auth />
+);

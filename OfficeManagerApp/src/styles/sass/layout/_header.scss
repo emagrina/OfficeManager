@@ -1,0 +1,34 @@
+@import '../abstracts/variables';
+
+header {
+	width: 100%;
+	height: 10vh;
+	left: 0;
+	top: 0;
+
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(25px);
+
+	display: flex;
+	flex-direction: row;
+}
+
+.logo {
+	height: 80px;
+	left: 56px;
+	top: 16px;
+	
+	a {
+	 img {
+		 height: 3em;
+	 }	
+	}
+}
+.main-menu {
+	img {
+		width: 150px;
+		height: 10em;
+		left: 80px;
+		top: -25px;
+	}
+}
