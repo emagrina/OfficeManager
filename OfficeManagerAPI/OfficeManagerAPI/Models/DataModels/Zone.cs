@@ -10,5 +10,6 @@ namespace OfficeManagerAPI.Models.DataModels
         public int ZoneId { get; set; }
         [Required]
         public ICollection<Chair> Chairs { get; set; }
+        public ICollection<Room> Rooms { get; set; }
     }
 }
