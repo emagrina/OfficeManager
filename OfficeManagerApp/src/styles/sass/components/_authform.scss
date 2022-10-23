@@ -3,7 +3,7 @@
 .authFormatBody {
 	width: 60%;
 	margin: 10% auto auto;
-	
+
 	h1 {
 		color: $color-primary;
 	}
@@ -39,7 +39,7 @@
 		font-size: 120%;
 		background-color: $color-primary;
 	}
-	
+
 	.authError {
 		color: $color-light-1;
 		background-color: $color-danger;
@@ -49,4 +49,3 @@
 		display: none;
 	}
 }
-
