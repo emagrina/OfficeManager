@@ -39,7 +39,6 @@ cd OfficeManager
 Now we have the project locally, to have it ready to run we must execute the following:
 ```bash
 cd OfficeManagerApp
-pwd
 npm install
 ```
 To start the project we execute the following:
