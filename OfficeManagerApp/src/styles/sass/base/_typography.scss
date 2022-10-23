@@ -1,1 +1,28 @@
-﻿
+﻿@import '../abstracts/fonts';
+@import '../abstracts/variables';
+h {
+	font-style: normal;
+	color: $color-dark-1;
+	&1 {
+		font-weight: 600;
+		font-size: 40px;
+	}
+	&2 {
+		font-weight: 600;
+		font-size: 32px;
+	}
+	&3 {
+		font-weight: 500;
+		font-size: 32px;
+		line-height: 48px;
+	}
+
+	&4 {
+	}
+
+	p {
+	}
+
+	s {
+	}
+}

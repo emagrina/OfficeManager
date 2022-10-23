@@ -1,14 +1,19 @@
 ﻿// Colors
-$color-primary: #00b5ac;
-$color-secondary: #242d4e;
-$color-danger: #f04d46;
-$color-warning: #f6de00;
-$color-dark-1: #000000;
-$color-dark-2: #111427;
-$color-ligth-1: #ffffff;
-$color-ligth-2: #f9fafb;
-$color-ligth-3: #f3f3f6;
-$color-ligth-4: #d1d3db;
-$color-ligth-5: #9ca0af;
-$color-ligth-6: #6b6f80;
-$color-secondary-light: #4F587B
+$color-primary: hsl(177, 100%, 35%);
+$color-secondary: hsl(227, 37%, 22%);
+$color-danger: hsl(2, 85%, 61%);
+$color-warning: hsl(54, 100%, 48%);
+$color-dark-1: hsl(0, 0%, 0%);
+$color-dark-2: hsl(232, 39%, 11%);
+$color-light-1: hsl(0, 0%, 100%);
+$color-light-2: hsl(210, 20%, 98%);
+$color-light-3: hsl(240, 14%, 96%);
+$color-light-4: hsl(228, 12%, 84%);
+$color-light-5: hsl(227, 11%, 65%);
+$color-light-6: hsl(229, 9%, 46%);
+
+$color-secondary-light: hsl(228, 22%, 40%);
+
+$color-primary-transparent: hsl(177, 100%, 35%, 0.5);
+$color-danger-transparent: hsl(2, 85%, 61%, 0.5);
+$color-light-transparent: hsla(0, 0%, 100%, 0.5);

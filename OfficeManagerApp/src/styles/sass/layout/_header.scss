@@ -2,33 +2,53 @@
 
 header {
 	width: 100%;
-	height: 10vh;
-	left: 0;
+	height: 6em;
+	position: -webkit-sticky; /* Safari */
+	position: fixed;
 	top: 0;
-
-	background: rgba(255, 255, 255, 0.5);
-	backdrop-filter: blur(25px);
-
-	display: flex;
-	flex-direction: row;
+	background: $color-light-transparent;
+	backdrop-filter: blur(50px);
+	z-index: 3;
 }
 
 .logo {
-	height: 80px;
-	left: 56px;
-	top: 16px;
-	
-	a {
-	 img {
-		 height: 3em;
-	 }	
+	float: left;
+
+	img {
+		padding: 1.5em 4em;
+		height: 3em;
 	}
 }
-.main-menu {
+
+.mainMenu {
+	float: right;
+	display: flex;
+	flex-direction: row;
+	padding: 1.2em 4em;
+
 	img {
-		width: 150px;
-		height: 10em;
-		left: 80px;
-		top: -25px;
+		border-radius: 100%;
+		height: 3.5em;
+		box-shadow: 0 0 20px -5px $color-dark-2;
+		z-index: 2;
+		position: absolute;
 	}
+
+	.mainMenuContext {
+		padding: 0.5em 1em 0.5em 3em;
+		z-index: 1;
+		margin: 0.5em 0 0.5em 2em;
+		background-color: $color-light-1;
+		display: flex;
+		flex-direction: row;
+		border-radius: 12px;
+
+		svg {
+			padding: 0 0 0 1em;
+		}
+	}
+}
+
+.none {
+	margin: 6em 0;
 }

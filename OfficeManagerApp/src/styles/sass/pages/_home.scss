@@ -1,0 +1,29 @@
+@import '../base/typography';
+
+.homeSection {
+	position: absolute;
+	width: 93%;
+
+	margin: 0 4em;
+	height: 100%;
+
+	background: linear-gradient(
+		180deg,
+		rgba(170, 187, 204, 0.5) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	border-radius: 16px;
+
+	h2 {
+		margin: 1em 4em;
+		span {
+			color: $color-secondary;
+		}
+	}
+}
+
+.kpiSection {
+	display: flex;
+	flex-direction: row;
+	margin: 0 7em;
+}

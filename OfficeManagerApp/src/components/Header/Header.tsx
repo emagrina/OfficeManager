@@ -1,19 +1,26 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
-import '../../styles/sass/main.scss';
 
-const Header = ({ name }: any) => {
+const Header = ({ name, lastName }: any) => {
 	return (
-		<header>
-			<div className={'logo'}>
-				<a href='#'>
-					<img src='/InetumLogo.svg' alt='Logo Inetum' />
-				</a>
-			</div>
-			<div className={'main-menu'}>
-				<img src='/RandomPerson.jpg' alt='Perfil de usuario' />
-			</div>
-		</header>
+		<>
+			<header>
+				<div className={'logo'}>
+					<a href='#'>
+						<img src='/InetumLogo.svg' alt='Logo Inetum' />
+					</a>
+				</div>
+				<div className={'mainMenu'}>
+					<img src='/RandomPerson.jpg' alt='Perfil de usuario' />
+					<div className={'mainMenuContext'}>
+						<p>
+							{name} {lastName}
+						</p>
+						<i data-eva='chevron-down-outline' data-eva-fill='#000' />
+					</div>
+				</div>
+			</header>
+			<div className={'none'}></div>
+		</>
 	);
 };
 

@@ -1,0 +1,31 @@
+@import '../../abstracts/variables';
+
+.kpiBody {
+	background-color: $color-light-1;
+	width: 25em;
+	height: 20em;
+
+	border-radius: 16px;
+	margin: 0 1.5em;
+	padding: 2em;
+
+	h3 {
+		text-align: center;
+	}
+
+	p {
+		font-weight: 600;
+		font-size: 96px;
+
+		margin: 0.7em 1.5em;
+	}
+	.free {
+		color: $color-primary;
+		text-shadow: 0 0 80px $color-primary-transparent;
+	}
+
+	.busy {
+		color: $color-danger;
+		text-shadow: 0 0 80px $color-danger-transparent;
+	}
+}
