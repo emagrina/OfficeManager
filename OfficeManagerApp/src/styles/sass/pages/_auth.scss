@@ -1,7 +1,13 @@
 @import '../abstracts/variables';
 
+.authBody {
+	background-color: $color-secondary;
+	height: 100vh;
+}
+
 .authImage,
 .authForm {
 	width: 50%;
 	float: left;
+	
 }
