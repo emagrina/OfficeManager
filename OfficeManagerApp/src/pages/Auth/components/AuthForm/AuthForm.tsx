@@ -5,7 +5,7 @@ import '../../../../styles/sass/main.scss';
 const AuthForm = () => {
 	return (
 		<>
-			<div className='container'>
+			<div className='authFormatBody'>
 				<h1>¡Bienvenido/a!</h1>
 				<form>
 					<label htmlFor='email'>Email</label>
@@ -17,14 +17,15 @@ const AuthForm = () => {
 					<br />
 					<input type='password' id='password' name='password' />
 					<br />
-					<div className='auth-error'>
-						{' '}
-						ERROR: Usuario o contraseña incorrectos{' '}
+					<div className='authError'>
+						ERROR: Usuario o contraseña incorrectos
 					</div>
 					<input type='checkbox' id='remember' name='remember' />
 					<label htmlFor='remember'>Recuérdame</label>
 					<a href='#'>¿Olvidaste la contraseña?</a>
-					<input type='submit' value='Iniciar sesión' />
+
+					<a href={'/home'}>Iniciar sesión</a>
+					{/*<input type='submit' value='Iniciar sesión' />*/}
 				</form>
 			</div>
 		</>

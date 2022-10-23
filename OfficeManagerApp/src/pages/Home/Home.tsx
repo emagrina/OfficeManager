@@ -5,6 +5,7 @@ import { KPIs, KPICalendar, Map } from './components/index';
 function Home() {
 	const Name = 'Ernest';
 	const LastName = 'Magriñá';
+
 	return (
 		<>
 			<div className={'homeBody'}></div>
