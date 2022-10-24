@@ -3,13 +3,21 @@ import React from 'react'
 const SideBar = () => {
 	return (
 		<div className='sideBar'>
-			<h3>Panel de administrador</h3>
+      <div className='infoSideBar'>
+        <h3>Panel de administrador</h3>
 
-      <ul>
-        <li> Gestor de usuarios </li>
-        <li> Gestor de salas </li>
-        <li> Gestor de reservas </li>
-      </ul>
+        <ul>
+          <div className='marcador' >
+            <li> Gestor de usuarios </li>
+          </div>
+          <div className='marcador'>
+            <li> Gestor de salas </li>
+          </div>
+          <div className='marcador'>
+            <li> Gestor de reservas </li>
+          </div>
+        </ul>
+      </div>
 
 		</div>
 	);

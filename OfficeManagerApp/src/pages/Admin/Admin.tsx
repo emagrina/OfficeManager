@@ -7,7 +7,9 @@ export default function Admin() {
 	return( 
 	<div className='admin'>
 		{/* <Header/> */}
-		<SideBar></SideBar>
+		<div className='showSideBar'>
+			<SideBar></SideBar>
+		</div>
 	</div>
 	);
 };
