@@ -1,0 +1,16 @@
+@import '../../abstracts/variables';
+
+.mapBody {
+	background-color: $color-light-1;
+	width: 56em;
+	height: 20em;
+
+	border-radius: 16px;
+	margin: 3em 8em;
+	padding: 2em;
+
+	img {
+		width: 45em;
+		margin: 1em 0;
+	}
+}

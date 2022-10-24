@@ -3,17 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
-    public class Chair
+    public class Room
     {
         [Required]
         [Key]
         [ForeignKey("Booking")]
         public int Id { get; set; }
-
+        public string Name { get; set; } = string.Empty;
         [Required]
-        public bool Aviable { get; set; } = false;
+        public int Size { get; set; }
 
-        [Required]
         public virtual Zone Zone { get; set; }
     }
 }

@@ -4,5 +4,5 @@ import App from './App';
 import { Home } from './pages';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<Home />
+	<App />
 );
