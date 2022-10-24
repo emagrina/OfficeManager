@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
@@ -6,12 +7,12 @@ namespace OfficeManagerAPI.Models.DataModels
     {
         [Required]
         [Key]
+        [ForeignKey("Booking")]
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         [Required]
         public int Size { get; set; }
 
         public virtual Zone Zone { get; set; }
-        //public virtual ICollection<Booking> Bookings { get; set; }
     }
 }

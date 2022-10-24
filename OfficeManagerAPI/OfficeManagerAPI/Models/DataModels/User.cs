@@ -25,5 +25,7 @@ namespace OfficeManagerAPI.Models.DataModels
 
         [Required, StringLength(100)]
         public string Passw { get; set; } = string.Empty;
+
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

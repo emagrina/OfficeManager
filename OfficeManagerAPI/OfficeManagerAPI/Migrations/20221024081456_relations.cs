@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeManagerAPI.Migrations
 {
-    public partial class a : Migration
+    public partial class relations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,7 +62,7 @@ namespace OfficeManagerAPI.Migrations
                         column: x => x.ZoneId,
                         principalTable: "Zones",
                         principalColumn: "ZoneId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace OfficeManagerAPI.Migrations
                         column: x => x.ZoneId,
                         principalTable: "Zones",
                         principalColumn: "ZoneId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +95,7 @@ namespace OfficeManagerAPI.Migrations
                     dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChairId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -105,19 +106,30 @@ namespace OfficeManagerAPI.Migrations
                         column: x => x.ChairId,
                         principalTable: "Chairs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Bookings_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_ChairId",
                 table: "Bookings",
                 column: "ChairId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_RoomId",
+                table: "Bookings",
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
@@ -141,10 +153,10 @@ namespace OfficeManagerAPI.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
+                name: "Chairs");
 
             migrationBuilder.DropTable(
-                name: "Chairs");
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Users");

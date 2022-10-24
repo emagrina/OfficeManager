@@ -12,8 +12,8 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    [Migration("20221021104415_a")]
-    partial class a
+    [Migration("20221024081456_relations")]
+    partial class relations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace OfficeManagerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -48,6 +51,8 @@ namespace OfficeManagerAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChairId");
+
+                    b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
 
@@ -177,16 +182,24 @@ namespace OfficeManagerAPI.Migrations
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Chair", "Chair")
                         .WithMany()
                         .HasForeignKey("ChairId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OfficeManagerAPI.Models.DataModels.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("OfficeManagerAPI.Models.DataModels.User", "User")
-                        .WithMany()
+                        .WithMany("Booking")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Chair");
+
+                    b.Navigation("Room");
 
                     b.Navigation("User");
                 });
@@ -196,7 +209,7 @@ namespace OfficeManagerAPI.Migrations
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Zone", "Zone")
                         .WithMany("Chairs")
                         .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Zone");
@@ -207,10 +220,15 @@ namespace OfficeManagerAPI.Migrations
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Zone", "Zone")
                         .WithMany("Rooms")
                         .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Zone");
+                });
+
+            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.User", b =>
+                {
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Zone", b =>
