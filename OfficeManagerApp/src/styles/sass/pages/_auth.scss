@@ -1,12 +1,13 @@
 @import '../abstracts/variables';
 
 .authBody {
+	background: url('../../assets/img/AuthBg.png') no-repeat left center fixed;
 	background-color: $color-secondary;
+	background-size: contain;
 	height: 100vh;
 }
 
-.authImage,
 .authForm {
 	width: 50%;
-	float: left;
+	float: right;
 }

@@ -20,7 +20,7 @@
 
 	input[type='email'],
 	input[type='password'],
-	input[type='submit'] {
+	.authSubmit {
 		width: 100%;
 		padding: 12px 20px;
 		margin: 8px 0;
@@ -34,10 +34,12 @@
 		background-color: $color-secondary-light;
 	}
 
-	input[type='submit'] {
+	.authSubmit {
 		color: $color-light-1;
 		font-size: 120%;
+		text-align: center;
 		background-color: $color-primary;
+		text-decoration: none;
 	}
 
 	.authError {
