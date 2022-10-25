@@ -21,7 +21,7 @@
 # Resumen
 
 La aplicación nos permite gestionar los asientos de la oficina, gracias a
-ello sabremos la gente que abra ese día en la oficina y donde estarán situados
+ello sabremos la gente que habrá ese día en la oficina y donde estarán situados
 para no encontrarnos que no hay asientos disponibles.
 
 Tras registrarse con sus credenciales le aparecerá una pantalla muy intuitiva 
