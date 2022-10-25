@@ -13,4 +13,25 @@
 		width: 45em;
 		margin: 1em 0;
 	}
+
+	.Legend {
+		display: flex;
+		flex-direction: row;
+
+		div {
+			margin: 0 3em 0 2em;
+			display: flex;
+			flex-direction: row;
+
+			img {
+				width: 2.5em;
+			}
+
+			p {
+				font-weight: 500;
+				font-size: 20px;
+				line-height: 30px;
+			}
+		}
+	}
 }
