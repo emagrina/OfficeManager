@@ -23,8 +23,8 @@ const AuthForm = () => {
 					<input type='checkbox' id='remember' name='remember' />
 					<label htmlFor='remember'>Recuérdame</label>
 					<a href='#'>¿Olvidaste la contraseña?</a>
-
-					<a href={'/home'}>Iniciar sesión</a>
+					<br />
+					<a href={'/home'} className="authSubmit">Iniciar sesión</a>
 					{/*<input type='submit' value='Iniciar sesión' />*/}
 				</form>
 			</div>
