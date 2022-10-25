@@ -15,18 +15,18 @@ function Home() {
 			<section className={'homeSection'}>
 				<h2>
 					¡Hey! &#128075;
-					{t('Home.HomeSection')}
+					{t('HomeSection')}
 					<span>{Name}</span>
 				</h2>
 				<section className={'kpiSection'}>
-					<KPICalendar title={'Calendario:'} />
+					<KPICalendar title={t('KpiCalendar')} />
 
-					<KPIs title={'Plazas libres:'} value={'18'} type={'free'} />
+					<KPIs title={t('KpiAvailableSeats')} value={'18'} type={'avaiable'} />
 
-					<KPIs title={'Plazas ocupadas:'} value={'6'} type={'busy'} />
+					<KPIs title={t('KpiOccupiedSeats')} value={'6'} type={'ocuppied'} />
 				</section>
 				<section className={'mapAndState'}>
-					<Map title={'Selecionar silla:'} />
+					<Map title={t('SelectSeat')} />
 				</section>
 			</section>
 		</>
