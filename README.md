@@ -20,13 +20,13 @@
 
 # Overview
 
-The application allows us to manage the seats in the office, thanks to
-this we will know the people who open that day in the office and where they will be located
-lest we find that there are no seats available.
+The application allows us to manage the office seats, thanks to
+this we will know the people there that day and where are they seated so
+we don't end up with no seats available.
 
-After registering with your credentials, a very intuitive screen will appear
-where we can choose seat and day of reservation, we can also book
-meeting rooms and mini private rooms to concentrate to the fullest.
+After loging in with your credentials, a very intuitive screen will appear
+where you can choose your seat and day of reservation, you can also book 
+meeting rooms and mini private rooms to concentrate in your own.
 
 # Installation
 
@@ -57,9 +57,9 @@ with our credentials.
 ![Login](.screenshots/Login.png)
 
 ## Home
-From here users will be able to manage their seats, it is an interface
+Here, the users will be able to manage their seats, it is an interface
 quite intuitive, it shows us a calendar where we can select
-the day of the reservation, it will show us how many seats are free and how many
+the day of the booking, it will show us how many seats are free and how many
 are occupied, and a map of the office where we will select the seat or
 room we want.
 

@@ -5,7 +5,7 @@ import '../../styles/sass/layout/__layouts-dir.scss'
 
 export default function Admin() {
 	return( 
-	<div className='admin'>
+	<div className='adminBody'>
 		{/* <Header/> */}
 		<div className='showSideBar'>
 			<SideBar></SideBar>
