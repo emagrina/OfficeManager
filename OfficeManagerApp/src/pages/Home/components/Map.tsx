@@ -1,17 +1,16 @@
 import React from 'react';
 
 // @ts-ignore
-import MapImg from '../../../assets/img/Map.svg'
+import MapImg from '../../../assets/img/Map.svg';
 // @ts-ignore
 import FreeLegendImg from '../../../assets/img/FreeLegendImg.svg';
 // @ts-ignore
 import BusyLegendImg from '../../../assets/img/BusyLegendImg.svg';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 const Map = ({ title }: any) => {
-
 	const { t } = useTranslation();
-	
+
 	return (
 		<section className={'mapBody'}>
 			<div>

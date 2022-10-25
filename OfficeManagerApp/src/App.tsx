@@ -3,7 +3,7 @@ import './styles/sass/main.scss';
 // @ts-ignore
 import * as eva from 'eva-icons';
 import React from 'react';
-import Routers from "./routes/Routes";
+import Routers from './routes/Routes';
 
 const App = () => {
 	useEffect(() => {
