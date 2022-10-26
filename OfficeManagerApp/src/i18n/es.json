@@ -1,0 +1,24 @@
+﻿{
+  "_AvailableAuthComponentAuthForm" : "AuthForm",
+    "WelcomeAuth": "¡Bienvenido/a!",
+    "MailAuth": "Email",
+    "PasswdAuth": "Contraseña",
+    "RememberAuth": "Recuérdame",
+    "ErrorAuth": "ERROR: Usuario o contraseña incorrectos",
+    "ForgotPasswordAuth" : "¿Olvidaste la contraseña?",
+    "LoginAuth": "Iniciar sesión",
+  
+  "_AvailableHome": "Home",
+    "HomeSection": " Bienvenido ",
+    "KpiCalendar": "Calendario:",
+    "KpiAvailableSeats": "Sitios libres:",
+    "KpiOccupiedSeats": "Sitios ocupados:",
+    "SelectSeat": "Seleccionar sitio:",
+
+  "_AvailableHomeComponentMap": "Home/components/KPICalendar",
+  "altAvailableLegendImgGreen": "Cuadrado verde",
+  "AltOccupiedLegendImgRed": "Cuadrado rojo",
+  "PAvailableLegend": "Libre",
+  "POccupiedLegend": "Ocupado",
+  "MapImg": "Mapa de la oficina"
+}

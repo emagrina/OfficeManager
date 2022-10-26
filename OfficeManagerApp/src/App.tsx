@@ -1,10 +1,9 @@
-import { Admin, Auth, Home } from './pages';
 import { useEffect } from 'react';
 import './styles/sass/main.scss';
 // @ts-ignore
 import * as eva from 'eva-icons';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Routers from './routes/Routes';
 
 const App = () => {
 	useEffect(() => {
@@ -12,15 +11,7 @@ const App = () => {
 		eva.replace();
 	}, []);
 
-	return (
-		<Router>
-			<Routes>
-				<Route path='/' element={<Auth />} />
-				<Route path='/home' element={<Home />} />
-				<Route path='/admin' element={<Admin />} />
-			</Routes>
-		</Router>
-	);
+	return <Routers />;
 };
 
 export default App;

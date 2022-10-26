@@ -1,0 +1,24 @@
+﻿{
+  "_AvailableAuthComponentAuthForm" : "AuthForm",
+    "WelcomeAuth": "¡Welcome!",
+    "MailAuth": "Email",
+    "PasswdAuth": "Password",
+    "RememberAuth": "Remember me",
+    "ErrorAuth": "ERROR: Wrong username or password",
+    "ForgotPasswordAuth" : "Forgot password?",
+    "LoginAuth": "Log in",
+  
+  "_AvailableHome": "Home",
+    "HomeSection": " Welcome ",
+    "KpiCalendar": "Calendar:",
+    "KpiAvailableSeats": "Available seats:",
+    "KpiOccupiedSeats": "Occupied seats:",
+    "SelectSeat": "Select a seat:",
+  
+  "_AvailableHomeComponentMap": "Home/components/KPICalendar",
+  "AltAvailableLegendImgGreen": "Green box",
+  "AltOccupiedLegendImgRed": "Red box",
+  "PAvailableLegend": "Available",
+  "POccupiedLegend": "Occupied",
+  "MapImg": "Office map"
+}
