@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 const SideBar = () => {
 	return (
@@ -8,13 +9,22 @@ const SideBar = () => {
 
         <ul>
           <div className='marcador' >
-            <li> Gestor de usuarios </li>
+            <li><NavLink 
+              to={'./UserManagment'}
+              className={({ isActive, isPending }) =>
+              isActive
+                ? "active"
+                : isPending
+                ? "pending"
+                : ""
+            }
+            > Gestor de usuarios </NavLink></li>
           </div>
           <div className='marcador'>
-            <li> Gestor de salas </li>
+            <li><NavLink to={'./RoomsManagment'}> Gestor de salas </NavLink></li>
           </div>
           <div className='marcador'>
-            <li> Gestor de reservas </li>
+            <li><NavLink to={'./BookingsManagment'}> Gestor de reservas </NavLink></li>
           </div>
         </ul>
       </div>
