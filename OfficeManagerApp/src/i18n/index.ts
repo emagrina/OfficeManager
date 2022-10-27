@@ -4,6 +4,23 @@ import enTranslation from './en.json';
 import esTranslation from './es.json';
 import caTranslation from './ca.json';
 
+// Obtendremos el idima del navegador del usuario
+let languageNavigator = navigator.language;
+let language = null;
+switch (languageNavigator) {
+	case 'en-EN':
+		language = 'en';
+		break;
+	case 'es-ES':
+		language = 'es';
+		break;
+	case 'ca':
+		language = 'ca';
+		break;
+	default:
+		language = 'en';
+}
+
 const resources = {
 	en: {
 		translation: enTranslation,
@@ -18,7 +35,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
 	resources,
-	lng: 'es',
+	lng: language,
 	keySeparator: false,
 	interpolation: {
 		escapeValue: false,

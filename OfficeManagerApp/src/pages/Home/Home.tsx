@@ -23,7 +23,7 @@ function Home() {
 
 					<KPIs title={t('KpiAvailableSeats')} value={'18'} type={'avaiable'} />
 
-					<KPIs title={t('KpiOccupiedSeats')} value={'6'} type={'ocuppied'} />
+					<KPIs title={t('KpiOccupiedSeats')} value={'6'} type={'occupied'} />
 				</section>
 				<section className={'mapAndState'}>
 					<Map title={t('SelectSeat')} />

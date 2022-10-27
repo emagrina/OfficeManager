@@ -1,13 +1,13 @@
 @import '../../abstracts/variables';
 
-.kpiBody {
+.kpiBodyCalendar {
 	background-color: $color-light-1;
 	width: 25em;
-	height: 20em;
+	height: 18em;
 
 	border-radius: 16px;
 	margin: 0 1em;
-	padding: 2em;
+	padding: 0.5em;
 
 	h3 {
 		text-align: center;

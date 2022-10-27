@@ -1,9 +1,7 @@
 @import '../base/typography';
 
 .homeSection {
-	position: absolute;
-
-	margin: 0 7em;
+	margin: 0 10em;
 	height: 100%;
 
 	background: linear-gradient(
@@ -14,7 +12,8 @@
 	border-radius: 16px;
 
 	h2 {
-		margin: 1em 4em;
+		margin: 0.5em 4em 0.5em 4em;
+		padding: 0.5em 0 0 0;
 		span {
 			color: $color-secondary;
 		}
