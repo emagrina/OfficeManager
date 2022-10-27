@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import RandomPerson from '../../assets/img/RandomPerson.jpg'
+import RandomPerson from '../../assets/img/RandomPerson.jpg';
 
 const Header = ({ name, lastName }: any) => {
 	return (

@@ -1,24 +1,24 @@
 ﻿{
-  "_AvailableAuthComponentAuthForm" : "AuthForm",
-    "WelcomeAuth": "¡Benvingut!",
-    "MailAuth": "Email",
-    "PasswdAuth": "Contrasenya",
-    "RememberAuth": "Recorda'm",
-    "ErrorAuth": "ERROR: Usuari o contrasenya incorrectes",
-    "ForgotPasswordAuth" : "Has oblidat la contrasenya?",
-    "LoginAuth": "Iniciar sessió",
-  
-  "_AvailableHome": "Home",
-    "HomeSection": " Benvingut ",
-    "KpiCalendar": "Calendari:",
-    "KpiAvailableSeats": "Places lliures:",
-    "KpiOccupiedSeats": "Places ocupades:",
-    "SelectSeat": "Escollir plaça:",
-  
-  "_AvailableHomeComponentMap": "Home/components/KPICalendar",
-    "AltAvailableLegendImgGreen": "Quadrat verd",
-    "AltOccupiedLegendImgRed": "Quadrat vermell",
-    "PAvailableLegend": "LLiure",
-    "POccupiedLegend": "Ocupat",
-    "MapImg": "Mapa de l'oficina"
+	"_AvailableAuthComponentAuthForm": "AuthForm",
+	"WelcomeAuth": "¡Benvingut!",
+	"MailAuth": "Email",
+	"PasswdAuth": "Contrasenya",
+	"RememberAuth": "Recorda'm",
+	"ErrorAuth": "ERROR: Usuari o contrasenya incorrectes",
+	"ForgotPasswordAuth": "Has oblidat la contrasenya?",
+	"LoginAuth": "Iniciar sessió",
+
+	"_AvailableHome": "Home",
+	"HomeSection": " Benvingut ",
+	"KpiCalendar": "Calendari:",
+	"KpiAvailableSeats": "Places lliures:",
+	"KpiOccupiedSeats": "Places ocupades:",
+	"SelectSeat": "Escollir plaça:",
+
+	"_AvailableHomeComponentMap": "Home/components/KPICalendar",
+	"AltAvailableLegendImgGreen": "Quadrat verd",
+	"AltOccupiedLegendImgRed": "Quadrat vermell",
+	"PAvailableLegend": "LLiure",
+	"POccupiedLegend": "Ocupat",
+	"MapImg": "Mapa de l'oficina"
 }
