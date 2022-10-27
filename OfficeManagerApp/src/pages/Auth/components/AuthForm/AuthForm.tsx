@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
 import md5 from 'md5';
 import axios from 'axios';
-import '../../../../styles/sass/main.scss';
 import { useTranslation } from 'react-i18next';
 
 const AuthForm = () => {
@@ -59,7 +58,7 @@ const AuthForm = () => {
 
 			<label htmlFor='email'>{t('MailAuth')}</label>
 			<br />
-			<input type='text' id='email' name='userName' onChange={handleChange} />
+			<input type='email' id='email' name='email' onChange={handleChange} />
 			<br />
 			<br />
 			<label htmlFor='password'>{t('PasswdAuth')}</label>

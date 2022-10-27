@@ -1,17 +1,17 @@
-.showSideBar{
-    width: 25%;
+.showSideBar {
+	width: 25%;
 }
 
 .adminBody {
-    background: linear-gradient($color-light-4, $color-light-3);
-    width: 100vw;
-    height: 100vh;
+	background: linear-gradient($color-light-4, $color-light-3);
+	width: 100vw;
+	height: 100vh;
 
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
-.showContent{
-    padding-top: 2%;
-    padding-left: 5%;
+.showContent {
+	padding-top: 2%;
+	padding-left: 5%;
 }
