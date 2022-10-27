@@ -27,8 +27,6 @@ namespace OfficeManagerAPI.DBAccess
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
-
         }
 
         // Connection to DataBase
