@@ -17,7 +17,7 @@
 	.Legend {
 		display: flex;
 		flex-direction: row;
-
+		margin: 0 0 1em 0;
 		div {
 			margin: 0 3em 0 2em;
 			display: flex;
@@ -25,9 +25,11 @@
 
 			img {
 				width: 2.5em;
+				margin: -1em;
 			}
 
 			p {
+				margin: 0.5em 1.5em;
 				font-weight: 500;
 				font-size: 20px;
 				line-height: 30px;
