@@ -1,0 +1,50 @@
+@import '../abstracts/variables';
+
+.pageNotFoundBody {
+	background-color: $color-secondary;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.pageNotFoundText {
+	float: left;
+}
+
+.pageNotFoundImage {
+	float: right;
+}
+
+.pageNotFound1,
+.pageNotFound2,
+.pageNotFound3 {
+	margin-left: 30vh;
+	font-weight: bold;
+}
+
+.pageNotFound1 {
+	color: $color-primary;
+	margin-top: 20vh;
+	font-size: 1100%;
+}
+
+.pageNotFound2 {
+	color: $color-light-1;
+	font-size: 200%;
+}
+
+.pageNotFound3 a {
+	text-decoration: none;
+	color: $color-primary;
+	font-size: 200%;
+}
+
+.pageNotFoundImage img {
+	margin-right: 25vh;
+	margin-top: 20vh;
+	height: 400px;
+	filter: drop-shadow(5px 5px 50px $color-primary);
+}
