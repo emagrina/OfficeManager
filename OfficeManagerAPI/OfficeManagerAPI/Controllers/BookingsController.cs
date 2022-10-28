@@ -44,7 +44,7 @@ namespace OfficeManagerAPI.Controllers
 
         // PUT: api/Bookings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutBooking(int id, Booking booking)
         {
             if (id != booking.Id)
@@ -103,6 +103,6 @@ namespace OfficeManagerAPI.Controllers
         private bool BookingExists(int id)
         {
             return _context.Bookings.Any(e => e.Id == id);
-        }*/
+        }
     }
 }
