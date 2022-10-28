@@ -12,7 +12,5 @@ namespace OfficeManagerAPI.Models.DataModels
         public string Name { get; set; } = string.Empty;
         [Required]
         public int Size { get; set; }
-
-        public virtual Zone Zone { get; set; }
     }
 }
