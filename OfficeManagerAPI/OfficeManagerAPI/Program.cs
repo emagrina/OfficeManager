@@ -24,14 +24,15 @@ var configuration = provider.GetRequiredService<IConfiguration>();
 
 builder.Services.AddCors(options =>
 {
-    var frontendURL = configuration.GetValue<string>("frontend_url");
-    
-    options.AddDefaultPolicy(builder =>
+    options.AddPolicy(name: "CorsPolicy", builder =>
     {
-        builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
     });
-    
-});
+}
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("CorsPolicy");
     
 app.UseAuthorization();
 
