@@ -7,6 +7,10 @@
 	scroll-behavior: smooth;
 }
 
+*::selection {
+	background-color: $color-primary-transparent;
+}
+
 body::-webkit-scrollbar {
 	width: 0.7em;
 }

@@ -12,8 +12,5 @@ namespace OfficeManagerAPI.Models.DataModels
 
         [Required]
         public bool Aviable { get; set; } = false;
-
-        [Required]
-        public virtual Zone Zone { get; set; }
     }
 }

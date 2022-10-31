@@ -1,0 +1,23 @@
+﻿@import '../../../sass/abstracts/variables';
+/*
+.seatMap:hover {
+  fill: $color-danger;
+}
+
+.boxMap:hover {
+  fill: $color-secondary;
+}
+
+.roomMap:hover {
+  fill: $color-warning;
+}
+*/
+
+.disponible {
+	fill: $color-primary;
+	cursor: pointer;
+}
+
+.reservado {
+	fill: $color-danger;
+}
