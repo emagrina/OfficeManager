@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 const AuthForm = () => {
 	const tokenUrl = 'https://localhost:7283/api/Account/GetToken';
 	const userlistUrl = 'https://localhost:7283/api/Account/GetUserList';
-	const weather = 'https://localhost:7283/WeatherForecast';
 
 	let token = '';
 
@@ -53,15 +52,15 @@ const AuthForm = () => {
 	const { t } = useTranslation();
 
 	return (
-		<div className='authFormatBody'>
-			<h1>{t('WelcomeAuth')}</h1>
-
-			<label htmlFor='email'>{t('MailAuth')}</label>
+		<div className='authFormBody'>
+			<h1><>{t('WelcomeAuth')}</></h1>
+			<br />
+			<label htmlFor='email'><>{t('MailAuth')}</></label>
 			<br />
 			<input type='email' id='email' name='email' onChange={handleChange} />
 			<br />
 			<br />
-			<label htmlFor='password'>{t('PasswdAuth')}</label>
+			<label htmlFor='password'><>{t('PasswdAuth')}</></label>
 			<br />
 			<input
 				type='password'
@@ -70,16 +69,12 @@ const AuthForm = () => {
 				onChange={handleChange}
 			/>
 			<br />
-			<div className='authError'>{t('ErrorAuth')}</div>
-			<input type='checkbox' id='remember' name='remember' />
-			<label htmlFor='remember'>{t('RememberAuth')}</label>
-			<br />
-			<a href={'/home'} className='authSubmit'>
-				Entrar
-			</a>
+			<div className='authError'><>{t('ErrorAuth')}</></div>
+			<input type='checkbox' id='remember' name='remember' className='authRemember'/>
+			<label htmlFor='remember'><>{t('RememberAuth')}</></label>
 			<br />
 			<button className='authSubmit' onClick={() => iniciarSesion()}>
-				{t('LoginAuth')}
+				<>{t('LoginAuth')}</>
 			</button>
 		</div>
 	);

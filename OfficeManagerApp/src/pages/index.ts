@@ -6,5 +6,5 @@ export { default as UserManagment } from './Admin/components/UserManagment';
 export { default as Auth } from './Auth/Auth';
 export { default as AuthForm } from './Auth/components/AuthForm/AuthForm';
 export { default as Home } from './Home/Home';
-export * from './Home/components';
+//export * from './Home/components';
 export { default as PageNotFound } from './PageNotFound/PageNotFound';
