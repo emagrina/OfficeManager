@@ -8,10 +8,10 @@ import caTranslation from './ca.json';
 let languageNavigator = navigator.language;
 let language = null;
 switch (languageNavigator) {
-	case 'en-EN':
+	case 'en':
 		language = 'en';
 		break;
-	case 'es-ES':
+	case 'es':
 		language = 'es';
 		break;
 	case 'ca':

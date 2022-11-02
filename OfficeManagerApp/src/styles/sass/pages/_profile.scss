@@ -2,17 +2,42 @@
 
 .profileLinks {
 	float: left;
-	width: 30%;
+	width: 34%;
 	text-align: center;
 }
 
 .profileContent {
 	float: left;
 	width: 60%;
+	background: $color-light-4;
 }
 
 .profileHeader {
 	margin-top: 10vh;
 	margin-left: 20vh;
 	margin-bottom: 5vh;
+	position: relative;
 }
+
+.profileImage {
+	border-radius: 50%;
+}
+
+.profileName {
+	position: absolute;
+	top: 40%;
+	left: 20%;
+	font-size: 200%;
+}
+
+.profileLinks a {
+	text-decoration: none;
+	padding: 5px;
+	color: $color-dark-1;
+}
+
+.activeStyle {
+	border-radius: 10px;
+	background-color: $color-light-4;
+}
+
