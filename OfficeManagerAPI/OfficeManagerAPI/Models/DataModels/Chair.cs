@@ -9,8 +9,6 @@ namespace OfficeManagerAPI.Models.DataModels
         [Key]
         [ForeignKey("Booking")]
         public int Id { get; set; }
-
-        [Required]
-        public bool Aviable { get; set; } = false;
+        public string Position { get; set; }
     }
 }

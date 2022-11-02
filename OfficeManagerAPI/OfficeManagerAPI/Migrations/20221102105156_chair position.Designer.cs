@@ -12,14 +12,14 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    [Migration("20221021104415_a")]
-    partial class a
+    [Migration("20221102105156_chair position")]
+    partial class chairposition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -39,6 +39,9 @@ namespace OfficeManagerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -48,6 +51,8 @@ namespace OfficeManagerAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChairId");
+
+                    b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
 
@@ -62,15 +67,11 @@ namespace OfficeManagerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Aviable")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ZoneId")
-                        .HasColumnType("int");
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ZoneId");
 
                     b.ToTable("Chairs");
                 });
@@ -90,12 +91,7 @@ namespace OfficeManagerAPI.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.Property<int>("ZoneId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ZoneId");
 
                     b.ToTable("Rooms");
                 });
@@ -159,65 +155,36 @@ namespace OfficeManagerAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Zone", b =>
-                {
-                    b.Property<int>("ZoneId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ZoneId"), 1L, 1);
-
-                    b.HasKey("ZoneId");
-
-                    b.ToTable("Zones");
-                });
-
             modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Booking", b =>
                 {
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Chair", "Chair")
                         .WithMany()
                         .HasForeignKey("ChairId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OfficeManagerAPI.Models.DataModels.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("OfficeManagerAPI.Models.DataModels.User", "User")
-                        .WithMany()
+                        .WithMany("Booking")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Chair");
 
+                    b.Navigation("Room");
+
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Chair", b =>
+            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.User", b =>
                 {
-                    b.HasOne("OfficeManagerAPI.Models.DataModels.Zone", "Zone")
-                        .WithMany("Chairs")
-                        .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Zone");
-                });
-
-            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Room", b =>
-                {
-                    b.HasOne("OfficeManagerAPI.Models.DataModels.Zone", "Zone")
-                        .WithMany("Rooms")
-                        .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Zone");
-                });
-
-            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Zone", b =>
-                {
-                    b.Navigation("Chairs");
-
-                    b.Navigation("Rooms");
+                    b.Navigation("Booking");
                 });
 #pragma warning restore 612, 618
         }

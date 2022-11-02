@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
-import { KPIs, KPICalendar, Map } from './components/index';
+//import { KPIs, KPICalendar, Map } from './components/index';
 import { useTranslation } from 'react-i18next';
 
 function Home() {

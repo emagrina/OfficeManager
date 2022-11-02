@@ -1,8 +1,8 @@
 @import '../abstracts/variables';
 
-.authFormatBody {
+.authFormBody {
 	width: 60%;
-	margin: 10% auto auto;
+	margin: 15% auto auto;
 
 	h1 {
 		color: $color-primary;
@@ -49,5 +49,35 @@
 		width: 100%;
 		box-sizing: border-box;
 		display: none;
+	}
+
+	input[type='checkbox'] {
+		accent-color: $color-primary;
+		vertical-align: middle;
+		height: 1.3em;
+		width: 1.3em;
+	}
+}
+
+.authEnterBody {
+	width: 60%;
+	margin: 15% auto auto;
+
+	h1 {
+		color: $color-primary;
+	}
+
+	.authEnterButton {
+		color: $color-light-1;
+		font-size: 120%;
+		text-align: center;
+		background-color: $color-primary;
+		text-decoration: none;
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+		border: 2px solid $color-secondary;
+		border-radius: 4px;
 	}
 }

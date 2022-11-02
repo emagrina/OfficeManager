@@ -29,7 +29,6 @@ namespace OfficeManagerAPI.Controllers
             for (int i = 0; i < 77; i++)
             {
                 Chair chair = new Chair();
-                chair.Zone = 1;
                 _context.Chairs.Add(chair);
             }
             await _context.SaveChangesAsync();

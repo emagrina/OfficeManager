@@ -5,10 +5,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OfficeManagerAPI.Migrations
 {
-    public partial class relations : Migration
+    public partial class chairposition : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Chairs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chairs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Size = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -31,59 +58,6 @@ namespace OfficeManagerAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Zones",
-                columns: table => new
-                {
-                    ZoneId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Zones", x => x.ZoneId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Chairs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Aviable = table.Column<bool>(type: "bit", nullable: false),
-                    ZoneId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Chairs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Chairs_Zones_ZoneId",
-                        column: x => x.ZoneId,
-                        principalTable: "Zones",
-                        principalColumn: "ZoneId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rooms",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Size = table.Column<int>(type: "int", nullable: false),
-                    ZoneId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rooms_Zones_ZoneId",
-                        column: x => x.ZoneId,
-                        principalTable: "Zones",
-                        principalColumn: "ZoneId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,16 +109,6 @@ namespace OfficeManagerAPI.Migrations
                 name: "IX_Bookings_UserId",
                 table: "Bookings",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Chairs_ZoneId",
-                table: "Chairs",
-                column: "ZoneId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rooms_ZoneId",
-                table: "Rooms",
-                column: "ZoneId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -160,9 +124,6 @@ namespace OfficeManagerAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Zones");
         }
     }
 }
