@@ -16,8 +16,7 @@ const SideBar = () => {
 									isActive ? 'active' : isPending ? 'pending' : ''
 								}
 							>
-								{' '}
-								Gestor de usuarios{' '}
+								Gestor de usuarios
 							</NavLink>
 						</li>
 					</div>
