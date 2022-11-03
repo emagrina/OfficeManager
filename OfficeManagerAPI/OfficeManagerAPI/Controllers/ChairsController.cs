@@ -26,12 +26,6 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Chair>>> GetChairs()
         {
-            for (int i = 0; i < 77; i++)
-            {
-                Chair chair = new Chair();
-                _context.Chairs.Add(chair);
-            }
-            await _context.SaveChangesAsync();
             return await _context.Chairs.ToListAsync();
         }
 
@@ -51,7 +45,7 @@ namespace OfficeManagerAPI.Controllers
 
         // PUT: api/Chairs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutChair(int id, Chair chair)
         {
             if (id != chair.Id)
@@ -110,6 +104,6 @@ namespace OfficeManagerAPI.Controllers
         private bool ChairExists(int id)
         {
             return _context.Chairs.Any(e => e.Id == id);
-        }
+        }*/
     }
 }

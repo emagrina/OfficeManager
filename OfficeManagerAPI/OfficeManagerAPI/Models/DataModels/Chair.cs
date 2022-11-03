@@ -9,6 +9,7 @@ namespace OfficeManagerAPI.Models.DataModels
         [Key]
         [ForeignKey("Booking")]
         public int Id { get; set; }
+        [Required]
         public string Position { get; set; }
     }
 }
