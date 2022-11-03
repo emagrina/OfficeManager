@@ -15,7 +15,7 @@ header {
 	float: left;
 
 	img {
-		padding: 1.25em 10em;
+		padding: 1.25em 11em;
 		height: 2em;
 	}
 }
@@ -51,4 +51,49 @@ header {
 
 .none {
 	margin: 4.5em 0;
+}
+
+@media screen and (max-width: 640px) {
+	.logo img {
+		padding: 1.25em 0.5em;
+	}
+	.mainMenu {
+		padding: 0.5em 0;
+	}
+}
+
+@media screen and (min-width: 640px) and (max-width: 725px) {
+	.logo img {
+		padding: 1.25em 2.5em;
+	}
+	.mainMenu {
+		padding: 0.5em 0.5em;
+	}
+}
+
+@media screen and (min-width: 725px) and (max-width: 1125px) {
+	.logo img {
+		padding: 1.25em 5em;
+	}
+	.mainMenu {
+		padding: 0.5em 4em;
+	}
+}
+
+@media screen and (min-width: 1125px) and (max-width: 1280px) {
+	.logo img {
+		padding: 1.25em 7.5em;
+	}
+	.mainMenu {
+		padding: 0.5em 7.5em;
+	}
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1725px) {
+	.logo img {
+		padding: 1.25em 7.5em;
+	}
+	.mainMenu {
+		padding: 0.5em 6.5em;
+	}
 }
