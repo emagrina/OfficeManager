@@ -9,12 +9,15 @@ let languageNavigator = navigator.language;
 let language = null;
 switch (languageNavigator) {
 	case 'en':
+	case 'en-US':
 		language = 'en';
 		break;
 	case 'es':
+	case 'es-ES':
 		language = 'es';
 		break;
 	case 'ca':
+	case 'ca-ES':
 		language = 'ca';
 		break;
 	default:

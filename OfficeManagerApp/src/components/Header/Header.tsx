@@ -8,7 +8,7 @@ const Header = ({ name, lastName }: any) => {
 			<header>
 				<div className={'logo'}>
 					<a href='#'>
-						<img src='./InetumLogo.svg' alt='Logo Inetum' />
+						<img src='/InetumLogo.svg' alt='Logo Inetum' />
 					</a>
 				</div>
 				<div className={'mainMenu'}>
@@ -20,6 +20,7 @@ const Header = ({ name, lastName }: any) => {
 						<i data-eva='chevron-down-outline' data-eva-fill='#000' />
 					</div>
 				</div>
+				<div className={'dropdown'}></div>
 			</header>
 			<div className={'none'}></div>
 		</>

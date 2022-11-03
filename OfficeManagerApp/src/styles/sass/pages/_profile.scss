@@ -13,7 +13,7 @@
 }
 
 .profileHeader {
-	margin-top: 10vh;
+	margin-top: 15vh;
 	margin-left: 20vh;
 	margin-bottom: 5vh;
 	position: relative;
@@ -41,3 +41,6 @@
 	background-color: $color-light-4;
 }
 
+.inactiveStyle {
+	background-color: none;
+}

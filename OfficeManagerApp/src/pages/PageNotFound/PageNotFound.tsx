@@ -18,4 +18,5 @@ function PageNotFound() {
 		</div>
 	);
 }
+
 export default PageNotFound;

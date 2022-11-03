@@ -1,0 +1,36 @@
+@import '../abstracts/variables';
+
+.btn {
+  width: 218px;
+  height: 55px;
+  left: calc(50% - 218px / 2);
+  top: 79px;
+
+  border-radius: 12px;
+  border: none;
+
+  color: $color-light-1;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  transition: all 0.1s ease-in;
+
+  &-inactive {
+    background-color: $color-light-4;
+    cursor: not-allowed;
+    @extend .btn;
+  }
+
+  &-primary {
+    background-color: $color-primary;
+    cursor: pointer;
+    @extend .btn;
+  }
+
+  &-danger {
+    background-color: $color-danger;
+    cursor: pointer;
+    @extend .btn;
+  }
+}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,47 +12,47 @@ namespace OfficeManagerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChairsController : ControllerBase
+    public class RoomsController : ControllerBase
     {
         private readonly OfficeDBContext _context;
 
-        public ChairsController(OfficeDBContext context)
+        public RoomsController(OfficeDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Chairs
+        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Chair>>> GetChairs()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Chairs.ToListAsync();
+            return await _context.Rooms.ToListAsync();
         }
 
-        // GET: api/Chairs/5
+        // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Chair>> GetChair(int id)
+        public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var chair = await _context.Chairs.FindAsync(id);
+            var room = await _context.Rooms.FindAsync(id);
 
-            if (chair == null)
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return chair;
+            return room;
         }
 
-        // PUT: api/Chairs/5
+        // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         /*[HttpPut("{id}")]
-        public async Task<IActionResult> PutChair(int id, Chair chair)
+        public async Task<IActionResult> PutRoom(int id, Room room)
         {
-            if (id != chair.Id)
+            if (id != room.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(chair).State = EntityState.Modified;
+            _context.Entry(room).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +60,7 @@ namespace OfficeManagerAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChairExists(id))
+                if (!RoomExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +73,36 @@ namespace OfficeManagerAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Chairs
+        // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chair>> PostChair(Chair chair)
+        public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            _context.Chairs.Add(chair);
+            _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetChair", new { id = chair.Id }, chair);
+            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
         }
 
-        // DELETE: api/Chairs/5
+        // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteChair(int id)
+        public async Task<IActionResult> DeleteRoom(int id)
         {
-            var chair = await _context.Chairs.FindAsync(id);
-            if (chair == null)
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            _context.Chairs.Remove(chair);
+            _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ChairExists(int id)
+        private bool RoomExists(int id)
         {
-            return _context.Chairs.Any(e => e.Id == id);
+            return _context.Rooms.Any(e => e.Id == id);
         }*/
     }
 }

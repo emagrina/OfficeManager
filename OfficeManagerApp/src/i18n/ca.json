@@ -20,5 +20,10 @@
 	"AltOccupiedLegendImgRed": "Quadrat vermell",
 	"PAvailableLegend": "LLiure",
 	"POccupiedLegend": "Ocupat",
-	"MapImg": "Mapa de l'oficina"
+	"MapImg": "Mapa de l'oficina",
+
+	"State": "Estat:",
+	"BtnBook": "Reservar",
+	"BtnCancel": "Cancel·lar",
+	"WarningLastDate": "Només es pot seleccionar una data posterior a l'actual."
 }
