@@ -1,0 +1,21 @@
+@import "../../abstracts/variables";
+
+.stateBody {
+  background-color: $color-light-1;
+  width: 25em;
+  height: 18em;
+
+  border-radius: 16px;
+  margin: 1.5em -6em;
+  padding: 0.5em;
+
+  h3 {
+    text-align: center;
+    cursor: default;
+    margin: 0 0 1.5em 0;
+  }
+
+  button {
+    margin: 0 4.5em 0.5em 4.5em;
+  }
+}

@@ -11,6 +11,11 @@
 	background-color: $color-primary-transparent;
 }
 
+::-moz-selection {
+	/* Code for Firefox */
+	background-color: $color-primary-transparent;
+}
+
 body::-webkit-scrollbar {
 	width: 0.7em;
 }

@@ -1,10 +1,11 @@
 ﻿import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import ReactDOM from 'react-dom';
+import {SharingInformationService} from "../../../services/SharingInformationService";
 
 const CalendarHome = () => {
 	const [value, onChange] = useState(new Date());
-	console.log(value);
+	SharingInformationService.setSubject(value);
+
 	return (
 		<div>
 			<Calendar onChange={onChange} value={value} />
