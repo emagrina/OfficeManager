@@ -7,7 +7,7 @@ function AuthEnter(props: any) {
     <div className='authEnterBody'>
         <h1><>{t('WelcomeAuth')}</></h1>
         <br />
-        <button className='authEnterButton' onClick= { props.toggleBool }>Accedir</button>
+        <button className='authEnterButton' onClick= { props.toggleBool }>Acceder</button>
     </div>
     
   )

@@ -8,7 +8,7 @@ const Header = ({ name, lastName }: any) => {
 			<header>
 				<div className={'logo'}>
 					<a href='#'>
-						<img src='./InetumLogo.svg' alt='Logo Inetum' />
+						<img src='/InetumLogo.svg' alt='Logo Inetum' />
 					</a>
 				</div>
 				<div className={'mainMenu'}>
