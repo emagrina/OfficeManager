@@ -9,6 +9,8 @@ import { MapImgHome } from './index';
 const Map = ({ title }: any) => {
 	const { t } = useTranslation();
 
+	const PAvailableLegend = t('PAvailableLegend');
+	const POccupiedLegend = t('POccupiedLegend');
 	return (
 		<section className={'mapBody'}>
 			<div>
@@ -16,11 +18,11 @@ const Map = ({ title }: any) => {
 					<h3>{title}</h3>
 					<div>
 						<img src={FreeLegendImg} alt={t('AltAvailableLegendImgGreen')} />
-						<p>{t('PAvailableLegend')}</p>
+						<p>{PAvailableLegend}</p>
 					</div>
 					<div>
 						<img src={BusyLegendImg} alt={t('AltOccupiedLegendImgRed')} />
-						<p>{t('POccupiedLegend')}</p>
+						<p>{POccupiedLegend}</p>
 					</div>
 				</div>
 			</div>

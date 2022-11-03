@@ -20,6 +20,7 @@ const Header = ({ name, lastName }: any) => {
 						<i data-eva='chevron-down-outline' data-eva-fill='#000' />
 					</div>
 				</div>
+				<div className={'dropdown'}></div>
 			</header>
 			<div className={'none'}></div>
 		</>
