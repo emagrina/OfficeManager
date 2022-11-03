@@ -20,5 +20,10 @@
 	"AltOccupiedLegendImgRed": "Red box",
 	"PAvailableLegend": "Available",
 	"POccupiedLegend": "Occupied",
-	"MapImg": "Office map"
+	"MapImg": "Office map",
+
+	"State": "State:",
+	"BtnBook": "Reserve",
+	"BtnCancel": "Cancel",
+	"WarningLastDate": "You can only select a date after the current one."
 }

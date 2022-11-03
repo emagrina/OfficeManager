@@ -20,5 +20,10 @@
 	"AltOccupiedLegendImgRed": "Cuadrado rojo",
 	"PAvailableLegend": "Libre",
 	"POccupiedLegend": "Ocupado",
-	"MapImg": "Mapa de la oficina"
+	"MapImg": "Mapa de la oficina",
+
+	"State": "Estado:",
+	"BtnBook": "Reservar",
+	"BtnCancel": "Cancelar",
+	"WarningLastDate": "Solo se puede seleccionar una fecha posterior a la actual."
 }
