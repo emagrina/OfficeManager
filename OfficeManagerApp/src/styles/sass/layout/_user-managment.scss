@@ -1,4 +1,31 @@
-.userManagmnet {
+.userManagment {
 	padding-top: 1em;
 	padding-left: 2em;
 }
+
+.userManagment h2 {
+	margin-bottom: 1em;
+}
+
+.userManagment table,.userManagment th,.userManagment td{
+	border: solid;
+	border-collapse: collapse;
+	border-width: 1px;
+}
+
+.userManagment th,.userManagment td{
+	padding: 0.5em
+}
+
+.userManagment .table{
+	width: 100%;
+}
+
+.userManagment table{
+	width: 85%;
+}
+
+.userManagment .ID{
+	
+}
+
