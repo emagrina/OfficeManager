@@ -10268,26 +10268,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\": {}
+    "C:\\Users\\Pau\\.nuget\\packages\\": {},
+    "D:\\Visual Studio\\shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Pau\\OneDrive\\Escriptori\\PL-SQL\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
       "projectName": "OfficeManagerAPI",
-      "projectPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
-      "packagesPath": "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
+      "projectPath": "C:\\Users\\Pau\\OneDrive\\Escriptori\\PL-SQL\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "packagesPath": "C:\\Users\\Pau\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pau\\OneDrive\\Escriptori\\PL-SQL\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Visual Studio\\shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\pau.garcia.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Pau\\NuGet.Config",
+        "C:\\Users\\Pau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
