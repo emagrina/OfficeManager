@@ -22,9 +22,11 @@ namespace OfficeManagerAPI.Controllers
         }
 
         // GET: api/Bookings
+        // GET: api/Bookings?dateTime=
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings([FromQuery] DateTime? dateTime)
         {
+            if(dateTime.HasValue) return await _context.Bookings.Where(x => x.DateTime == dateTime).ToListAsync();
             return await _context.Bookings.ToListAsync();
         }
 
@@ -41,22 +43,6 @@ namespace OfficeManagerAPI.Controllers
 
             return booking;
         }
-
-        // GET: api/Bookings/DateTime
-        /*[HttpGet("{DateTime}")]
-        public async Task<ActionResult<Booking>> GetBooking(DateTime dateTime)
-        {
-            var bookingDT = from booking in _context.Bookings
-                                  where booking.DateTime == dateTime
-                                  select booking;
-
-            if (bookingDT == null)
-            {
-                return NotFound();
-            }
-
-            return bookingDT;
-        }*/
 
         // PUT: api/Bookings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
