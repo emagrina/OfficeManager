@@ -42,6 +42,22 @@ namespace OfficeManagerAPI.Controllers
             return booking;
         }
 
+        // GET: api/Bookings/DateTime
+        /*[HttpGet("{DateTime}")]
+        public async Task<ActionResult<Booking>> GetBooking(DateTime dateTime)
+        {
+            var bookingDT = from booking in _context.Bookings
+                                  where booking.DateTime == dateTime
+                                  select booking;
+
+            if (bookingDT == null)
+            {
+                return NotFound();
+            }
+
+            return bookingDT;
+        }*/
+
         // PUT: api/Bookings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

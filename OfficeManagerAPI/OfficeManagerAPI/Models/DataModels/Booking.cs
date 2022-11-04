@@ -7,7 +7,7 @@ namespace OfficeManagerAPI.Models.DataModels
         [Required]
         [Key]
         public int Id { get; set; }
-        public DateTime dateTime { get; set; }
+        public DateTime DateTime { get; set; }
         public string Description { get; set; } = string.Empty;
 
 
