@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AddUserButton from './AddUserButton';
+import ShowManagmentTable from './ShowManagmentTable';
 
 const RoomsManagment = () => {
 	const url = "https://localhost:7016/api/Rooms";
@@ -9,6 +11,7 @@ const RoomsManagment = () => {
 	]
 	const [rooms, setRooms] = useState(roomsStart);
 	const [hasLoaded, setHasLoaded] = useState('noLoaded');
+	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
 		getRooms();
@@ -29,6 +32,7 @@ const RoomsManagment = () => {
 					dbRooms.push({ID: room.id, Name: room.name})
 					
 				}
+				setMaxPages(Math.trunc(dbRooms.length / 10));
 				setRooms(dbRooms);
 				setHasLoaded('loaded')
 			})
@@ -51,27 +55,11 @@ const RoomsManagment = () => {
 		} else{
 			return (
 				<div className='roomManagment'>
-					<h2> Gestor de salas </h2>
-					<div className='table'>
-						<table>
-							<tbody>
-								<tr>
-									{Object.keys(rooms[0]).map((key) => (
-										<th className={key}>{key}</th>
-									))}
-								</tr>
-								{rooms.map((item) => (
-									<tr key={item.ID}>
-									{Object.values(item).map((val) => (
-										(val == 'edit')? <td> <button> edit </button> </td> :
-										(val == 'delete')? <td> <button> delete </button> </td> :
-										<td>{val}</td>
-									))}
-									</tr>
-								))}
-							</tbody>
-						</table>
+					<div className='upTable'>
+						<h2> Gestor de salas </h2>
+						<AddUserButton></AddUserButton>
 					</div>
+					<ShowManagmentTable data={rooms} pages={maxPages}/>
 				</div>
 			);
 		}
@@ -81,7 +69,7 @@ const RoomsManagment = () => {
 				Cargando ...
 			</div>
 		);
-	}else if(hasLoaded == 'error'){
+	}else{
 		return (
 			<div className='roomManagment'>
 				Error

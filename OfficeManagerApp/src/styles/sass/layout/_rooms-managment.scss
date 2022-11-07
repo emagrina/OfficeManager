@@ -1,0 +1,78 @@
+.roomManagment {
+	padding-top: 4%;
+	width: 80%;
+	margin: auto;
+}
+
+.roomManagment .upTable{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 1em;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.roomManagment table,.roomManagment th,.roomManagment td{
+	border: solid;
+	border-collapse: collapse;
+	border-color: #B9B9B9;
+	border-width: 1px;
+	text-align: left;
+	font-size: small;
+}
+
+.roomManagment th,.roomManagment td{
+	padding: 0.2em;
+	padding-left: 1em;
+
+}
+
+.roomManagment th{
+	background-color: rgba(224, 224, 224, 0.671);
+}
+
+.roomManagment td{
+	background-color: white;
+}
+
+.roomManagment .table{
+	width: 100%;
+}
+
+.roomManagment table{
+	width: 100%;
+	border: none;
+	margin-bottom: 1em;
+}
+
+.roomManagment .noBorder{
+	border: none;
+	background: none;
+}
+
+.roomManagment .icons{
+	display: flex;
+	width: 40px;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+}
+
+.roomManagment .pageButtons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 35%;
+	float: right;
+
+	& button{
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+
+	& p{
+		margin: 2%;
+	}
+}

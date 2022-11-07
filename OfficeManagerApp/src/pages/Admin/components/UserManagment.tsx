@@ -3,8 +3,9 @@ import axios from 'axios';
 import AddUserButton from './AddUserButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import ShowManagmentTable from './ShowManagmentTable';
 
-function UserManagment (props: any){
+const UserManagment = () => {
 	const url = "https://localhost:7016/api/Admin";
 	const usersStart = [
 		// id: 4, firstName: 'Judit', lastName: 'Sansó', isAdmin: true, email: 'judit@gmail.com'
@@ -14,30 +15,13 @@ function UserManagment (props: any){
 
 	const [users, setUsers] = useState(usersStart);
 	const [hasLoaded, setHasLoaded] = useState('noLoaded');
-	const [page, setPage] = useState(0);
 	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
 		setHasLoaded('loaded')
 		getUsersPrueba();
 		//getUsers();
-	  }, [])
-
-	const nextPage = () => {
-		if(page == maxPages){
-			setPage(0)
-		} else{
-			setPage(page + 1)
-		}
-	}
-
-	const prevPage = () => {
-		if(page == 0){
-			setPage(maxPages)
-		} else{
-			setPage(page - 1)
-		}
-	}
+	  }, []);
 
 	const getUsersPrueba = () => {
 		let dbRawUsers = [
@@ -64,7 +48,7 @@ function UserManagment (props: any){
 		
 
 		setUsers(dbUsers);
-	}
+	};
 
 	const getUsers = async () => {
 		await axios
@@ -108,35 +92,7 @@ function UserManagment (props: any){
 						<h2> Gestor de usuarios</h2> 
 						<AddUserButton></AddUserButton>
 					</div>
-					<div className='table'>
-						<table>
-							<tbody>
-								<tr>
-									{Object.keys(users[0]).map((key) => (
-										<th className={key}>{key}</th>
-									))}
-									<th className='noBorder'></th>
-								</tr>
-								{users.slice(10 * page, 10 * page + 10).map((item) => (
-									<tr key={item.ID}>
-									{Object.values(item).map((val) => (
-										<td>{val}</td>
-									))}
-									<td className='noBorder icons'>
-										<div> <FontAwesomeIcon icon={faPen} color="DodgerBlue" /> </div> 
-										<div> <FontAwesomeIcon icon={faXmark} color="tomato" size='xl'/> </div>
-									</td>
-									</tr>
-									
-								))}
-							</tbody>
-						</table>
-							<div className='pageButtons'>
-								<button onClick={prevPage}> <FontAwesomeIcon icon={faChevronLeft} /> </button>
-								<p>Pàgina {page + 1} de {maxPages + 1}</p>
-								<button onClick={nextPage}> <FontAwesomeIcon icon={faChevronRight} /> </button>
-							</div>
-					</div>
+					<ShowManagmentTable data={users} pages={maxPages} />
 				</div>
 			);
 		}
