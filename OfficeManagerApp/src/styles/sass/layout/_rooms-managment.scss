@@ -1,10 +1,10 @@
-.userManagment {
+.roomManagment {
 	padding-top: 4%;
 	width: 80%;
 	margin: auto;
 }
 
-.userManagment .upTable{
+.roomManagment .upTable{
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 1em;
@@ -12,7 +12,7 @@
 	justify-content: space-between;
 }
 
-.userManagment table,.userManagment th,.userManagment td{
+.roomManagment table,.roomManagment th,.roomManagment td{
 	border: solid;
 	border-collapse: collapse;
 	border-color: #B9B9B9;
@@ -21,44 +21,44 @@
 	font-size: small;
 }
 
-.userManagment th,.userManagment td{
+.roomManagment th,.roomManagment td{
 	padding: 0.2em;
 	padding-left: 1em;
 
 }
 
-.userManagment th{
+.roomManagment th{
 	background-color: rgba(224, 224, 224, 0.671);
 }
 
-.userManagment td{
+.roomManagment td{
 	background-color: white;
 }
 
-.userManagment .table{
+.roomManagment .table{
 	width: 100%;
 }
 
-.userManagment table{
+.roomManagment table{
 	width: 100%;
 	border: none;
 	margin-bottom: 1em;
 }
 
-.userManagment .noBorder{
+.roomManagment .noBorder{
 	border: none;
 	background: none;
 }
 
-.userManagment .icons{
+.roomManagment .icons{
 	display: flex;
-	width: 40%;
+	width: 40px;
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
 }
 
-.userManagment .pageButtons{
+.roomManagment .pageButtons{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
