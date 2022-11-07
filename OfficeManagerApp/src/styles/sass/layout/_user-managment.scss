@@ -12,26 +12,27 @@
 	justify-content: space-between;
 }
 
-.userManagment .addUser{
-	padding: 0.8em;
-	color: white;
-	border-radius: 10px;
-	border-width: 1px;
-	background-color: #4CAF50;
-	border-color: transparent ;
-	cursor: pointer;
-	outline: none;
-	margin-right: 16%;
-}
-
 .userManagment table,.userManagment th,.userManagment td{
 	border: solid;
 	border-collapse: collapse;
+	border-color: #B9B9B9;
 	border-width: 1px;
+	text-align: left;
+	font-size: small;
 }
 
 .userManagment th,.userManagment td{
-	padding: 0.2em
+	padding: 0.2em;
+	padding-left: 1em;
+
+}
+
+.userManagment th{
+	background-color: rgba(224, 224, 224, 0.671);
+}
+
+.userManagment td{
+	background-color: white;
 }
 
 .userManagment .table{
@@ -46,10 +47,10 @@
 
 .userManagment .noBorder{
 	border: none;
+	background: none;
 }
 
 .userManagment .icons{
-	padding-left: 1em;
 	display: flex;
 	width: 40%;
 	justify-content: space-between;

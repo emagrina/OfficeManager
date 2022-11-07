@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faXmark, faChevronLeft, faChevronRight, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import AddUserButton from './AddUserButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const UserManagment = () => {
+function UserManagment (props: any){
 	const url = "https://localhost:7016/api/Admin";
 	const usersStart = [
 		// id: 4, firstName: 'Judit', lastName: 'Sansó', isAdmin: true, email: 'judit@gmail.com'
@@ -104,8 +105,8 @@ const UserManagment = () => {
 			return (
 				<div className='userManagment'>
 					<div className='upTable'>
-						<h2> Gestor de usuarios </h2>
-						<button className='addUser'> Añadir Usuario <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon></button>
+						<h2> Gestor de usuarios</h2> 
+						<AddUserButton></AddUserButton>
 					</div>
 					<div className='table'>
 						<table>
@@ -122,8 +123,8 @@ const UserManagment = () => {
 										<td>{val}</td>
 									))}
 									<td className='noBorder icons'>
-										<div><FontAwesomeIcon icon={faPen} color="SteelBlue" size='lg'/> </div> 
-										<div><FontAwesomeIcon icon={faXmark} color="Tomato" size='2xl'/> </div> 
+										<div> <FontAwesomeIcon icon={faPen} color="DodgerBlue" /> </div> 
+										<div> <FontAwesomeIcon icon={faXmark} color="tomato" size='xl'/> </div>
 									</td>
 									</tr>
 									
@@ -131,9 +132,9 @@ const UserManagment = () => {
 							</tbody>
 						</table>
 							<div className='pageButtons'>
-								<button onClick={prevPage}> <FontAwesomeIcon icon={faChevronLeft} size="lg"/> </button>
+								<button onClick={prevPage}> <FontAwesomeIcon icon={faChevronLeft} /> </button>
 								<p>Pàgina {page + 1} de {maxPages + 1}</p>
-								<button onClick={nextPage}> <FontAwesomeIcon icon={faChevronRight} size="lg"/> </button>
+								<button onClick={nextPage}> <FontAwesomeIcon icon={faChevronRight} /> </button>
 							</div>
 					</div>
 				</div>
@@ -145,7 +146,7 @@ const UserManagment = () => {
 				Cargando ...
 			</div>
 		);
-	}else if(hasLoaded == 'error'){
+	}else{
 		return (
 			<div className='userManagment'>
 				Error
