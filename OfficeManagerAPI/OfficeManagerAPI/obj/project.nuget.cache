@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SDVUNLgK0UynJkPmacmteUPhfbD65tGCU5SxhbWmA2lRwJPqyoaIunOYja133G9CsSG7WNaRWPmXCWb/Zm58SQ==",
+  "dgSpecHash": "Mm/PW7dAuL4yrnsi6I543/XllFOgEXfyWV8knDqVd9KlP7r6chNx4KLfmFJx6XVKx6fR8bGEmXWBLWzVPY5fTQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+  "projectFilePath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

@@ -1,6 +1,6 @@
 ﻿@import '../../../sass/abstracts/variables';
 
-.seatMap {
+.available {
 	fill: $color-primary;
 	cursor: pointer;
 
@@ -13,22 +13,13 @@
 	}
 }
 
+.occupied {
+	fill: $color-danger;
+}
+
+
 .you {
 	fill: $color-secondary;
 }
 
-.disponible {
-	fill: $color-primary;
 
-	&:hover {
-		border: 20px solid #000000;
-	}
-
-	&:active {
-		fill: #4f587b;
-	}
-}
-
-.reservado {
-	fill: $color-danger;
-}

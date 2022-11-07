@@ -10273,11 +10273,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "projectUniqueName": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
       "projectName": "OfficeManagerAPI",
-      "projectPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
+      "projectPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\OfficeManagerAPI.csproj",
       "packagesPath": "C:\\Users\\pau.garcia.ext\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\Job\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
+      "outputPath": "C:\\Users\\pau.garcia.ext\\OneDrive - GFI\\Documents\\OfficeManager\\OfficeManagerAPI\\OfficeManagerAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pau.garcia.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
