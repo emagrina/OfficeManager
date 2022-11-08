@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using OfficeManagerAPI.DBAccess;
+using OfficeManagerAPI.Migrations;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.Controllers
@@ -94,9 +95,7 @@ namespace OfficeManagerAPI.Controllers
                 var rooms = await _context.Rooms.ToListAsync();
 
                 // Comprovem que la reserva sigui correcta
-                if (booking.Chair != null && chairs.Any(x => x.Id == booking.Chair.Id) ||
-                    booking.Room != null && rooms.Any(x => x.Id == booking.Room.Id) && booking.StartTime != null && booking.EndTime != null &&
-                    booking.StartTime < booking.EndTime)
+                if (CorrectParameters(booking, chairs, rooms, bookings))
                 {
                     // Comprovem que la cadira no estigui reservada o que la sala no estigui reservada en la franja horaria desitjada
                     if (booking.Chair != null && booking.Room != null) // Reserva de cadira i sala
@@ -139,6 +138,45 @@ namespace OfficeManagerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
+        }
+
+        public static bool CorrectParameters(Booking booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
+        {
+            bool isCorrect = false;
+            bool chairIsSet = booking.Chair != null;
+            bool roomIsSet = booking.Room != null;
+
+            if (chairIsSet && roomIsSet)
+            {
+                if (chairs.Any(x => x.Id == booking.Chair.Id) && rooms.Any(x => x.Id == booking.Room.Id) &&
+                    booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookings))
+                {
+                    isCorrect = true;
+                }
+            }
+            else if (chairIsSet && chairs.Any(x => x.Id == booking.Chair.Id))
+            {
+                isCorrect = true;
+            }
+            else if (roomIsSet && rooms.Any(x => x.Id == booking.Room.Id) && TimeZoneAvailable(booking, bookings))
+            {
+                isCorrect = true;
+            }
+
+            return isCorrect;
+        }
+
+        public static bool TimeZoneAvailable(Booking booking, List<Booking> bookings)
+        {
+            bool timeZoneAvailable = true;
+
+            if (bookings.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
+                            x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
+            {
+                timeZoneAvailable = false;
+            }
+
+            return timeZoneAvailable;
         }
 
         // DELETE: api/Bookings/5
