@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using OfficeManagerAPI.DBAccess;
+using OfficeManagerAPI.Migrations;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.Controllers
@@ -22,9 +24,11 @@ namespace OfficeManagerAPI.Controllers
         }
 
         // GET: api/Bookings
+        // GET: api/Bookings?dateTime=
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings([FromQuery] DateTime? dateTime)
         {
+            if(dateTime.HasValue) return await _context.Bookings.Where(x => x.DateTime == dateTime).ToListAsync();
             return await _context.Bookings.ToListAsync();
         }
 
@@ -78,10 +82,73 @@ namespace OfficeManagerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
-            _context.Bookings.Add(booking);
+            var bookings = await _context.Bookings.ToListAsync();
+
+            if (/*booking.DateTime != null &&*/ booking.DateTime > DateTime.Now)
+            {
+                var bookingsDT = (from x in bookings
+                                  where x.DateTime == booking.DateTime
+                                  select x).ToList();
+
+                var chairs = await _context.Chairs.ToListAsync();
+
+                var rooms = await _context.Rooms.ToListAsync();
+
+                // Comprovem que els paràmetres de la reserva sigui correcta
+                if (CorrectParameters(booking, chairs, rooms, bookings))
+                {
+                    // Afegim la reserva a la base de dades
+                    _context.Bookings.Add(booking);
+                }
+            }
+            else
+            {
+                BadRequest();
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
+        }
+
+        private static bool CorrectParameters(Booking booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
+        {
+            bool isCorrect = false;
+            bool chairIsSet = booking.Chair != null;
+            bool roomIsSet = booking.Room != null;
+            bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
+
+            if (chairIsSet && roomIsSet) // Cadira i sala indicades
+            {
+                if (chairs.Any(x => x.Id == booking.Chair.Id) && rooms.Any(x => x.Id == booking.Room.Id) && dateTimeCorrect &&
+                    booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookings))
+                {
+                    isCorrect = true;
+                }
+            }
+            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.Chair.Id)) // Cadira indicada
+            {
+                isCorrect = true;
+            }
+            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.Room.Id) && TimeZoneAvailable(booking, bookings)) // Sala indicada
+            {
+                isCorrect = true;
+            }
+
+            return isCorrect;
+        }
+
+        private static bool TimeZoneAvailable(Booking booking, List<Booking> bookings)
+        {
+            bool timeZoneAvailable = true;
+
+            if (bookings.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
+                            x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
+            {
+                timeZoneAvailable = false;
+            }
+
+            return timeZoneAvailable;
         }
 
         // DELETE: api/Bookings/5

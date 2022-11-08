@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faXmark, faChevronLeft, faChevronRight, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import AddUserButton from './AddUserButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import ShowManagmentTable from './ShowManagmentTable';
 
 const UserManagment = () => {
 	const url = "https://localhost:7016/api/Admin";
@@ -13,30 +15,13 @@ const UserManagment = () => {
 
 	const [users, setUsers] = useState(usersStart);
 	const [hasLoaded, setHasLoaded] = useState('noLoaded');
-	const [page, setPage] = useState(0);
 	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
 		setHasLoaded('loaded')
 		getUsersPrueba();
 		//getUsers();
-	  }, [])
-
-	const nextPage = () => {
-		if(page == maxPages){
-			setPage(0)
-		} else{
-			setPage(page + 1)
-		}
-	}
-
-	const prevPage = () => {
-		if(page == 0){
-			setPage(maxPages)
-		} else{
-			setPage(page - 1)
-		}
-	}
+	  }, []);
 
 	const getUsersPrueba = () => {
 		let dbRawUsers = [
@@ -63,7 +48,7 @@ const UserManagment = () => {
 		
 
 		setUsers(dbUsers);
-	}
+	};
 
 	const getUsers = async () => {
 		await axios
@@ -104,38 +89,10 @@ const UserManagment = () => {
 			return (
 				<div className='userManagment'>
 					<div className='upTable'>
-						<h2> Gestor de usuarios </h2>
-						<button className='addUser'> Añadir Usuario <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon></button>
+						<h2> Gestor de usuarios</h2> 
+						<AddUserButton></AddUserButton>
 					</div>
-					<div className='table'>
-						<table>
-							<tbody>
-								<tr>
-									{Object.keys(users[0]).map((key) => (
-										<th className={key}>{key}</th>
-									))}
-									<th className='noBorder'></th>
-								</tr>
-								{users.slice(10 * page, 10 * page + 10).map((item) => (
-									<tr key={item.ID}>
-									{Object.values(item).map((val) => (
-										<td>{val}</td>
-									))}
-									<td className='noBorder icons'>
-										<div><FontAwesomeIcon icon={faPen} color="SteelBlue" size='lg'/> </div> 
-										<div><FontAwesomeIcon icon={faXmark} color="Tomato" size='2xl'/> </div> 
-									</td>
-									</tr>
-									
-								))}
-							</tbody>
-						</table>
-							<div className='pageButtons'>
-								<button onClick={prevPage}> <FontAwesomeIcon icon={faChevronLeft} size="lg"/> </button>
-								<p>Pàgina {page + 1} de {maxPages + 1}</p>
-								<button onClick={nextPage}> <FontAwesomeIcon icon={faChevronRight} size="lg"/> </button>
-							</div>
-					</div>
+					<ShowManagmentTable data={users} pages={maxPages} />
 				</div>
 			);
 		}
@@ -145,7 +102,7 @@ const UserManagment = () => {
 				Cargando ...
 			</div>
 		);
-	}else if(hasLoaded == 'error'){
+	}else{
 		return (
 			<div className='userManagment'>
 				Error

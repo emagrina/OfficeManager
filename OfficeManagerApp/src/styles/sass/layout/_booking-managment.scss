@@ -12,26 +12,27 @@
 	justify-content: space-between;
 }
 
-.bookingManagment .addBooking{
-	padding: 0.8em;
-	color: white;
-	border-radius: 10px;
-	border-width: 1px;
-	background-color: #4CAF50;
-	border-color: transparent ;
-	cursor: pointer;
-	outline: none;
-	margin-right: 16%;
-}
-
 .bookingManagment table,.bookingManagment th,.bookingManagment td{
 	border: solid;
 	border-collapse: collapse;
+	border-color: #B9B9B9;
 	border-width: 1px;
+	text-align: left;
+	font-size: small;
 }
 
 .bookingManagment th,.bookingManagment td{
-	padding: 0.2em
+	padding: 0.2em;
+	padding-left: 1em;
+
+}
+
+.bookingManagment th{
+	background-color: rgba(224, 224, 224, 0.671);
+}
+
+.bookingManagment td{
+	background-color: white;
 }
 
 .bookingManagment .table{
@@ -46,12 +47,12 @@
 
 .bookingManagment .noBorder{
 	border: none;
+	background: none;
 }
 
 .bookingManagment .icons{
-	padding-left: 1em;
 	display: flex;
-	width: 40%;
+	width: 40px;
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;

@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import {Seats} from "./index";
 
 const MapImgHome = () => {
 	const selectionSeat = () => {
@@ -114,6 +115,7 @@ const MapImgHome = () => {
 						/>
 					</g>
 
+					<Seats />
 					<line
 						x1='96.0337'
 						y1='402.008'

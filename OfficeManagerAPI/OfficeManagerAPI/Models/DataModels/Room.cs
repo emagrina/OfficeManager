@@ -12,8 +12,9 @@ namespace OfficeManagerAPI.Models.DataModels
         public string Name { get; set; } = string.Empty;
         [Required]
         public int Size { get; set; }
-
         [Required]
         public string Position { get; set; }
+        [Required]
+        public bool Available { get; set; }
     }
 }
