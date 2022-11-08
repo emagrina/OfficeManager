@@ -1,0 +1,77 @@
+.roomManagment {
+	padding-top: 4%;
+	width: 80%;
+	margin: auto;
+}
+
+.roomManagment .upTable{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 1em;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.roomManagment .addRoom{
+	padding: 0.8em;
+	color: white;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #4CAF50;
+	border-color: transparent ;
+	cursor: pointer;
+	outline: none;
+	margin-right: 16%;
+}
+
+.roomManagment table,.roomManagment th,.roomManagment td{
+	border: solid;
+	border-collapse: collapse;
+	border-width: 1px;
+}
+
+.roomManagment th,.roomManagment td{
+	padding: 0.2em
+}
+
+.roomManagment .table{
+	width: 100%;
+}
+
+.roomManagment table{
+	width: 100%;
+	border: none;
+	margin-bottom: 1em;
+}
+
+.roomManagment .noBorder{
+	border: none;
+}
+
+.roomManagment .icons{
+	padding-left: 1em;
+	display: flex;
+	width: 40%;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+}
+
+.roomManagment .pageButtons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 35%;
+	float: right;
+
+	& button{
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+
+	& p{
+		margin: 2%;
+	}
+}

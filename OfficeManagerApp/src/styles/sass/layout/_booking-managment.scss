@@ -1,0 +1,77 @@
+.bookingManagment {
+	padding-top: 4%;
+	width: 80%;
+	margin: auto;
+}
+
+.bookingManagment .upTable{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 1em;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bookingManagment .addBooking{
+	padding: 0.8em;
+	color: white;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #4CAF50;
+	border-color: transparent ;
+	cursor: pointer;
+	outline: none;
+	margin-right: 16%;
+}
+
+.bookingManagment table,.bookingManagment th,.bookingManagment td{
+	border: solid;
+	border-collapse: collapse;
+	border-width: 1px;
+}
+
+.bookingManagment th,.bookingManagment td{
+	padding: 0.2em
+}
+
+.bookingManagment .table{
+	width: 100%;
+}
+
+.bookingManagment table{
+	width: 100%;
+	border: none;
+	margin-bottom: 1em;
+}
+
+.bookingManagment .noBorder{
+	border: none;
+}
+
+.bookingManagment .icons{
+	padding-left: 1em;
+	display: flex;
+	width: 40%;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+}
+
+.bookingManagment .pageButtons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 35%;
+	float: right;
+
+	& button{
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+
+	& p{
+		margin: 2%;
+	}
+}
