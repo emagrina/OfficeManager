@@ -84,7 +84,7 @@ namespace OfficeManagerAPI.Controllers
         {
             var bookings = await _context.Bookings.ToListAsync();
 
-            if (booking.DateTime != null && booking.DateTime > DateTime.Now)
+            if (/*booking.DateTime != null &&*/ booking.DateTime > DateTime.Now)
             {
                 var bookingsDT = (from x in bookings
                                   where x.DateTime == booking.DateTime
@@ -94,40 +94,11 @@ namespace OfficeManagerAPI.Controllers
 
                 var rooms = await _context.Rooms.ToListAsync();
 
-                // Comprovem que la reserva sigui correcta
+                // Comprovem que els paràmetres de la reserva sigui correcta
                 if (CorrectParameters(booking, chairs, rooms, bookings))
                 {
-                    // Comprovem que la cadira no estigui reservada o que la sala no estigui reservada en la franja horaria desitjada
-                    if (booking.Chair != null && booking.Room != null) // Reserva de cadira i sala
-                    {
-                        if (!bookingsDT.Any(x => x.Chair.Id == booking.Chair.Id) &&
-                            !bookingsDT.Any(x => x.Room.Id == booking.Room.Id) &&
-                            !_context.Bookings.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime) &&
-                            !_context.Bookings.Any(x => x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
-                        {
-                            _context.Bookings.Add(booking);
-                        }
-                    }
-                    else if (booking.Chair != null && booking.Room == null) // Reserva de cadira
-                    {
-                        if (!bookingsDT.Any(x => x.Chair.Id == booking.Chair.Id))
-                        {
-                            _context.Bookings.Add(booking);
-                        }
-                    }
-                    else if (booking.Chair == null && booking.Room != null) // Reserva de sala
-                    {
-                        if (!bookingsDT.Any(x => x.Room.Id == booking.Room.Id) &&
-                            !_context.Bookings.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime) &&
-                            !_context.Bookings.Any(x => x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
-                        {
-                            _context.Bookings.Add(booking);
-                        }
-                    }
-                    else
-                    {
-                        BadRequest();
-                    }
+                    // Afegim la reserva a la base de dades
+                    _context.Bookings.Add(booking);
                 }
             }
             else
@@ -140,25 +111,26 @@ namespace OfficeManagerAPI.Controllers
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
-        public static bool CorrectParameters(Booking booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
+        private static bool CorrectParameters(Booking booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
         {
             bool isCorrect = false;
             bool chairIsSet = booking.Chair != null;
             bool roomIsSet = booking.Room != null;
+            bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
 
-            if (chairIsSet && roomIsSet)
+            if (chairIsSet && roomIsSet) // Cadira i sala indicades
             {
-                if (chairs.Any(x => x.Id == booking.Chair.Id) && rooms.Any(x => x.Id == booking.Room.Id) &&
+                if (chairs.Any(x => x.Id == booking.Chair.Id) && rooms.Any(x => x.Id == booking.Room.Id) && dateTimeCorrect &&
                     booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookings))
                 {
                     isCorrect = true;
                 }
             }
-            else if (chairIsSet && chairs.Any(x => x.Id == booking.Chair.Id))
+            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.Chair.Id)) // Cadira indicada
             {
                 isCorrect = true;
             }
-            else if (roomIsSet && rooms.Any(x => x.Id == booking.Room.Id) && TimeZoneAvailable(booking, bookings))
+            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.Room.Id) && TimeZoneAvailable(booking, bookings)) // Sala indicada
             {
                 isCorrect = true;
             }
@@ -166,7 +138,7 @@ namespace OfficeManagerAPI.Controllers
             return isCorrect;
         }
 
-        public static bool TimeZoneAvailable(Booking booking, List<Booking> bookings)
+        private static bool TimeZoneAvailable(Booking booking, List<Booking> bookings)
         {
             bool timeZoneAvailable = true;
 

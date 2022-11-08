@@ -1580,3 +1580,4 @@ C:\Users\pau.garcia.ext\OneDrive - GFI\Documents\Job\OF\OfficeManager\OfficeMana
 C:\Users\pau.garcia.ext\OneDrive - GFI\Documents\Job\OF\OfficeManager\OfficeManagerAPI\OfficeManagerAPI\obj\Debug\net6.0\OfficeManagerAPI.pdb
 C:\Users\pau.garcia.ext\OneDrive - GFI\Documents\Job\OF\OfficeManager\OfficeManagerAPI\OfficeManagerAPI\obj\Debug\net6.0\OfficeManagerAPI.genruntimeconfig.cache
 C:\Users\pau.garcia.ext\OneDrive - GFI\Documents\Job\OF\OfficeManager\OfficeManagerAPI\OfficeManagerAPI\obj\Debug\net6.0\ref\OfficeManagerAPI.dll
+C:\Users\pau.garcia.ext\OneDrive - GFI\Documents\Job\OF\OfficeManager\OfficeManagerAPI\OfficeManagerAPI\bin\Debug\net6.0\appsettings.json
