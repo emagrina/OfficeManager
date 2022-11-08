@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Migrations;
 using OfficeManagerAPI.Models.DataModels;
+using OfficeManagerAPI.Data;
 
 namespace OfficeManagerAPI.Controllers
 {
@@ -28,7 +29,22 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings([FromQuery] DateTime? dateTime)
         {
-            if(dateTime.HasValue) return await _context.Bookings.Where(x => x.DateTime == dateTime).ToListAsync();
+            if (dateTime.HasValue)
+            {
+                //return await from x in _context.Bookings
+                //             where x.DateTime == dateTime
+                //             select new BookingDTO()
+                //             {
+                //                 Id = x.Id,
+                //                 DateTime = x.DateTime,
+                //                 Description = x.Description,
+                //                 StartTime = x.,
+                //                 EndTime = x.EndTime,
+                //                 ChairId = x.Chair.Id,
+                //                 RoomId = x.Room.Id,
+                //                 UserId = x.User.Id
+                //             };
+            }
             return await _context.Bookings.ToListAsync();
         }
 
