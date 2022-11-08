@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import { SharingInformationService } from '../../../services/SharingInformationService';
+import { SharingDateService } from '../../../services/SharingDateService';
+import {SharingKPIAvailableService} from "../../../services/SharingKPIAvailableService";
 
 function Seats() {
     const [seats, setSeats] = useState([]);
     const [book, setBooking] = useState([]);
-    const subscription$ = SharingInformationService.getSubject();
-
+    const [selectDate, setSelectDate] = useState();
+    const subscription$ = SharingDateService.getSubject();
+    
     useEffect(() => {
         const getSeats = async () => {
             const url = "https://localhost:7016/api/Chairs";
@@ -27,9 +29,9 @@ function Seats() {
                 });
 
         };
-/*
+        
         const getBooking = async () => {
-            const url = "https://localhost:7016/api/Bookings?dateTime=" + 2022/11/4;
+            const url = "https://localhost:7016/api/Bookings";
 
             await axios
                 .get(url, {
@@ -41,7 +43,7 @@ function Seats() {
                     let a = [
                         {
                             "id": 2,
-                            "dateTime": new Date(2022, 11, 4).toLocaleDateString(),
+                            "dateTime": new Date(2022, 11, 4),
                             "description": "Reserva de prueba",
                             "startTime": "0001-01-01T00:00:00",
                             "endTime": "0001-01-01T00:00:00",
@@ -51,7 +53,7 @@ function Seats() {
                         },
                         {
                             "id": 2,
-                            "dateTime": new Date(2022, 11, 5).toLocaleDateString(),
+                            "dateTime": new Date(2022, 11, 5),
                             "description": "Reserva de prueba",
                             "startTime": "0001-01-01T00:00:00",
                             "endTime": "0001-01-01T00:00:00",
@@ -61,7 +63,7 @@ function Seats() {
                         },
                         {
                             "id": 2,
-                            "dateTime": new Date(2022, 11, 5).toLocaleDateString(),
+                            "dateTime": new Date(2022, 11, 5),
                             "description": "Reserva de prueba",
                             "startTime": "0001-01-01T00:00:00",
                             "endTime": "0001-01-01T00:00:00",
@@ -76,33 +78,49 @@ function Seats() {
                     console.log(book);
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.message);
                 });
 
         };
- getBooking()
 
- */
         getSeats()
-
-
+        getBooking()
     }, []);
 
-    console.info(seats)
-    console.info(book)
-
+    useEffect(() => {
+        subscription$.subscribe(data => {
+            // @ts-ignore
+            return setSelectDate(data.setHours(0, 0, 0, 0));
+        });
+    });
+    
+    let countOccupied: number = 0;
+    useEffect(() => {
+        SharingKPIAvailableService.setSubject(countOccupied);
+    });
+    
     return (
         <>
             {
                 seats.map((seat, i) => {
-                  //  let existsBooking = (book.find(a => a.chair === i)) ? 'occupied' : 'available'
-
+                   
+                    let currentDate = new Date().setHours(0,0,0,0)
+                    let existsBooking;
+                    
+                    // @ts-ignore
+                    if (book.find(a => a.chair === i)){
+                        existsBooking = 'occupied'
+                        countOccupied++;
+                    } else {
+                        // @ts-ignore
+                        existsBooking = (currentDate > selectDate) ? 'available' : 'available-active'
+                    }
                     return (
                         <g>
                             <path
                                 // @ts-ignore
                                 id={i}
-                                className={''} d={
+                                className={existsBooking} d={
                                 // @ts-ignore
                                 seat.position
                             }/>
@@ -114,5 +132,6 @@ function Seats() {
     );
 
 }
+
 
 export default Seats;
