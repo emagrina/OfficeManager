@@ -11,8 +11,14 @@
     "lint": "eslint --fix . --ext vite.config.ts,.tsx"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.3",
+    "buffer": "^6.0.3",
+    "crypto": "npm:crypto-browserify",
+    "crypto-browserify": "^3.12.0",
     "eva-icons": "^1.1.3",
     "i18next": "^22.0.2",
     "md5": "^2.3.0",
@@ -20,10 +26,16 @@
     "react-calendar": "^3.9.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.0.0",
+    "react-oauth2-pkce": "^2.0.7",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
+    "react-scripts": "^5.0.1",
+    "react-simple-oauth2-login": "^0.5.3",
     "react-zoom-pan-pinch": "^2.1.3",
-    "rxjs": "^7.5.7"
+    "rxjs": "^7.5.7",
+    "stream": "npm:stream-browserify",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
@@ -40,8 +52,12 @@
     "eslint-plugin-react": "^7.31.10",
     "file-loader": "^6.2.0",
     "prettier": "^2.7.1",
+    "react-error-overlay": "^6.0.9",
     "sass": "^1.55.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.0"
+  },
+  "browser": {
+    "crypto": false
   }
 }
