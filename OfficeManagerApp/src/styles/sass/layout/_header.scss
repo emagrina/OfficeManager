@@ -2,42 +2,45 @@
 
 header {
 	width: 100%;
-	height: 4.5em;
+	height: 8vh;
 	position: -webkit-sticky; /* Safari */
 	position: fixed;
 	top: 0;
 	background: $color-light-transparent;
 	backdrop-filter: blur(50px);
 	z-index: 3;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .logo {
-	float: left;
 
 	img {
 		padding: 1.25em 11em;
+		display: block;
 		height: 2em;
 	}
 }
 
 .mainMenu {
-	float: right;
 	display: flex;
 	flex-direction: row;
 	padding: 0.5em 10em;
+	align-items: center;
 
 	img {
 		border-radius: 100%;
-		height: 3.5em;
+		height: 6vh;
 		box-shadow: 0 0 20px -5px $color-dark-2;
 		z-index: 2;
-		position: absolute;
 	}
 
 	.mainMenuContext {
 		padding: 0.5em 1em 0.5em 3em;
 		z-index: 1;
-		margin: 0.5em 0 0.5em 2em;
+		margin: 0.5em 0 0.5em;
 		background-color: $color-light-1;
 		display: flex;
 		flex-direction: row;
@@ -50,7 +53,7 @@ header {
 }
 
 .none {
-	margin: 4.5em 0;
+	margin: 8vh 0;
 }
 
 @media screen and (max-width: 640px) {

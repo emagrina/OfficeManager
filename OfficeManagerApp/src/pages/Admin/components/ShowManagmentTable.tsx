@@ -4,7 +4,12 @@ import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free
 
 const ShowManagmentTable = ({data, pages}) => {
     const [page, setPage] = useState(0);
+    const [isActive, setIsActive] = useState(false)
 	const maxPages = pages;
+
+    const mouseEnter = (id : any) => {
+        setIsActive(true);
+    }
 
     const nextPage = () => {
 		if(page == maxPages){
@@ -33,13 +38,13 @@ const ShowManagmentTable = ({data, pages}) => {
                         <th className='noBorder'></th>
                     </tr>
                     {data.slice(10 * page, 10 * page + 10).map((item) => (
-                        <tr>
+                        <tr className={item.ID} onMouseEnter={() => mouseEnter(item.ID)}>
                         {Object.values(item).map((val) => (
                             <td>{val}</td>
                         ))}
-                        <td className='noBorder icons'>
-                            <div> <FontAwesomeIcon icon={faPen} color="DodgerBlue" /> </div> 
-                            <div> <FontAwesomeIcon icon={faXmark} color="tomato" size='xl'/> </div>
+                        <td className='noBorder icons' style={{'visibility': `${isActive ? 'visible' : 'hidden' }`}}>
+                            <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
+                            <div className='delete'> <FontAwesomeIcon icon={faXmark}size='xl'/> </div>
                         </td>
                         </tr>
                         
