@@ -62,14 +62,24 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = _context.Bookings.Where(x => x.Id == id).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+            {
+                Id = x.Id,
+                DateTime = x.DateTime,
+                Description = x.Description,
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                ChairId = x.Chair.Id,
+                RoomId = x.Room.Id,
+                UserId = x.User.Id
+            });
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            return booking;
+            return Ok(booking);
         }
 
         // PUT: api/Bookings/5
@@ -123,18 +133,20 @@ namespace OfficeManagerAPI.Controllers
                 // Comprovem que els paràmetres de la reserva sigui correcta
                 if (CorrectParameters(booking, chairs, rooms, bookings))
                 {
+                    var users = await _context.Users.ToListAsync();
+                    
                     // Afegim la reserva a la base de dades
-                    //_context.Bookings.Add(new Booking()
-                    //{
-                    //    Id = booking.Id,
-                    //    DateTime = booking.DateTime,
-                    //    Description = booking.Description,
-                    //    StartTime = booking.StartTime,
-                    //    EndTime = booking.EndTime,
-                    //    Chair = booking.ChairId,
-                    //    Room = _context.Rooms.FirstOrDefault(x => x.Id == booking.Id),
-                    //    User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
-                    //});
+                    _context.Bookings.Add(new Booking()
+                    {
+                        Id = booking.Id,
+                        DateTime = booking.DateTime,
+                        Description = booking.Description,
+                        StartTime = booking.StartTime,
+                        EndTime = booking.EndTime,
+                        Chair = chairs.FirstOrDefault(x => x.Id == booking.Id),
+                        Room = rooms.FirstOrDefault(x => x.Id == booking.Id),
+                        User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
+                    });
                 }
 
                 await _context.SaveChangesAsync();
