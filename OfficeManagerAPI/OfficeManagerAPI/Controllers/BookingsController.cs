@@ -85,14 +85,40 @@ namespace OfficeManagerAPI.Controllers
         // PUT: api/Bookings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBooking(int id, Booking booking)
+        public async Task<IActionResult> PutBooking(int id, BookingDTO bookingDTO)
         {
-            if (id != booking.Id)
+            if (id != bookingDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(booking).State = EntityState.Modified;
+            var bookingsDT = (from x in _context.Bookings
+                              where x.DateTime == bookingDTO.DateTime
+                              select x).ToList();
+
+            var chairs = await _context.Chairs.ToListAsync();
+
+            var rooms = await _context.Rooms.ToListAsync();
+
+            var bookingPostDTO = new BookingPostDTO()
+            {
+
+            };
+
+            if (CorrectParameters(bookingPostDTO, chairs, rooms, bookingsDT))
+            {
+                _context.Entry(new Booking()
+                {
+                    Id = id,
+                    DateTime = bookingDTO.DateTime,
+                    Description = bookingDTO.Description,
+                    StartTime = bookingDTO.StartTime,
+                    EndTime = bookingDTO.EndTime,
+                    Chair = _context.Chairs.FirstOrDefault(x => x.Id == id),
+                    Room = _context.Rooms.FirstOrDefault(x => x.Id == bookingDTO.Id),
+                    User = _context.Users.FirstOrDefault(x => x.Id == bookingDTO.Id)
+                }).State = EntityState.Modified;
+            }
 
             try
             {
@@ -116,11 +142,12 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Bookings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(BookingDTO booking)
+        [ActionName(nameof(PostBooking))]
+        public async Task<ActionResult<Booking>> PostBooking(BookingPostDTO booking)
         {
             var bookings = await _context.Bookings.ToListAsync();
 
-            if (booking.DateTime > DateTime.Now)
+            if (booking.DateTime.Date > DateTime.Now.Date)
             {
                 var bookingsDT = (from x in bookings
                                   where x.DateTime == booking.DateTime
@@ -131,45 +158,42 @@ namespace OfficeManagerAPI.Controllers
                 var rooms = await _context.Rooms.ToListAsync();
 
                 // Comprovem que els paràmetres de la reserva sigui correcta
-                if (CorrectParameters(booking, chairs, rooms, bookings))
+                if (CorrectParameters(booking, chairs, rooms, bookingsDT))
                 {
                     var users = await _context.Users.ToListAsync();
                     
                     // Afegim la reserva a la base de dades
                     _context.Bookings.Add(new Booking()
                     {
-                        Id = booking.Id,
                         DateTime = booking.DateTime,
                         Description = booking.Description,
                         StartTime = booking.StartTime,
                         EndTime = booking.EndTime,
-                        Chair = chairs.FirstOrDefault(x => x.Id == booking.Id),
-                        Room = rooms.FirstOrDefault(x => x.Id == booking.Id),
-                        User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
+                        Chair = chairs.FirstOrDefault(x => x.Id == booking.ChairId),
+                        Room = rooms.FirstOrDefault(x => x.Id == booking.RoomId),
+                        User = users.FirstOrDefault(x => x.Id == booking.UserId)
                     });
                 }
 
                 await _context.SaveChangesAsync();
+                return Ok("Booking Created");
             }
-            else
-            {
-                BadRequest();
-            }
+            
+            return BadRequest();
 
-            return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
+            // return CreatedAtAction("GetBooking", booking);
         }
 
-        private static bool CorrectParameters(BookingDTO booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
+        private static bool CorrectParameters(BookingPostDTO booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsDT)
         {
             bool isCorrect = false;
             bool chairIsSet = booking.ChairId != null;
             bool roomIsSet = booking.RoomId != null;
             bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
 
-            if (chairIsSet && roomIsSet) // Cadira i sala indicades
             {
                 if (chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) && dateTimeCorrect &&
-                    booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookings))
+                    booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookingsDT))
                 {
                     isCorrect = true;
                 }
@@ -178,7 +202,7 @@ namespace OfficeManagerAPI.Controllers
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookings)) // Sala indicada
+            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsDT)) // Sala indicada
             {
                 isCorrect = true;
             }
@@ -186,11 +210,11 @@ namespace OfficeManagerAPI.Controllers
             return isCorrect;
         }
 
-        private static bool TimeZoneAvailable(BookingDTO booking, List<Booking> bookings)
+        private static bool TimeZoneAvailable(BookingPostDTO booking, List<Booking> bookingsDT)
         {
             bool timeZoneAvailable = true;
 
-            if (bookings.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
+            if (bookingsDT.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
                             x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
             {
                 timeZoneAvailable = false;
