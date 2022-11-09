@@ -1,9 +1,9 @@
-import { SharingInformationService } from '../../../services/SharingInformationService';
+import { SharingDateService } from '../../../services/SharingDateService';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const State = ({ title }: any) => {
-    const subscription$ = SharingInformationService.getSubject();
+    const subscription$ = SharingDateService.getSubject();
     const { t } = useTranslation();
 
     const btnBook = t('BtnBook');

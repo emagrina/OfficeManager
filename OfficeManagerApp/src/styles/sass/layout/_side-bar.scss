@@ -1,13 +1,13 @@
 @import "../abstracts/variables";
 
 .sideBar{
-    padding-top: 3em;
     background-color: $color-secondary;
-    height: 90vh;
+    height: 92vh;
     color: white;
 }
 
-.sideBar h4{
+.infoSideBar h4{
+    padding-top: 3em;
     margin-bottom: 3em;   
 }
 
@@ -26,7 +26,7 @@
     margin-bottom: 2.5em;
 
     &:has(.active){
-        background-color: #4F587B;
+        background-color: $color-secondary-light;
     }
 }
 

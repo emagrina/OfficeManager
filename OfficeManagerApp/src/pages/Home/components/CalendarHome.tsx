@@ -1,10 +1,10 @@
 ﻿import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import {SharingInformationService} from "../../../services/SharingInformationService";
+import {SharingDateService} from "../../../services/SharingDateService";
 
 const CalendarHome = () => {
 	const [value, onChange] = useState(new Date());
-	SharingInformationService.setSubject(value);
+	SharingDateService.setSubject(value);
 
 	return (
 		<div>
