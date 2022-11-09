@@ -19,8 +19,8 @@ const Header = ({ name, lastName }: any) => {
 						</p>
 						<i data-eva='chevron-down-outline' data-eva-fill='#000' />
 					</div>
+					<div className={'dropdown'}></div>
 				</div>
-				<div className={'dropdown'}></div>
 			</header>
 			<div className={'none'}></div>
 		</>

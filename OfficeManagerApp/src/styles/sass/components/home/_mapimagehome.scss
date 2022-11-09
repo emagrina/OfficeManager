@@ -1,18 +1,22 @@
 ﻿@import '../../../sass/abstracts/variables';
 
 .available {
-	fill: $color-primary;
-	cursor: pointer;
-
-	&:hover {
-		stroke-width: 0.5em;
-		stroke: $color-primary-transparent;
-	}
-	&:active {
-		fill: #4f587b;
+	fill: $color-primary-transparent;
+	transition: all 0.1s ease-in;
+	&-active {
+		fill: $color-primary;
+		&:hover {
+			stroke-width: 0.5em;
+			stroke: $color-primary-transparent;
+			cursor: pointer;
+		}
+		
+		&:active {
+			fill: #4f587b;
+		}
+		@extend .available;
 	}
 }
-
 .occupied {
 	fill: $color-danger;
 }

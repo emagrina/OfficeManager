@@ -1,0 +1,82 @@
+@import "../abstracts/variables";
+
+.table table,.table th,.table td{
+	border: solid;
+	border-collapse: collapse;
+	border-color: $color-secondary-transparent;
+	border-width: 1px;
+	text-align: left;
+	font-size: small;
+}
+
+.table th,.table td{
+	padding: 0.2em 1em;
+
+}
+
+.table th{
+	background-color: $color-secondary-light;
+	color: white;
+}
+
+.table td{
+	background-color: white;
+}
+
+.table{
+	width: 100%;
+}
+
+.table table{
+	width: 100%;
+	border: none;
+	margin-bottom: 1em;
+}
+
+.table .noBorder{
+	border: none;
+	background: none;
+	width: 40px;
+}
+
+.table .icons{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	visibility: hidden;
+}
+
+
+.table .visible{
+	visibility: visible;
+}
+
+.table .edit{
+	color: $color-primary;
+}
+
+.table .delete{
+	color: $color-danger
+}
+
+.table .pageButtons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: fit-content;
+	margin: auto;
+	padding-right: 40px;
+
+	& button{
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+
+	& p{
+		margin: 2%;
+		white-space: nowrap;
+	}
+}

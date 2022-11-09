@@ -1,9 +1,11 @@
+@import "../abstracts/variables";
+
 .addUserButton{
 	padding: 0.8em;
 	color: white;
 	border-radius: 10px;
 	border-width: 1px;
-	background-color: #4CAF50;
+	background-color: $color-secondary-light;
 	border-color: transparent ;
 	cursor: pointer;
 	outline: none;
