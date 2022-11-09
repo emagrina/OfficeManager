@@ -124,17 +124,17 @@ namespace OfficeManagerAPI.Controllers
                 if (CorrectParameters(booking, chairs, rooms, bookings))
                 {
                     // Afegim la reserva a la base de dades
-                    _context.Bookings.Add(new Booking()
-                    {
-                        Id = booking.Id,
-                        DateTime = booking.DateTime,
-                        Description = booking.Description,
-                        StartTime = booking.StartTime,
-                        EndTime = booking.EndTime,
-                        Chair = booking.ChairId,
-                        Room = _context.Rooms.FirstOrDefault(x => x.Id == booking.Id),
-                        User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
-                    });
+                    //_context.Bookings.Add(new Booking()
+                    //{
+                    //    Id = booking.Id,
+                    //    DateTime = booking.DateTime,
+                    //    Description = booking.Description,
+                    //    StartTime = booking.StartTime,
+                    //    EndTime = booking.EndTime,
+                    //    Chair = booking.ChairId,
+                    //    Room = _context.Rooms.FirstOrDefault(x => x.Id == booking.Id),
+                    //    User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
+                    //});
                 }
 
                 await _context.SaveChangesAsync();
