@@ -31,21 +31,31 @@ namespace OfficeManagerAPI.Controllers
         {
             if (dateTime.HasValue)
             {
-                //return await from x in _context.Bookings
-                //             where x.DateTime == dateTime
-                //             select new BookingDTO()
-                //             {
-                //                 Id = x.Id,
-                //                 DateTime = x.DateTime,
-                //                 Description = x.Description,
-                //                 StartTime = x.,
-                //                 EndTime = x.EndTime,
-                //                 ChairId = x.Chair.Id,
-                //                 RoomId = x.Room.Id,
-                //                 UserId = x.User.Id
-                //             };
+                var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+                {
+                    Id = x.Id,
+                    DateTime = x.DateTime,
+                    Description = x.Description,
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                    ChairId = x.Chair.Id,
+                    RoomId = x.Room.Id,
+                    UserId = x.User.Id
+                });
+                return Ok(bookingsDT);
             }
-            return await _context.Bookings.ToListAsync();
+
+            return Ok(_context.Bookings.Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+            {
+                Id = x.Id,
+                DateTime = x.DateTime,
+                Description = x.Description,
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                ChairId = x.Chair.Id,
+                RoomId = x.Room.Id,
+                UserId = x.User.Id
+            }));
         }
 
         // GET: api/Bookings/5
@@ -96,11 +106,11 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Bookings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(Booking booking)
+        public async Task<ActionResult<Booking>> PostBooking(BookingDTO booking)
         {
             var bookings = await _context.Bookings.ToListAsync();
 
-            if (/*booking.DateTime != null &&*/ booking.DateTime > DateTime.Now)
+            if (booking.DateTime > DateTime.Now)
             {
                 var bookingsDT = (from x in bookings
                                   where x.DateTime == booking.DateTime
@@ -114,39 +124,49 @@ namespace OfficeManagerAPI.Controllers
                 if (CorrectParameters(booking, chairs, rooms, bookings))
                 {
                     // Afegim la reserva a la base de dades
-                    _context.Bookings.Add(booking);
+                    _context.Bookings.Add(new Booking()
+                    {
+                        Id = booking.Id,
+                        DateTime = booking.DateTime,
+                        Description = booking.Description,
+                        StartTime = booking.StartTime,
+                        EndTime = booking.EndTime,
+                        Chair = booking.ChairId,
+                        Room = _context.Rooms.FirstOrDefault(x => x.Id == booking.Id),
+                        User = _context.Users.FirstOrDefault(x => x.Id == booking.Id)
+                    });
                 }
+
+                await _context.SaveChangesAsync();
             }
             else
             {
                 BadRequest();
             }
 
-            await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
-        private static bool CorrectParameters(Booking booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
+        private static bool CorrectParameters(BookingDTO booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookings)
         {
             bool isCorrect = false;
-            bool chairIsSet = booking.Chair != null;
-            bool roomIsSet = booking.Room != null;
+            bool chairIsSet = booking.ChairId != null;
+            bool roomIsSet = booking.RoomId != null;
             bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
 
             if (chairIsSet && roomIsSet) // Cadira i sala indicades
             {
-                if (chairs.Any(x => x.Id == booking.Chair.Id) && rooms.Any(x => x.Id == booking.Room.Id) && dateTimeCorrect &&
+                if (chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) && dateTimeCorrect &&
                     booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookings))
                 {
                     isCorrect = true;
                 }
             }
-            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.Chair.Id)) // Cadira indicada
+            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.ChairId)) // Cadira indicada
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.Room.Id) && TimeZoneAvailable(booking, bookings)) // Sala indicada
+            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookings)) // Sala indicada
             {
                 isCorrect = true;
             }
@@ -154,7 +174,7 @@ namespace OfficeManagerAPI.Controllers
             return isCorrect;
         }
 
-        private static bool TimeZoneAvailable(Booking booking, List<Booking> bookings)
+        private static bool TimeZoneAvailable(BookingDTO booking, List<Booking> bookings)
         {
             bool timeZoneAvailable = true;
 
