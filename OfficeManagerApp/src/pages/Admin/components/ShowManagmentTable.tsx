@@ -2,13 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
 
+
 const ShowManagmentTable = ({data, pages}) => {
     const [page, setPage] = useState(0);
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState([false, false, false, false, false, false, false, false, false, false])
 	const maxPages = pages;
 
-    const mouseEnter = (id : any) => {
-        setIsActive(true);
+    const mouseEnter = (index : any) => {
+        setIsActive((prev) =>
+            prev.map((element, i) => {
+                if(i == index){
+                    return true;
+                }
+                return element;
+            }
+            )
+        );
+        console.log(isActive[index]);
+    }
+
+    const mouseLeave = (index : any) => {
+        setIsActive((prev) =>
+            prev.map((element, i) => {
+                if(i == index){
+                    return false;
+                }
+                return element;
+            }
+            )
+        );
+        console.log(isActive[index]);
     }
 
     const nextPage = () => {
@@ -37,12 +60,12 @@ const ShowManagmentTable = ({data, pages}) => {
                         ))}
                         <th className='noBorder'></th>
                     </tr>
-                    {data.slice(10 * page, 10 * page + 10).map((item) => (
-                        <tr className={item.ID} onMouseEnter={() => mouseEnter(item.ID)}>
+                    {data.slice(10 * page, 10 * page + 10).map((item, index) => (
+                        <tr onMouseEnter={() => mouseEnter(index)} onMouseLeave={() => mouseLeave(index)}>
                         {Object.values(item).map((val) => (
                             <td>{val}</td>
                         ))}
-                        <td className='noBorder icons' style={{'visibility': `${isActive ? 'visible' : 'hidden' }`}}>
+                        <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
                             <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
                             <div className='delete'> <FontAwesomeIcon icon={faXmark}size='xl'/> </div>
                         </td>
