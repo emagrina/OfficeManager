@@ -3,6 +3,7 @@ import { Log, User, UserManager } from 'oidc-client';
 export class AuthService {
     userManager: any;
 
+    
     constructor() {
         const settings = {
             authority: '',
