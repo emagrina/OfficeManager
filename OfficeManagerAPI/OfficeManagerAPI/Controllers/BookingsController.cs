@@ -191,6 +191,7 @@ namespace OfficeManagerAPI.Controllers
             bool roomIsSet = booking.RoomId != null;
             bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
 
+            if (chairIsSet && roomIsSet)
             {
                 if (chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) && dateTimeCorrect &&
                     booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookingsDT))
