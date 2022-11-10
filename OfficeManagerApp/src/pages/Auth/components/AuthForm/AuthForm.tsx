@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 const AuthForm = () => {
-	const tokenUrl = 'https://localhost:7283/api/Account/GetToken';
-	const userlistUrl = 'https://localhost:7283/api/Account/GetUserList';
+	const tokenUrl = '';
+	const apiUrl = '';
 
 	let token = '';
 
@@ -34,7 +34,7 @@ const AuthForm = () => {
 				console.log(token);
 
 				axios
-					.get(userlistUrl, {
+					.get(apiUrl, {
 						headers: {
 							Authorization: 'Bearer ' + token,
 							'Access-Control-Allow-Origin': '*',

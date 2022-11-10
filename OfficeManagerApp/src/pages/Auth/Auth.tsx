@@ -1,35 +1,23 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-// @ts-ignore
-import OAuth2Login from 'react-simple-oauth2-login';
+import { useTranslation } from 'react-i18next';
+import { AuthService } from '../../utils/AuthService';
+
 
 function Auth() {
+    const { t } = useTranslation();
 
-	const onSuccess = (response: any) => console.log(response);
-	const onFailure = (response: any) => console.error(response);
-	
+    const iniciarSesion = () => {
+        console.log('login');
+    }
 
 	return (
-		<div className='authBody'>
-			<div className='authForm'>
-				<OAuth2Login className='authEnterButton'
-    				authorizationUrl="https://localhost:5003/connect/authorize"
-    				responseType="code"
-    				clientId="api-swagger"
-    				redirectUri="https://localhost:5001/swagger/oauth2-redirect.html"
-    				onSuccess={onSuccess}
-    				onFailure={onFailure}
-					scope="openid"
-					isCrossOrigin={ true }
-					extraParams={{
-						code_challenge_method: 'S256',
-						code_challenge: 'f31847aa868a388843c099ba823274bf666103f752fa3e9ece09fa22'
-					}}
-			
-				/>
-			</div>
-		</div>
-	);
+        <div className='authBody'>
+            <button className='authSubmit' onClick={() => iniciarSesion()}>
+				<>{t('LoginAuth')}</>
+			</button>
+        </div>
+    )
 }
 
 export default Auth;
