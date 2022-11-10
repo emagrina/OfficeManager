@@ -10,6 +10,8 @@ using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Migrations;
 using OfficeManagerAPI.Models.DataModels;
 using OfficeManagerAPI.Data;
+using Microsoft.Data.SqlClient.Server;
+using System.Globalization;
 
 namespace OfficeManagerAPI.Controllers
 {
@@ -114,9 +116,9 @@ namespace OfficeManagerAPI.Controllers
                     Description = bookingDTO.Description,
                     StartTime = bookingDTO.StartTime,
                     EndTime = bookingDTO.EndTime,
-                    Chair = _context.Chairs.FirstOrDefault(x => x.Id == id),
-                    Room = _context.Rooms.FirstOrDefault(x => x.Id == bookingDTO.Id),
-                    User = _context.Users.FirstOrDefault(x => x.Id == bookingDTO.Id)
+                    Chair = _context.Chairs.FirstOrDefault(x => x.Id == bookingPostDTO.ChairId),
+                    Room = _context.Rooms.FirstOrDefault(x => x.Id == bookingDTO.RoomId),
+                    User = _context.Users.FirstOrDefault(x => x.Id == bookingDTO.UserId)
                 }).State = EntityState.Modified;
             }
 
@@ -173,10 +175,10 @@ namespace OfficeManagerAPI.Controllers
                         Room = rooms.FirstOrDefault(x => x.Id == booking.RoomId),
                         User = users.FirstOrDefault(x => x.Id == booking.UserId)
                     });
-                }
 
-                await _context.SaveChangesAsync();
-                return Ok("Booking Created");
+                    await _context.SaveChangesAsync();
+                    return Ok("Booking Created");
+                }
             }
             
             return BadRequest();
@@ -189,21 +191,29 @@ namespace OfficeManagerAPI.Controllers
             bool isCorrect = false;
             bool chairIsSet = booking.ChairId != null;
             bool roomIsSet = booking.RoomId != null;
-            bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
+            bool dateTimeCorrect = booking.DateTime != null && booking.DateTime.Date >= DateTime.Now.Date &&
+                                   booking.StartTime.ToString().Substring(0, 10) == booking.EndTime.ToString().Substring(0, 10) &&
+                                   booking.StartTime < booking.EndTime;
 
-            if (chairIsSet && roomIsSet)
+            if (chairIsSet && roomIsSet && dateTimeCorrect)
             {
-                if (chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) && dateTimeCorrect &&
+                if (chairs.Any(x => x.Id == booking.ChairId && x.Available == true) &&
+                    rooms.Any(x => x.Id == booking.RoomId && x.Available == true) &&
+                    chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) &&
                     booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookingsDT))
                 {
                     isCorrect = true;
                 }
             }
-            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.ChairId)) // Cadira indicada
+            else if (chairs.Any(x => x.Id == booking.ChairId && x.Available == true) &&
+                    dateTimeCorrect && chairIsSet && !chairs.Any(x => x.Id == booking.ChairId) &&
+                    booking.StartTime == null && booking.EndTime == null) // Cadira indicada, no pot tenir StartTime ni EndTime
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsDT)) // Sala indicada
+            else if (rooms.Any(x => x.Id == booking.RoomId && x.Available == true) &&
+                    dateTimeCorrect && roomIsSet && !rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsDT) &&
+                    booking.StartTime != null && booking.EndTime != null) // Sala indicada
             {
                 isCorrect = true;
             }
@@ -215,8 +225,8 @@ namespace OfficeManagerAPI.Controllers
         {
             bool timeZoneAvailable = true;
 
-            if (bookingsDT.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
-                            x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
+            if (bookingsDT.Any(x => x.StartTime >= booking.StartTime && x.StartTime <= booking.EndTime ||
+                            x.EndTime >= booking.StartTime && x.EndTime <= booking.EndTime))
             {
                 timeZoneAvailable = false;
             }
