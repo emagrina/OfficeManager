@@ -6,9 +6,8 @@ import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free
 import ShowManagmentTable from './ShowManagmentTable';
 
 const UserManagment = () => {
-	const url = "https://localhost:7016/api/Admin";
+	const url = "https://localhost:7016/api/Users";
 	const usersStart = [
-		// id: 4, firstName: 'Judit', lastName: 'Sansó', isAdmin: true, email: 'judit@gmail.com'
 		{ID: 1, Name: '', Admin: '', Email: ''},
 		{ID: 1, Name: '', Admin: '', Email: ''},
 	]
@@ -19,8 +18,8 @@ const UserManagment = () => {
 
 	useEffect(() => {
 		setHasLoaded('loaded')
-		getUsersPrueba();
-		//getUsers();
+		//getUsersPrueba();
+		getUsers();
 	  }, []);
 
 	const getUsersPrueba = () => {
@@ -99,7 +98,10 @@ const UserManagment = () => {
 	}else if(hasLoaded == 'noLoaded'){
 		return (
 			<div className='userManagment'>
-				Cargando ...
+				<div className='upTable'>
+					<h2> Gestor de usuarios</h2> 
+				</div>
+				Cargando...
 			</div>
 		);
 	}else{

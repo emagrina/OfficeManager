@@ -57,7 +57,6 @@ const RoomsManagment = () => {
 				<div className='roomManagment'>
 					<div className='upTable'>
 						<h2> Gestor de salas </h2>
-						<AddUserButton></AddUserButton>
 					</div>
 					<ShowManagmentTable data={rooms} pages={maxPages}/>
 				</div>
@@ -66,6 +65,9 @@ const RoomsManagment = () => {
 	}else if(hasLoaded == 'noLoaded'){
 		return (
 			<div className='roomManagment'>
+				<div className='upTable'>
+					<h2> Gestor de salas </h2>
+				</div>
 				Cargando ...
 			</div>
 		);

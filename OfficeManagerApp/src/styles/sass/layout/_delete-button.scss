@@ -1,0 +1,40 @@
+@import "../abstracts/variables";
+
+
+.deleteButton button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: $color-danger;
+} 
+
+
+.popup-content{
+    height: 100%;
+    width: 100%;
+}
+
+.modalDelete{
+    margin-top: 8vh;
+    width: 75%;
+    height: 100%;
+    float: right;
+    padding-top: 25vh;
+
+    background-color: rgba(54, 49, 49, 0.518);
+}
+
+.modalDelete .moveContent{
+
+}
+
+.modalDelete .content{
+    width: 60%;
+    margin: auto;
+    background-color: white;
+    padding: 1em 3em;
+
+    h3{
+        font-size: 1.5em;
+    }
+}

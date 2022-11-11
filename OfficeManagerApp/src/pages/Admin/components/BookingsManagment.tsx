@@ -57,7 +57,6 @@ const BookingsManagment = () => {
 				<div className='bookingManagment'>
 					<div className='upTable'>
 						<h2> Gestor de reservas </h2>
-						<AddUserButton></AddUserButton>
 					</div>
 					<ShowManagmentTable data={bookings} pages={maxPages}/>
 				</div>
@@ -66,6 +65,9 @@ const BookingsManagment = () => {
 	}else if(hasLoaded == 'noLoaded'){
 		return (
 			<div className='bookingManagment'>
+				<div className='upTable'>
+						<h2> Gestor de reservas </h2>
+					</div>
 				Cargando ...
 			</div>
 		);
