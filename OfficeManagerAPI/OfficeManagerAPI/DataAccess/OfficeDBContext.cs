@@ -27,11 +27,5 @@ namespace OfficeManagerAPI.DBAccess
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
         }
-
-        // Connection to DataBase
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer();
-        }*/
     }
 }
