@@ -27,12 +27,10 @@
     "react-countup": "^6.3.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.0.0",
-    "react-oauth2-pkce": "^2.0.7",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "^5.0.1",
-    "react-simple-oauth2-login": "^0.5.3",
-    "react-zoom-pan-pinch": "^2.1.3",
+    "reactjs-popup": "^2.0.5",
     "rxjs": "^7.5.7",
     "stream": "npm:stream-browserify",
     "stream-browserify": "^3.0.0",
@@ -55,10 +53,8 @@
     "prettier": "^2.7.1",
     "react-error-overlay": "^6.0.9",
     "sass": "^1.55.0",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.0"
-  },
-  "browser": {
-    "crypto": false
   }
 }

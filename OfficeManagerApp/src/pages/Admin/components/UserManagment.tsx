@@ -17,9 +17,9 @@ const UserManagment = () => {
 	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
-		setHasLoaded('loaded')
 		//getUsersPrueba();
 		getUsers();
+		
 	  }, []);
 
 	const getUsersPrueba = () => {

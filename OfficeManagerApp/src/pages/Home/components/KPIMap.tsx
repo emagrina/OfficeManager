@@ -1,12 +1,12 @@
 import React from 'react';
 // @ts-ignore
-import FreeLegendImg from '../../../assets/img/FreeLegendImg.svg';
+import FreeLegendImg from '@assets/img/FreeLegendImg.svg';
 // @ts-ignore
-import BusyLegendImg from '../../../assets/img/BusyLegendImg.svg';
+import BusyLegendImg from '@assets/img/BusyLegendImg.svg';
 import { useTranslation } from 'react-i18next';
-import { MapImgHome } from './index';
+import { MapSeats } from './index';
 
-const Map = ({ title }: any) => {
+const KPIMap = ({ title }: any) => {
 	const { t } = useTranslation();
 
 	const PAvailableLegend = t('PAvailableLegend');
@@ -26,9 +26,9 @@ const Map = ({ title }: any) => {
 					</div>
 				</div>
 			</div>
-			<MapImgHome />
+			<MapSeats />
 		</section>
 	);
 };
 
-export default Map;
+export default KPIMap;

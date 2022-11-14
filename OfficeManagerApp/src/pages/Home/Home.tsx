@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header/Header';
-import { KPIs, KPICalendar, Map, State } from './components/index';
+import Header from '@components/Header/Header';
+import { KPIs, KPICalendar, KPIMap, State } from './components/index';
 import { useTranslation } from 'react-i18next';
-import {SharingKPIAvailableService} from "../../services/SharingKPIAvailableService";
-import {Logger} from "sass";
+import { SharingKPIAvailableService } from '@services/SharingKPIAvailableService';
+import { Logger } from 'sass';
 
 function Home() {
 	const Name = 'Ernest';
@@ -11,16 +11,16 @@ function Home() {
 
 	const { t } = useTranslation();
 	const HomeSection = t('HomeSection');
-	
+
 	const [KPIAvailable, setKPIAvailable] = useState(0);
 	const subscription$ = SharingKPIAvailableService.getSubject();
-	
+
 	useEffect(() => {
 		subscription$.subscribe(data => {
 			// @ts-ignore
 			return setKPIAvailable(data);
 		});
-	})
+	});
 	return (
 		<>
 			<div className={'homeBody'}></div>
@@ -32,12 +32,19 @@ function Home() {
 				<section className={'kpiSection'}>
 					<KPICalendar title={t('KpiCalendar')} />
 
-					<KPIs title={t('KpiAvailableSeats')} value={74 - (Number(KPIAvailable))} type={'avaiable'} />
-					<KPIs title={t('KpiOccupiedSeats')} value={KPIAvailable} type={'occupied'} />
-					
+					<KPIs
+						title={t('KpiAvailableSeats')}
+						value={74 - Number(KPIAvailable)}
+						type={'avaiable'}
+					/>
+					<KPIs
+						title={t('KpiOccupiedSeats')}
+						value={KPIAvailable}
+						type={'occupied'}
+					/>
 				</section>
 				<section className={'mapAndState'}>
-					<Map title={t('SelectSeat')} />
+					<KPIMap title={t('SelectSeat')} />
 					<State title={t('State')} />
 				</section>
 			</section>

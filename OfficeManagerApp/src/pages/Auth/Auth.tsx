@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-// @ts-ignore
-import OAuth2Login from 'react-simple-oauth2-login';
 
 function Auth() {
 
 	const onSuccess = (response: any) => console.log(response);
 	const onFailure = (response: any) => console.error(response);
-	
+
 
 	return (
 		<div className='authBody'>
 			<div className='authForm'>
-				<OAuth2Login className='authEnterButton'
+				{/*<OAuth2Login className='authEnterButton'
     				authorizationUrl="https://localhost:5003/connect/authorize"
     				responseType="code"
     				clientId="api-swagger"
@@ -27,6 +25,7 @@ function Auth() {
 					}}
 			
 				/>
+				*/}
 			</div>
 		</div>
 	);

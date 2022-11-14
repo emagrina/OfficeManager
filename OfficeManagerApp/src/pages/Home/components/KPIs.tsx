@@ -1,5 +1,5 @@
 import React, { ReactPropTypes } from 'react';
-import CountUp from "react-countup";
+import CountUp from 'react-countup';
 
 const KPIs = ({ title, value, type }: any) => {
 	return (

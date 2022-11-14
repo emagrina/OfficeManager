@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
@@ -17,6 +17,14 @@ const DeleteButton = (item: any) => {
 
     const [open, setOpen] = useState(false);
     const closePopup = () => setOpen(false);
+
+    useEffect(() => {
+        console.log("effect");
+		if(deleteStatus == 1){
+            window.location.reload();
+        }
+		
+	  });
 
     const infoUser = () => {
         return(
