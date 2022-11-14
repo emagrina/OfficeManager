@@ -59,18 +59,23 @@
 	}
 }
 
-.authBody {
-	.authSubmit {
+.authEnterBody {
+	width: 60%;
+	margin: 15% auto auto;
+
+	h1 {
+		color: $color-primary;
+	}
+
+	.authEnterButton {
 		color: $color-light-1;
 		font-size: 120%;
 		text-align: center;
 		background-color: $color-primary;
 		text-decoration: none;
-	
-		width: 30%;
-		float: right;
+		width: 100%;
 		padding: 12px 20px;
-		margin: 10% 10%;
+		margin: 8px 0;
 		box-sizing: border-box;
 		border: 2px solid $color-secondary;
 		border-radius: 4px;
