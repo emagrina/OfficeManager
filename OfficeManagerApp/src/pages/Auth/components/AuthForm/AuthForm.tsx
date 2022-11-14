@@ -1,6 +1,4 @@
-import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
-import md5 from 'md5';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
