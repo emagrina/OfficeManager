@@ -191,18 +191,20 @@ namespace OfficeManagerAPI.Controllers
             bool roomIsSet = booking.RoomId != null;
             bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
 
+            if (dateTimeCorrect && chairIsSet && roomIsSet &&
+                chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) &&
+                booking.StartTime != null && booking.EndTime != null && booking.StartTime < booking.EndTime
+                && TimeZoneAvailable(booking, bookingsDT))
             {
-                if (chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) && dateTimeCorrect &&
-                    booking.StartTime != null && booking.EndTime != null && TimeZoneAvailable(booking, bookingsDT))
-                {
-                    isCorrect = true;
-                }
+                isCorrect = true;
             }
             else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.ChairId)) // Cadira indicada
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsDT)) // Sala indicada
+            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) &&
+                booking.StartTime != null && booking.EndTime != null && booking.StartTime < booking.EndTime
+                && TimeZoneAvailable(booking, bookingsDT)) // Sala indicada
             {
                 isCorrect = true;
             }
