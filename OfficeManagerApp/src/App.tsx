@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import './styles/sass/main.scss';
-// @ts-ignore
-import * as eva from 'eva-icons';
 import React from 'react';
 import Routers from './routes/Routes';
+import './styles/sass/main.scss';
+import { useEffect } from 'react';
+// @ts-ignore
+import * as eva from 'eva-icons';
 
 const App = () => {
 	useEffect(() => {

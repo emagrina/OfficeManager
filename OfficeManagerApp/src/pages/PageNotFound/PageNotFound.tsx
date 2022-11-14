@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import Image from '../../assets/img/void.svg';
+import Image from '@assets/img/404img.svg';
 
 function PageNotFound() {
 	return (
