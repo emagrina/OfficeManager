@@ -105,7 +105,7 @@ namespace OfficeManagerAPI.Controllers
 
             };
 
-            if (CorrectParameters(bookingPostDTO, chairs, rooms, bookingsDT))
+            if (CheckParameters(bookingPostDTO, chairs, rooms, bookingsDT))
             {
                 _context.Entry(new Booking()
                 {
@@ -149,7 +149,7 @@ namespace OfficeManagerAPI.Controllers
 
             if (booking.DateTime.Date > DateTime.Now.Date)
             {
-                var bookingsDT = (from x in bookings
+                var bookingsToday = (from x in bookings
                                   where x.DateTime == booking.DateTime
                                   select x).ToList();
 
@@ -158,14 +158,14 @@ namespace OfficeManagerAPI.Controllers
                 var rooms = await _context.Rooms.ToListAsync();
 
                 // Comprovem que els paràmetres de la reserva sigui correcta
-                if (CorrectParameters(booking, chairs, rooms, bookingsDT))
+                if (CheckParameters(booking, chairs, rooms, bookingsToday))
                 {
                     var users = await _context.Users.ToListAsync();
                     
                     // Afegim la reserva a la base de dades
                     _context.Bookings.Add(new Booking()
                     {
-                        DateTime = booking.DateTime,
+                        DateTime = booking.DateTime.Date,
                         Description = booking.Description,
                         StartTime = booking.StartTime,
                         EndTime = booking.EndTime,
@@ -173,10 +173,11 @@ namespace OfficeManagerAPI.Controllers
                         Room = rooms.FirstOrDefault(x => x.Id == booking.RoomId),
                         User = users.FirstOrDefault(x => x.Id == booking.UserId)
                     });
+
+                    await _context.SaveChangesAsync();
+                    return Ok("Created Booking");
                 }
 
-                await _context.SaveChangesAsync();
-                return Ok("Booking Created");
             }
             
             return BadRequest();
@@ -184,27 +185,34 @@ namespace OfficeManagerAPI.Controllers
             // return CreatedAtAction("GetBooking", booking);
         }
 
-        private static bool CorrectParameters(BookingPostDTO booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsDT)
+        private static bool CheckParameters(BookingPostDTO booking, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsToday)
         {
             bool isCorrect = false;
             bool chairIsSet = booking.ChairId != null;
             bool roomIsSet = booking.RoomId != null;
-            bool dateTimeCorrect = booking.DateTime != null && booking.DateTime >= DateTime.Now;
+            bool dateTimeCorrect = CheckBookingDateTimes(booking, bookingsToday);
+            var a = bookingsToday.Any(x => x.Chair.Id == booking.ChairId);
+            var b = bookingsToday.Any(x => x.Room.Id == booking.RoomId);
 
-            if (dateTimeCorrect && chairIsSet && roomIsSet &&
-                chairs.Any(x => x.Id == booking.ChairId) && rooms.Any(x => x.Id == booking.RoomId) &&
-                booking.StartTime != null && booking.EndTime != null && booking.StartTime < booking.EndTime
-                && TimeZoneAvailable(booking, bookingsDT))
+            if (chairIsSet && roomIsSet && dateTimeCorrect &&
+                chairs.Any(x => x.Id == booking.ChairId && x.Available == true) &&
+                rooms.Any(x => x.Id == booking.RoomId && x.Available == true) &&
+                !bookingsToday.Any(x => x.Chair.Id == booking.ChairId) &&
+                !bookingsToday.Any(x => x.Room.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsToday))
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && chairIsSet && chairs.Any(x => x.Id == booking.ChairId)) // Cadira indicada
+            else if (chairIsSet && dateTimeCorrect &&
+                    chairs.Any(x => x.Id == booking.ChairId && x.Available == true) &&
+                    !bookingsToday.Any(x => x.Chair.Id == booking.ChairId) &&
+                    booking.StartTime == null && booking.EndTime == null)
             {
                 isCorrect = true;
             }
-            else if (dateTimeCorrect && roomIsSet && rooms.Any(x => x.Id == booking.RoomId) &&
-                booking.StartTime != null && booking.EndTime != null && booking.StartTime < booking.EndTime
-                && TimeZoneAvailable(booking, bookingsDT)) // Sala indicada
+            else if (roomIsSet && dateTimeCorrect &&
+                    rooms.Any(x => x.Id == booking.RoomId && x.Available == true) &&
+                    !bookingsToday.Any(x => x.Room.Id == booking.RoomId) && TimeZoneAvailable(booking, bookingsToday) &&
+                    booking.StartTime != null && booking.EndTime != null)
             {
                 isCorrect = true;
             }
@@ -212,17 +220,40 @@ namespace OfficeManagerAPI.Controllers
             return isCorrect;
         }
 
-        private static bool TimeZoneAvailable(BookingPostDTO booking, List<Booking> bookingsDT)
+        private static bool CheckBookingDateTimes(BookingPostDTO booking, List<Booking> bookingsToday)
         {
-            bool timeZoneAvailable = true;
+            bool correctDateTime = false;
 
-            if (bookingsDT.Any(x => x.StartTime > booking.StartTime && x.StartTime < booking.EndTime ||
-                            x.EndTime > booking.StartTime && x.EndTime < booking.EndTime))
+            if (booking.DateTime != null && booking.DateTime > DateTime.Now)
             {
-                timeZoneAvailable = false;
+                if (booking.ChairId != null && booking.RoomId != null &&
+                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
+                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
+                    booking.StartTime < booking.EndTime)
+                {
+                    correctDateTime = true;
+                }
+                else if (booking.ChairId != null)
+                {
+                    correctDateTime = true;
+                }
+                else if (booking.RoomId != null &&
+                        booking.StartTime != null && booking.EndTime != null &&
+                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
+                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
+                        booking.StartTime < booking.EndTime)
+                {
+                    correctDateTime = true;
+                }
             }
 
-            return timeZoneAvailable;
+            return correctDateTime;
+        }
+
+        private static bool TimeZoneAvailable(BookingPostDTO booking, List<Booking> bookingsToday)
+        {
+            return !(bookingsToday.Any(x => x.StartTime >= booking.StartTime && x.StartTime <= booking.EndTime ||
+                            x.EndTime >= booking.StartTime && x.EndTime <= booking.EndTime));
         }
 
         // DELETE: api/Bookings/5

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeManagerAPI.Data;
 using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Models.DataModels;
 
@@ -76,12 +77,26 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Admin
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(UserPostDTO userDTO)
         {
-            _context.Users.Add(user);
+            _context.Users.Add(new User()
+            {
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                IsAdmin = userDTO.IsAdmin,
+                Email = userDTO.Email,
+                Passw = userDTO.Passw,
+                CreatedBy = userDTO.CreatedBy,
+                CreatedAt = userDTO.CreatedAt,
+                UpdatedBy = userDTO.UpdatedBy,
+                UpdatedAt = userDTO.UpdatedAt,
+                DelatedBy = userDTO.DelatedBy,
+                DelatedAt = userDTO.DelatedAt,
+                IsDeleted = userDTO.IsDeleted                
+            });
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok("Created User");
         }
 
         // DELETE: api/Admin/5
