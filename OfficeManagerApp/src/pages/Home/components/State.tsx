@@ -1,5 +1,5 @@
-import { SharingDateService } from '../../../services/SharingDateService';
-import { useEffect, useState } from 'react';
+import { SharingDateService } from '@services/SharingDateService';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const State = ({ title }: any) => {

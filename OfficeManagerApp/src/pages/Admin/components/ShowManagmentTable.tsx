@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
+import Popup from 'reactjs-popup';
+import DeleteButton from './DeleteButton';
+
 
 
 const ShowManagmentTable = ({data, pages}) => {
@@ -14,11 +17,10 @@ const ShowManagmentTable = ({data, pages}) => {
                 if(i == index){
                     return true;
                 }
-                return element;
+                return false;
             }
             )
         );
-        console.log(isActive[index]);
     }
 
     const mouseLeave = (index : any) => {
@@ -31,7 +33,6 @@ const ShowManagmentTable = ({data, pages}) => {
             }
             )
         );
-        console.log(isActive[index]);
     }
 
     const nextPage = () => {
@@ -67,7 +68,9 @@ const ShowManagmentTable = ({data, pages}) => {
                         ))}
                         <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
                             <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
-                            <div className='delete'> <FontAwesomeIcon icon={faXmark}size='xl'/> </div>
+                            <div className='delete'> 
+                            <DeleteButton item={item}></DeleteButton>
+                            </div>
                         </td>
                         </tr>
                         

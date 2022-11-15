@@ -10,8 +10,6 @@ using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Migrations;
 using OfficeManagerAPI.Models.DataModels;
 using OfficeManagerAPI.Data;
-using Microsoft.Data.SqlClient.Server;
-using System.Globalization;
 
 namespace OfficeManagerAPI.Controllers
 {
@@ -116,9 +114,9 @@ namespace OfficeManagerAPI.Controllers
                     Description = bookingDTO.Description,
                     StartTime = bookingDTO.StartTime,
                     EndTime = bookingDTO.EndTime,
-                    Chair = _context.Chairs.FirstOrDefault(x => x.Id == bookingPostDTO.ChairId),
-                    Room = _context.Rooms.FirstOrDefault(x => x.Id == bookingDTO.RoomId),
-                    User = _context.Users.FirstOrDefault(x => x.Id == bookingDTO.UserId)
+                    Chair = _context.Chairs.FirstOrDefault(x => x.Id == id),
+                    Room = _context.Rooms.FirstOrDefault(x => x.Id == bookingDTO.Id),
+                    User = _context.Users.FirstOrDefault(x => x.Id == bookingDTO.Id)
                 }).State = EntityState.Modified;
             }
 
@@ -179,6 +177,7 @@ namespace OfficeManagerAPI.Controllers
                     await _context.SaveChangesAsync();
                     return Ok("Created Booking");
                 }
+
             }
             
             return BadRequest();
@@ -191,7 +190,9 @@ namespace OfficeManagerAPI.Controllers
             bool isCorrect = false;
             bool chairIsSet = booking.ChairId != null;
             bool roomIsSet = booking.RoomId != null;
-            bool dateTimeCorrect = CheckBookingDateTimes(booking);
+            bool dateTimeCorrect = CheckBookingDateTimes(booking, bookingsToday);
+            var a = bookingsToday.Any(x => x.Chair.Id == booking.ChairId);
+            var b = bookingsToday.Any(x => x.Room.Id == booking.RoomId);
 
             if (chairIsSet && roomIsSet && dateTimeCorrect &&
                 chairs.Any(x => x.Id == booking.ChairId && x.Available == true) &&
@@ -215,32 +216,36 @@ namespace OfficeManagerAPI.Controllers
             {
                 isCorrect = true;
             }
-            
 
             return isCorrect;
         }
 
-        private static bool CheckBookingDateTimes(BookingPostDTO booking)
+        private static bool CheckBookingDateTimes(BookingPostDTO booking, List<Booking> bookingsToday)
         {
-            bool correctDateTime = true;
+            bool correctDateTime = false;
 
-            if (booking.DateTime < DateTime.Now)
+            if (booking.DateTime != null && booking.DateTime > DateTime.Now)
             {
-                correctDateTime = false;
-            }
-            if (booking.ChairId == null && booking.RoomId == null)
-            {
-                correctDateTime = false;
-            }
-            else if (booking.RoomId != null &&
-                    booking.StartTime != null && booking.EndTime != null &&
-                    !booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
-                    !booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
+                if (booking.ChairId != null && booking.RoomId != null &&
+                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
+                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
                     booking.StartTime < booking.EndTime)
-            {
-                correctDateTime = false;
+                {
+                    correctDateTime = true;
+                }
+                else if (booking.ChairId != null)
+                {
+                    correctDateTime = true;
+                }
+                else if (booking.RoomId != null &&
+                        booking.StartTime != null && booking.EndTime != null &&
+                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
+                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
+                        booking.StartTime < booking.EndTime)
+                {
+                    correctDateTime = true;
+                }
             }
-
 
             return correctDateTime;
         }

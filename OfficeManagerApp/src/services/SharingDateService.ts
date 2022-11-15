@@ -1,3 +1,3 @@
-import { SubjectManager } from '../utils/SubjectManager';
+import { SubjectManager } from '@utils/SubjectManager';
 
 export const SharingDateService = new SubjectManager();
