@@ -2,6 +2,6 @@
 {
     public class BookingConfiguration
     {
-        public BookingConfiguration()
+        //public BookingConfiguration()
     }
 }
