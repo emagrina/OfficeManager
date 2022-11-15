@@ -19,7 +19,6 @@ const DeleteButton = (item: any) => {
     const closePopup = () => setOpen(false);
 
     useEffect(() => {
-        console.log("effect");
 		if(deleteStatus == 1){
             window.location.reload();
             console.log("reload")
@@ -56,7 +55,6 @@ const DeleteButton = (item: any) => {
     const deleteUserPrueba = () => {
         setDeleteStatus(1);
     }
-    
 
     return(
         <div className='deleteButton'>
@@ -73,26 +71,19 @@ const DeleteButton = (item: any) => {
                         <h3> Quieres eliminar este usuario? </h3>
                     </div>
                     <div className='info'>
-                        {deleteStatus == 0 ? infoUser() : 
-                         deleteStatus == 1 ? "Se ha eliminado correctamente" : 
-                         deleteStatus == -1 ? "error"}
+                        {deleteStatus == 0 ? infoUser() : deleteStatus == 1 ? "Se ha eliminado correctamente" : deleteStatus == -1 ? "error" : ""}
                     </div>
                     <div className="actions"> 
-                        <button className='confirm' onClick={deleteUser}>
+                        <button className='blue' onClick={deleteUser}>
                                 Eliminar Usuario
                         </button>
-                        <button className='close'
-                            onClick={() => {
-                            console.log('modal closed ');
-                            closePopup();
-                            }}
-                        >
+                        <button className='red' onClick={() => { setOpen(false); }}>
                             Cancelar
                         </button>
                     </div>
                 </div>
             </div>
-        </Popup>
+            </Popup>
         </div>
     );
 

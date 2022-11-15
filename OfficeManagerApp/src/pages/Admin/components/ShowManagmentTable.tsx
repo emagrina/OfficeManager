@@ -6,7 +6,7 @@ import DeleteButton from './DeleteButton';
 
 
 
-const ShowManagmentTable = ({data, pages}) => {
+const ShowManagmentTable = ({data, pages, buttons}) => {
     const [page, setPage] = useState(0);
     const [isActive, setIsActive] = useState([false, false, false, false, false, false, false, false, false, false])
 	const maxPages = pages;
@@ -51,6 +51,17 @@ const ShowManagmentTable = ({data, pages}) => {
 		}
 	}
 
+    const showButtons = ({index, item}) => {
+        return(
+            <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
+                <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
+                <div className='delete'> 
+                <DeleteButton item={item}></DeleteButton>
+                </div>
+            </td>
+        )
+    }
+
     return(
         <div className='table'>
             <table>
@@ -59,19 +70,14 @@ const ShowManagmentTable = ({data, pages}) => {
                         {Object.keys(data[0]).map((key) => (
                             <th className={key}>{key}</th>
                         ))}
-                        <th className='noBorder'></th>
+                        {buttons ? <th className='noBorder'></th> : ""}
                     </tr>
                     {data.slice(10 * page, 10 * page + 10).map((item, index) => (
                         <tr onMouseEnter={() => mouseEnter(index)} onMouseLeave={() => mouseLeave(index)}>
                         {Object.values(item).map((val) => (
                             <td>{val}</td>
                         ))}
-                        <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
-                            <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
-                            <div className='delete'> 
-                            <DeleteButton item={item}></DeleteButton>
-                            </div>
-                        </td>
+                        {buttons ? showButtons({index, item}) : ""}
                         </tr>
                         
                     ))}

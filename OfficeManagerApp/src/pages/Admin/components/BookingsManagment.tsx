@@ -58,7 +58,7 @@ const BookingsManagment = () => {
 					<div className='upTable'>
 						<h2> Gestor de reservas </h2>
 					</div>
-					<ShowManagmentTable data={bookings} pages={maxPages}/>
+					<ShowManagmentTable data={bookings} pages={maxPages} buttons={false}/>
 				</div>
 			);
 		}

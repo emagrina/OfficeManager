@@ -23,6 +23,8 @@
     border-collapse: collapse;
     border-radius: 20px;
     overflow: hidden;
+    margin-bottom: 8vh;
+
 }
 
 .modalDelete .content{
@@ -61,11 +63,11 @@
         outline: none;
     }
 
-    .close{
+    .blue{
         background-color: $color-primary;
     }
 
-    .confirm{
+    .red{
         background-color: $color-danger;
     }
 }
