@@ -22,6 +22,7 @@ const DeleteButton = (item: any) => {
         console.log("effect");
 		if(deleteStatus == 1){
             window.location.reload();
+            console.log("reload")
         }
 		
 	  });
@@ -51,6 +52,10 @@ const DeleteButton = (item: any) => {
                 setDeleteStatus(-1)
 			});
     }
+
+    const deleteUserPrueba = () => {
+        setDeleteStatus(1);
+    }
     
 
     return(
@@ -63,27 +68,28 @@ const DeleteButton = (item: any) => {
             nested
             >
             <div className="modalDelete">
-                <div className='moveContent'>
                 <div className='content'>
-                    <h3> Quieres eliminar este usuario? </h3>
-                    
-                    {deleteStatus == 0 ? infoUser() : deleteStatus == 1 ? "Se ha eliminado correctamente" : "error"}
-
+                    <div className='header'>
+                        <h3> Quieres eliminar este usuario? </h3>
+                    </div>
+                    <div className='info'>
+                        {deleteStatus == 0 ? infoUser() : 
+                         deleteStatus == 1 ? "Se ha eliminado correctamente" : 
+                         deleteStatus == -1 ? "error"}
+                    </div>
                     <div className="actions"> 
-                        <button onClick={deleteUser}>
-                                Eliminar
+                        <button className='confirm' onClick={deleteUser}>
+                                Eliminar Usuario
                         </button>
-                        <button
-                            className="button"
+                        <button className='close'
                             onClick={() => {
                             console.log('modal closed ');
                             closePopup();
                             }}
                         >
-                            close modal
+                            Cancelar
                         </button>
                     </div>
-                </div>
                 </div>
             </div>
         </Popup>

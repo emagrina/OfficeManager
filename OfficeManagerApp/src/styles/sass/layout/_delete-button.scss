@@ -8,33 +8,64 @@
     color: $color-danger;
 } 
 
+.popup-overlay{
+    margin-top: 8vh;
+    margin-left: 25%;
+    background-color: $color-secondary-transparent;
+}
 
-// .popup-content{
-//     height: 100%;
-//     width: 100%;
-// }
-
-// .modalDelete{
-//     margin-top: 8vh;
-//     width: 75%;
-//     height: 100%;
-//     float: right;
-//     padding-top: 25vh;
-
-//     background-color: rgba(54, 49, 49, 0.518);
-// }
-
-.modalDelete .moveContent{
-
+.modalDelete{
+    position: relative;
+    background-color: white;
+    border-style: solid;
+    border-width: 3px;
+    border-color: $color-secondary;
+    border-collapse: collapse;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .modalDelete .content{
-    // width: 60%;
-    // margin: auto;
-    background-color: white;
-    // padding: 1em 3em;
+    position: relative;
+    text-align: left;
+    border: none;
 
     h3{
         font-size: 1.5em;
+        text-align: center;
+        background-color: $color-secondary;
+        color: white;
+    }
+
+    .header{
+        width: 40vw;
+    }
+
+    .info{
+        margin: 1em 4em;
+    }
+}
+
+.modalDelete .actions{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1em;
+
+    button{
+        padding: 0.8em;
+        color: white;
+        border-radius: 10px;
+        border-width: 1px;
+        border-color: transparent ;
+        cursor: pointer;
+        outline: none;
+    }
+
+    .close{
+        background-color: $color-primary;
+    }
+
+    .confirm{
+        background-color: $color-danger;
     }
 }

@@ -19,7 +19,7 @@ const UserManagment = () => {
 	useEffect(() => {
 		//getUsersPrueba();
 		getUsers();
-		
+
 	  }, []);
 
 	const getUsersPrueba = () => {
@@ -44,7 +44,7 @@ const UserManagment = () => {
 		}
 
 		setMaxPages(Math.trunc(dbUsers.length / 10));
-		
+		setHasLoaded('loaded');
 
 		setUsers(dbUsers);
 	};
