@@ -38,9 +38,9 @@ namespace OfficeManagerAPI.Controllers
                     Description = x.Description,
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
-                    ChairId = x.Chair.Id,
-                    RoomId = x.Room.Id,
-                    UserId = x.User.Id
+                    ChairId = x.ChairId,
+                    RoomId = x.RoomId,
+                    UserId = x.UserId
                 });
                 return Ok(bookingsDT);
             }
@@ -52,9 +52,9 @@ namespace OfficeManagerAPI.Controllers
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
-                ChairId = x.Chair.Id,
-                RoomId = x.Room.Id,
-                UserId = x.User.Id
+                ChairId = x.ChairId,
+                RoomId = x.RoomId,
+                UserId = x.UserId
             }));
         }
 

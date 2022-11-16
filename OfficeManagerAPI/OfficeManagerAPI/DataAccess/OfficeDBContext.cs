@@ -61,7 +61,7 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Email).IsRequired();
 
-                entity.Property(x => x.Passw).IsRequired();
+                entity.Property(x => x.Passw).IsRequired().HasMaxLength(100);
             });
 
             modelBuilder.Entity<Booking>(entity =>
@@ -70,12 +70,29 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).IsRequired();
+                entity.Property(x => x.DateTime).IsRequired().HasColumnType("date");
 
-                entity.Property(x => x.StartTime);
+                entity.Property(x => x.StartTime).HasColumnType("time");
 
-                entity.Property(x => x.EndTime);
+                entity.Property(x => x.EndTime).HasColumnType("time");
+
+                entity.Property(x => x.Chair).IsRequired();
             });
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.User)
+                .HasForeignKey("UserId");
+
+            modelBuilder.Entity<Chair>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.Chair)
+                .HasForeignKey("ChairId");
+
+            modelBuilder.Entity<Room>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.Room)
+                .HasForeignKey("RoomId");
         }
     }
 }
