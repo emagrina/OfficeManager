@@ -12,8 +12,8 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    [Migration("20221104114108_nullable field in rooms")]
-    partial class nullablefieldinrooms
+    [Migration("20221116091436_fluentAp")]
+    partial class fluentAp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,23 +32,17 @@ namespace OfficeManagerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ChairId")
+                    b.Property<int>("ChairId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("RoomId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -72,6 +66,9 @@ namespace OfficeManagerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool>("Available")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -88,6 +85,9 @@ namespace OfficeManagerAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -124,7 +124,6 @@ namespace OfficeManagerAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DelatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -137,7 +136,9 @@ namespace OfficeManagerAPI.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -156,7 +157,6 @@ namespace OfficeManagerAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -167,19 +167,21 @@ namespace OfficeManagerAPI.Migrations
             modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Booking", b =>
                 {
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Chair", "Chair")
-                        .WithMany()
+                        .WithMany("Booking")
                         .HasForeignKey("ChairId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("OfficeManagerAPI.Models.DataModels.Room", "Room")
-                        .WithMany()
+                        .WithMany("Booking")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("OfficeManagerAPI.Models.DataModels.User", "User")
                         .WithMany("Booking")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Chair");
@@ -187,6 +189,16 @@ namespace OfficeManagerAPI.Migrations
                     b.Navigation("Room");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Chair", b =>
+                {
+                    b.Navigation("Booking");
+                });
+
+            modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Room", b =>
+                {
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.User", b =>

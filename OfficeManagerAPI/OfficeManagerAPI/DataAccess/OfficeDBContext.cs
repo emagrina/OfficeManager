@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.DBAccess
@@ -19,6 +20,7 @@ namespace OfficeManagerAPI.DBAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             // modelBuilder.Seed();
 
             /*foreach ( var foreignKey in modelBuilder.Model.GetEntityTypes()
@@ -72,27 +74,32 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.DateTime).IsRequired().HasColumnType("date");
 
-                entity.Property(x => x.StartTime).HasColumnType("time");
+                entity.Property(x => x.StartTime).HasColumnType("time").IsRequired(false);
 
-                entity.Property(x => x.EndTime).HasColumnType("time");
+                entity.Property(x => x.EndTime).HasColumnType("time").IsRequired(false);
 
-                entity.Property(x => x.Chair).IsRequired();
+                entity.Property(x => x.ChairId).IsRequired(false);
+
+                entity.Property(x => x.RoomId).IsRequired(false);
             });
-
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.Booking)
-                .WithOne(x => x.User)
-                .HasForeignKey("UserId");
 
             modelBuilder.Entity<Chair>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Chair)
-                .HasForeignKey("ChairId");
+                .HasForeignKey("ChairId")
+                .IsRequired();
 
             modelBuilder.Entity<Room>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Room)
-                .HasForeignKey("RoomId");
+                .HasForeignKey("RoomId")
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.User)
+                .HasForeignKey("UserId")
+                .IsRequired();
         }
     }
 }
