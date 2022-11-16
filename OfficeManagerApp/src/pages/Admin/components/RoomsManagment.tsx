@@ -58,7 +58,7 @@ const RoomsManagment = () => {
 					<div className='upTable'>
 						<h2> Gestor de salas </h2>
 					</div>
-					<ShowManagmentTable data={rooms} pages={maxPages}/>
+					<ShowManagmentTable data={rooms} pages={maxPages} buttons={false}/>
 				</div>
 			);
 		}
