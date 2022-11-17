@@ -1,9 +1,9 @@
 @import "../abstracts/variables";
 
 
-.deleteButton button{
+.editButton button{
     border: none;
     background: none;
     cursor: pointer;
-    color: $color-danger;
+    color: $color-primary;
 } 

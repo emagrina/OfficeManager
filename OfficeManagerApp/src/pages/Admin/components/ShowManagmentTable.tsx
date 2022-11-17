@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
 import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
 
 
@@ -54,7 +55,9 @@ const ShowManagmentTable = ({data, pages, buttons}) => {
     const showButtons = ({index, item}) => {
         return(
             <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
-                <div className='edit'> <FontAwesomeIcon icon={faPen} /> </div> 
+                <div className='edit'> 
+                <EditButton item={item}></EditButton>
+                </div> 
                 <div className='delete'> 
                 <DeleteButton item={item}></DeleteButton>
                 </div>
