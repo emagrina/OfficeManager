@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 const DeleteButton = (item: any) => {
-    var user: Object = {};
+    var user: any = {};
     Object.keys(item).map((k) => {
         user = item[k];
     }) 
@@ -21,7 +21,6 @@ const DeleteButton = (item: any) => {
     useEffect(() => {
 		if(deleteStatus == 1){
             window.location.reload();
-            console.log("reload")
         }
 		
 	  });
