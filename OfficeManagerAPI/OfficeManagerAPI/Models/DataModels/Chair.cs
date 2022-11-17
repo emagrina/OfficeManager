@@ -5,9 +5,10 @@ namespace OfficeManagerAPI.Models.DataModels
 {
     public class Chair
     {
-        [ForeignKey("Booking")]
         public int Id { get; set; }
         public string Position { get; set; }
         public bool Available { get; set; }
+
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

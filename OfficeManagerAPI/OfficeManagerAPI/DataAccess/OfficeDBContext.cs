@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.DBAccess
@@ -19,6 +20,7 @@ namespace OfficeManagerAPI.DBAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             // modelBuilder.Seed();
 
             /*foreach ( var foreignKey in modelBuilder.Model.GetEntityTypes()
@@ -61,7 +63,7 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Email).IsRequired();
 
-                entity.Property(x => x.Passw).IsRequired();
+                entity.Property(x => x.Passw).IsRequired().HasMaxLength(100);
             });
 
             modelBuilder.Entity<Booking>(entity =>
@@ -70,12 +72,34 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).IsRequired();
+                entity.Property(x => x.DateTime).IsRequired().HasColumnType("date");
 
-                entity.Property(x => x.StartTime);
+                entity.Property(x => x.StartTime).HasColumnType("time").IsRequired(false);
 
-                entity.Property(x => x.EndTime);
+                entity.Property(x => x.EndTime).HasColumnType("time").IsRequired(false);
+
+                entity.Property(x => x.ChairId).IsRequired(false);
+
+                entity.Property(x => x.RoomId).IsRequired(false);
             });
+
+            modelBuilder.Entity<Chair>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.Chair)
+                .HasForeignKey("ChairId")
+                .IsRequired();
+
+            modelBuilder.Entity<Room>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.Room)
+                .HasForeignKey("RoomId")
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.User)
+                .HasForeignKey("UserId")
+                .IsRequired();
         }
     }
 }
