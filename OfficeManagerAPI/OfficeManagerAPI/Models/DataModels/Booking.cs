@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
     public class Booking
     {
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateOnly DateTime { get; set; }
         public string? Description { get; set; } = string.Empty;
-        public Nullable<DateTime> StartTime { get; set; }
-        public Nullable<DateTime> EndTime { get; set; }
+        public TimeOnly? StartTime { get; set; }
+        public TimeOnly? EndTime { get; set; }
 
 
         public virtual Chair Chair { get; set; }
