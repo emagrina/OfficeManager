@@ -1,0 +1,12 @@
+@import "../abstracts/variables";
+
+.exportButton button{
+	padding: 0.8em;
+	color: white;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: $color-secondary-light;
+	border-color: transparent ;
+	cursor: pointer;
+	outline: none;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddUserButton from './AddUserButton';
 import ShowManagmentTable from './ShowManagmentTable';
+import ExportButton from './ExportButton';
 
 const UserManagment = () => {
 	const url = "https://localhost:7016/api/Users";
@@ -15,8 +16,8 @@ const UserManagment = () => {
 	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
-		//getUsersPrueba();
-		getUsers();
+		getUsersPrueba();
+		//getUsers();
 
 	  }, []);
 
@@ -90,6 +91,7 @@ const UserManagment = () => {
 						<AddUserButton></AddUserButton>
 					</div>
 					<ShowManagmentTable data={users} pages={maxPages} buttons={true}/>
+					<ExportButton users={users}/>
 				</div>
 			);
 		}

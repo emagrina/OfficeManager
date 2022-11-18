@@ -103,12 +103,43 @@
     }
 
     .header{
-        width: 45vw;
+        width: 100%;
     }
-    .info{
-        margin: 2vh 6vw;
-        width: 33vw;
+}
+
+.modalDelete .info{
+    margin: 2vh 6vw;
+    display: flex;
+    flex-direction: column;
+
+    input{
+        font-family: 'Poppins', serif;
     }
+
+    p{
+        margin-bottom: 0.5em;
+    }
+
+    p label{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .formInfo{
+        margin-right: 1em;
+    }
+    
+    div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .invalidEmail {
+        color: $color-danger;
+        font-size: small;
+    }        
 }
 
 .modalDelete .actions{

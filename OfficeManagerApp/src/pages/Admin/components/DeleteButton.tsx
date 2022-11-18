@@ -67,7 +67,7 @@ const DeleteButton = (item: any) => {
             <div className="modalDelete">
                 <div className='content'>
                     <div className='header'>
-                        <h3> Quieres eliminar este usuario? </h3>
+                        <h3> Eliminar Usuario: </h3>
                     </div>
                     <div className='info'>
                         {deleteStatus == 0 ? infoUser() : deleteStatus == 1 ? "Se ha eliminado correctamente" : deleteStatus == -1 ? "error" : ""}

@@ -12,6 +12,7 @@ const AddUserButton = () => {
     const closePopup = () => setOpen(false);
 
     const [addStatus, setAddStatus] = useState(0)
+    const [validEmail, setValidEmail] = useState(true);
 
     const [value, setValue] = useState({
         firstName: "",
@@ -61,30 +62,39 @@ const AddUserButton = () => {
 			});
     }
 
+    const validateUser = () => {
+        if(/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/i.test(value.email)){
+            addUser();
+        }else{
+            setValidEmail(false);
+        }
+    }
+
     const showForm = () => {
         return(
             <>
             <p><label> 
-            Nombre:
-            <input type="text" name="firstName" value={value.firstName} onChange={event => {handleEvent(event) }}/> 
+                <span className='formInfo'> Nombre: </span>
+                <input type="text" name="firstName" value={value.firstName} onChange={event => {handleEvent(event) }}/> 
             </label> </p>
             <p><label> 
-                Apellido:
+                <span className='formInfo'>Apellido:</span>
                 <input type="text" name="lastName" value={value.lastName} onChange={event => {handleEvent(event) }}/> 
             </label></p>
             <p><label> 
-                Email:
+                <span className='formInfo'>Email:</span>
                 <input type="text" name="email" value={value.email} onChange={event => {handleEvent(event) }}/> 
             </label></p>
             <p><label> 
-                Contraseña:
+                <span className='formInfo'>Contraseña:</span>
                 <input type="text" name="passw" value={value.passw} onChange={event => {handleEvent(event) }}/> 
             </label></p>
-            Es admin?
+                <span className='formInfo'>Es admin?</span>
             <div onChange={event => {handleEventAdmin(event) }}>
-                <input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si
-                <input type="radio" value="false" name="isAdmin" checked={!value.isAdmin} /> No
+                <label> <input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si </label>
+                <label> <input type="radio" value="false" name="isAdmin" checked={!value.isAdmin} /> No </label>
             </div> 
+            {validEmail ? "" : <span className='invalidEmail'> Por favor, pon un email válido </span>}
             </>
         )
     }
@@ -110,7 +120,7 @@ const AddUserButton = () => {
                         
                     </div>
                     <div className="actions"> 
-                        <button className='blue' onClick={addUser}>
+                        <button className='blue' onClick={validateUser}>
                             Añadir Usuario
                         </button>
                         <button className='red' onClick={() => { setOpen(false); }}>
