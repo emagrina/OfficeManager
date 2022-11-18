@@ -20,6 +20,7 @@
     "crypto": "npm:crypto-browserify",
     "crypto-browserify": "^3.12.0",
     "eva-icons": "^1.1.3",
+    "file-saver": "^2.0.5",
     "i18next": "^22.0.2",
     "md5": "^2.3.0",
     "react": "^18.2.0",
@@ -34,9 +35,11 @@
     "rxjs": "^7.5.7",
     "stream": "npm:stream-browserify",
     "stream-browserify": "^3.0.0",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/react": "^18.0.17",
     "@types/react-calendar": "^3.5.3",
     "@types/react-dom": "^18.0.6",

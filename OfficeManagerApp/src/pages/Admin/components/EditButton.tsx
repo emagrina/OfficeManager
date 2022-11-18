@@ -11,7 +11,8 @@ const EditButton = (item: any) => {
     Object.keys(item).map((k) => {
         user = item[k];
     }) 
-    //const url = `https://localhost:7016/api/Users/${user['ID']}`;
+    
+    const url = `https://localhost:7016/api/Users/${user['ID']}`;
     
     const [editStatus, setEditStatus] = useState(2)
 
@@ -31,15 +32,33 @@ const EditButton = (item: any) => {
             setEditStatus(0);
         }
 
-		// if(editStatus == 1){
-        //     window.location.reload();
-        //     console.log("reload")
-        // }
+		if(editStatus == 1){
+            window.location.reload();
+            console.log("reload")
+        }
 		
 	  });
 
     const editUser = async () =>{
-        
+        await axios
+			.put(url, {
+                "firstName": value.firstName,
+                "lastName": value.lastName,
+                "isAdmin": value.isAdmin,
+                "email": value.email
+            }, {
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				},
+			})
+			.then(response => {		
+                console.log(response.data)
+                setEditStatus(1);
+			})
+			.catch(error => {
+				console.log(error);
+                setEditStatus(-1);
+			});
     }
 
     const startValue = () => {
@@ -66,21 +85,21 @@ const EditButton = (item: any) => {
         return(
             <>
             <p><label> 
-            Nombre:
+            <span className='formInfo'>Nombre:</span>
             <input type="text" name="firstName" value={value.firstName} onChange={event => {handleEvent(event) }}/> 
             </label> </p>
             <p><label> 
-                Apellido:
+                <span className='formInfo'>Apellido:</span>
                 <input type="text" name="lastName" value={value.lastName} onChange={event => {handleEvent(event) }}/> 
             </label></p>
             <p><label> 
-                Email:
+            <span className='formInfo'>Email:</span>
                 <input type="text" name="email" value={value.email} onChange={event => {handleEvent(event) }}/> 
             </label></p>
-            Es admin?
+            <span className='formInfo'>Es admin?</span>
             <div onChange={event => {handleEventAdmin(event) }}>
-                <input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si
-                <input type="radio" value="false" name="isAdmin" checked={!value.isAdmin} /> No
+                <label><input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si</label>
+                <label><input type="radio" value="false" name="isAdmin" checked={!value.isAdmin} /> No</label>
             </div> 
             </>
         )
