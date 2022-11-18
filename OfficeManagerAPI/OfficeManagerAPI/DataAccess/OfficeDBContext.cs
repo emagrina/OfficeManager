@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.DBAccess
@@ -33,6 +34,8 @@ namespace OfficeManagerAPI.DBAccess
             {
                 entity.HasKey(x => x.Id);
 
+                entity.Property(x => x.Id).ValueGeneratedOnAdd();
+
                 entity.Property(x => x.Position).IsRequired();
 
                 entity.Property(x => x.Available).IsRequired();
@@ -41,6 +44,8 @@ namespace OfficeManagerAPI.DBAccess
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.HasKey(x => x.Id);
+
+                entity.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
                 entity.Property(entity => entity.Size).IsRequired();
 
@@ -72,28 +77,24 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).IsRequired().HasColumnType("date");
+                entity.Property(x => x.DateTime).HasColumnType("date").IsRequired();
 
                 entity.Property(x => x.StartTime).HasColumnType("time").IsRequired(false);
 
                 entity.Property(x => x.EndTime).HasColumnType("time").IsRequired(false);
-
-                entity.Property(x => x.ChairId).IsRequired(false);
-
-                entity.Property(x => x.RoomId).IsRequired(false);
             });
 
             modelBuilder.Entity<Chair>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Chair)
                 .HasForeignKey("ChairId")
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<Room>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Room)
                 .HasForeignKey("RoomId")
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Booking)
