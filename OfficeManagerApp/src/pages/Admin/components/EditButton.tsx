@@ -1,33 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 
-const AddUserButton = () => {
-    const url = `https://localhost:7016/api/Users`;
 
-    const [open, setOpen] = useState(false);
-    const closePopup = () => setOpen(false);
 
-    const [addStatus, setAddStatus] = useState(0)
+const EditButton = (item: any) => {
+    var user: any = {};
+    Object.keys(item).map((k) => {
+        user = item[k];
+    }) 
+    //const url = `https://localhost:7016/api/Users/${user['ID']}`;
+    
+    const [editStatus, setEditStatus] = useState(2)
 
     const [value, setValue] = useState({
         firstName: "",
         lastName: "",
         isAdmin: false,
         email: "",
-        passw: ""
-    })
+    });
+
+    const [open, setOpen] = useState(false);
+    const closePopup = () => setOpen(false);
 
     useEffect(() => {
-		if(addStatus == 1){
-            window.location.reload();
-            console.log("reload")
+        if(editStatus == 2){
+            startValue();
+            setEditStatus(0);
         }
+
+		// if(editStatus == 1){
+        //     window.location.reload();
+        //     console.log("reload")
+        // }
 		
-	  })
+	  });
+
+    const editUser = async () =>{
+        
+    }
+
+    const startValue = () => {
+        let name = user.Name.split(" ");
+        let newValue = {
+            firstName: name[0],
+            lastName: name[1],
+            isAdmin: user.Admin == "Si" ? true : false,
+            email: user.Email,
+        }
+        setValue(newValue);
+    }
 
     const handleEvent = (event: any) => {
         setValue({...value, [event.target.name]: event.target.value})
@@ -36,29 +60,6 @@ const AddUserButton = () => {
     const handleEventAdmin = (event: any) => {
         let admin = event.target.value == "true" ? true : false;
         setValue({...value, [event.target.name]: admin})
-    }
-
-    const addUser = async () =>{
-        await axios
-			.post(url, {
-                "firstName": value.firstName,
-                "lastName": value.lastName,
-                "isAdmin": value.isAdmin,
-                "email": value.email,
-                "passw": value.passw 
-            }, {
-				headers: {
-					'Access-Control-Allow-Origin': '*'
-				},
-			})
-			.then(response => {		
-                console.log(response.data)
-                setAddStatus(1);
-			})
-			.catch(error => {
-				console.log(error);
-                setAddStatus(-1);
-			});
     }
 
     const showForm = () => {
@@ -76,10 +77,6 @@ const AddUserButton = () => {
                 Email:
                 <input type="text" name="email" value={value.email} onChange={event => {handleEvent(event) }}/> 
             </label></p>
-            <p><label> 
-                Contraseña:
-                <input type="text" name="passw" value={value.passw} onChange={event => {handleEvent(event) }}/> 
-            </label></p>
             Es admin?
             <div onChange={event => {handleEventAdmin(event) }}>
                 <input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si
@@ -89,11 +86,10 @@ const AddUserButton = () => {
         )
     }
 
-
-	return (
-        <>
-        <button className='addUserButton' onClick={() => { setOpen(true); }}> Añadir Usuario <FontAwesomeIcon icon={faUserPlus} ></FontAwesomeIcon> </button>
-        <Popup 
+    return(
+        <div className='editButton'>
+            <button><FontAwesomeIcon icon={faPen} onClick={() => setOpen(true) }/></button>
+            <Popup 
             open = {open}
             onClose={closePopup}
             modal
@@ -102,16 +98,14 @@ const AddUserButton = () => {
             <div className="modalDelete">
                 <div className='content'>
                     <div className='header'>
-                        <h3> Añadir Usuario </h3>
+                        <h3> Editar usuario </h3>
                     </div>
                     <div className='info'>
-                        {addStatus == 0 ? showForm() : addStatus == 1 ? "Se ha añadido correctamente" : addStatus == -1 ? "error" : ""}
-                        
-                        
+                        {editStatus == 2 ? "Cargando..." : editStatus == 0 ? showForm() : editStatus == 1 ? "Se ha añadido correctamente" : editStatus == -1 ? "error" : ""}
                     </div>
                     <div className="actions"> 
-                        <button className='blue' onClick={addUser}>
-                            Añadir Usuario
+                        <button className='blue' onClick={editUser}>
+                                Enviar
                         </button>
                         <button className='red' onClick={() => { setOpen(false); }}>
                             Cancelar
@@ -119,9 +113,10 @@ const AddUserButton = () => {
                     </div>
                 </div>
             </div>
-        </Popup>
-        </>
+            </Popup>
+        </div>
     );
-};
-    
-export default AddUserButton;
+
+}
+
+export default EditButton;

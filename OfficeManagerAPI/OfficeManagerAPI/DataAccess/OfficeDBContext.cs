@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.DBAccess
@@ -19,6 +21,7 @@ namespace OfficeManagerAPI.DBAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             // modelBuilder.Seed();
 
             /*foreach ( var foreignKey in modelBuilder.Model.GetEntityTypes()
@@ -31,6 +34,8 @@ namespace OfficeManagerAPI.DBAccess
             {
                 entity.HasKey(x => x.Id);
 
+                entity.Property(x => x.Id).ValueGeneratedOnAdd();
+
                 entity.Property(x => x.Position).IsRequired();
 
                 entity.Property(x => x.Available).IsRequired();
@@ -39,6 +44,8 @@ namespace OfficeManagerAPI.DBAccess
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.HasKey(x => x.Id);
+
+                entity.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
                 entity.Property(entity => entity.Size).IsRequired();
 
@@ -70,29 +77,30 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).IsRequired().HasColumnType("date");
+                entity.Property(x => x.DateTime).HasColumnType("date").IsRequired();
 
-                entity.Property(x => x.StartTime).HasColumnType("time");
+                entity.Property(x => x.StartTime).HasColumnType("time").IsRequired(false);
 
-                entity.Property(x => x.EndTime).HasColumnType("time");
-
-                entity.Property(x => x.Chair).IsRequired();
+                entity.Property(x => x.EndTime).HasColumnType("time").IsRequired(false);
             });
-
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.Booking)
-                .WithOne(x => x.User)
-                .HasForeignKey("UserId");
 
             modelBuilder.Entity<Chair>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Chair)
-                .HasForeignKey("ChairId");
+                .HasForeignKey("ChairId")
+                .IsRequired(false);
 
             modelBuilder.Entity<Room>()
                 .HasMany(x => x.Booking)
                 .WithOne(x => x.Room)
-                .HasForeignKey("RoomId");
+                .HasForeignKey("RoomId")
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Booking)
+                .WithOne(x => x.User)
+                .HasForeignKey("UserId")
+                .IsRequired();
         }
     }
 }
