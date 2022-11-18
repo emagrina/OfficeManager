@@ -26,7 +26,7 @@ namespace OfficeManagerAPI.Controllers
         // GET: api/Bookings
         // GET: api/Bookings?dateTime=
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings([FromQuery] DateOnly? dateTime)
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings([FromQuery] DateTime? dateTime)
         {
             if (dateTime.HasValue)
             {
@@ -140,7 +140,7 @@ namespace OfficeManagerAPI.Controllers
         {
             var bookings = await _context.Bookings.ToListAsync();
 
-            if (booking.DateTime > DateOnly.FromDateTime(DateTime.Now))
+            if (booking.DateTime.Date >= DateTime.Now.Date)
             {
                 var bookingsToday = (from x in bookings
                                   where x.DateTime == booking.DateTime
@@ -217,11 +217,9 @@ namespace OfficeManagerAPI.Controllers
         {
             bool correctDateTime = false;
 
-            if (booking.DateTime != null && booking.DateTime > DateOnly.FromDateTime(DateTime.Now))
+            if (booking.DateTime != null && booking.DateTime.Date > DateTime.Now.Date)
             {
                 if (booking.ChairId != null && booking.RoomId != null &&
-                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
-                    booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
                     booking.StartTime < booking.EndTime)
                 {
                     correctDateTime = true;
@@ -232,8 +230,6 @@ namespace OfficeManagerAPI.Controllers
                 }
                 else if (booking.RoomId != null &&
                         booking.StartTime != null && booking.EndTime != null &&
-                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.StartTime.ToString().Substring(0, 10)) &&
-                        booking.DateTime.ToString().Substring(0, 10).Equals(booking.EndTime.ToString().Substring(0, 10)) &&
                         booking.StartTime < booking.EndTime)
                 {
                     correctDateTime = true;

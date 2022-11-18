@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.Models.DataModels;
 
 namespace OfficeManagerAPI.DBAccess
@@ -29,6 +28,8 @@ namespace OfficeManagerAPI.DBAccess
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }*/
+
+
 
             modelBuilder.Entity<Chair>(entity =>
             {
@@ -77,11 +78,11 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).HasColumnType("date").IsRequired();
+                entity.Property(x => x.DateTime).HasConversion<DateTime>().HasColumnType("datetime").IsRequired();
 
-                entity.Property(x => x.StartTime).HasColumnType("time").IsRequired(false);
+                entity.Property(x => x.StartTime).HasColumnType("time(7)").IsRequired(false);
 
-                entity.Property(x => x.EndTime).HasColumnType("time").IsRequired(false);
+                entity.Property(x => x.EndTime).HasColumnType("time(7)").IsRequired(false);
             });
 
             modelBuilder.Entity<Chair>()
