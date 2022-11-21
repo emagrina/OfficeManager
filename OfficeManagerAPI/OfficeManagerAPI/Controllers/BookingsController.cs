@@ -33,7 +33,7 @@ namespace OfficeManagerAPI.Controllers
                 var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
                 {
                     Id = x.Id,
-                    DateTime = x.DateTime,
+                    Date = DateOnly.FromDateTime(x.DateTime.Date),
                     Description = x.Description,
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
@@ -47,7 +47,7 @@ namespace OfficeManagerAPI.Controllers
             return Ok(_context.Bookings.Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
             {
                 Id = x.Id,
-                DateTime = x.DateTime,
+                Date = DateOnly.FromDateTime(x.DateTime.Date),
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
@@ -64,7 +64,7 @@ namespace OfficeManagerAPI.Controllers
             var booking = _context.Bookings.Where(x => x.Id == id).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
             {
                 Id = x.Id,
-                DateTime = x.DateTime,
+                Date = DateOnly.FromDateTime(x.DateTime.Date),
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
@@ -92,8 +92,8 @@ namespace OfficeManagerAPI.Controllers
             }
 
             var bookingsToday = (from x in _context.Bookings
-                              where x.DateTime == bookingPostDTO.DateTime
-                              select x).ToList();
+                                 where x.DateTime == bookingPostDTO.Date.ToDateTime(TimeOnly.MinValue)
+                                 select x).ToList();
 
             var chairs = await _context.Chairs.ToListAsync();
 
@@ -103,7 +103,7 @@ namespace OfficeManagerAPI.Controllers
             {
                 _context.Entry(new Booking()
                 {
-                    DateTime = bookingPostDTO.DateTime,
+                    DateTime =  bookingPostDTO.Date.ToDateTime(TimeOnly.MinValue),
                     Description = bookingPostDTO.Description,
                     StartTime = bookingPostDTO.StartTime,
                     EndTime = bookingPostDTO.EndTime,
@@ -136,35 +136,35 @@ namespace OfficeManagerAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ActionName(nameof(PostBooking))]
-        public async Task<ActionResult<Booking>> PostBooking(BookingPostDTO booking)
+        public async Task<ActionResult<Booking>> PostBooking(BookingPostDTO bookingPostDTO)
         {
             var bookings = await _context.Bookings.ToListAsync();
 
-            if (booking.DateTime.Date >= DateTime.Now.Date)
+            if (bookingPostDTO.Date >= DateOnly.FromDateTime(DateTime.Now))
             {
                 var bookingsToday = (from x in bookings
-                                  where x.DateTime == booking.DateTime
-                                  select x).ToList();
+                                     where x.DateTime.Date == bookingPostDTO.Date.ToDateTime(TimeOnly.MinValue)
+                                     select x).ToList();
 
                 var chairs = await _context.Chairs.ToListAsync();
 
                 var rooms = await _context.Rooms.ToListAsync();
 
                 // Comprovem que els paràmetres de la reserva sigui correcta
-                if (CheckParameters(booking, chairs, rooms, bookingsToday))
+                if (CheckParameters(bookingPostDTO, chairs, rooms, bookingsToday))
                 {
                     var users = await _context.Users.ToListAsync();
                     
                     // Afegim la reserva a la base de dades
                     _context.Bookings.Add(new Booking()
                     {
-                        DateTime = booking.DateTime,
-                        Description = booking.Description,
-                        StartTime = booking.StartTime.Value,
-                        EndTime = booking.EndTime.Value,
-                        ChairId = chairs.FirstOrDefault(x => x.Id == booking.ChairId).Id,
-                        Room = rooms.FirstOrDefault(x => x.Id == booking.RoomId),
-                        User = users.FirstOrDefault(x => x.Id == booking.UserId)
+                        DateTime = bookingPostDTO.Date.ToDateTime(TimeOnly.MinValue),
+                        Description = bookingPostDTO.Description,
+                        StartTime = bookingPostDTO.StartTime.Value,
+                        EndTime = bookingPostDTO.EndTime.Value,
+                        ChairId = chairs.FirstOrDefault(x => x.Id == bookingPostDTO.ChairId).Id,
+                        Room = rooms.FirstOrDefault(x => x.Id == bookingPostDTO.RoomId),
+                        User = users.FirstOrDefault(x => x.Id == bookingPostDTO.UserId)
                     });
 
                     await _context.SaveChangesAsync();
@@ -213,24 +213,24 @@ namespace OfficeManagerAPI.Controllers
             return isCorrect;
         }
 
-        private static bool CheckBookingDateTimes(BookingPostDTO booking, List<Booking> bookingsToday)
+        private static bool CheckBookingDateTimes(BookingPostDTO bookingPostDTO, List<Booking> bookingsToday)
         {
             bool correctDateTime = false;
 
-            if (booking.DateTime != null && booking.DateTime.Date > DateTime.Now.Date)
+            if (bookingPostDTO.Date != null && bookingPostDTO.Date >= DateOnly.FromDateTime(DateTime.Now))
             {
-                if (booking.ChairId != null && booking.RoomId != null &&
-                    booking.StartTime < booking.EndTime)
+                if (bookingPostDTO.ChairId != null && bookingPostDTO.RoomId != null &&
+                    bookingPostDTO.StartTime < bookingPostDTO.EndTime)
                 {
                     correctDateTime = true;
                 }
-                else if (booking.ChairId != null)
+                else if (bookingPostDTO.ChairId != null)
                 {
                     correctDateTime = true;
                 }
-                else if (booking.RoomId != null &&
-                        booking.StartTime != null && booking.EndTime != null &&
-                        booking.StartTime < booking.EndTime)
+                else if (bookingPostDTO.RoomId != null &&
+                        bookingPostDTO.StartTime != null && bookingPostDTO.EndTime != null &&
+                        bookingPostDTO.StartTime < bookingPostDTO.EndTime)
                 {
                     correctDateTime = true;
                 }

@@ -2,10 +2,10 @@
 {
     public class BookingPostDTO
     {
-        public DateTime DateTime { get; set; }
+        public DateOnly Date { get; set; }
         public string? Description { get; set; } = string.Empty;
-        public TimeSpan? StartTime { get; set; }
-        public TimeSpan? EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public int? ChairId { get; set; }
         public int? RoomId { get; set; }
         public int UserId { get; set; }
