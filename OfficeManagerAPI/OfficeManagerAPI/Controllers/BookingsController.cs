@@ -33,16 +33,16 @@ namespace OfficeManagerAPI.Controllers
                 var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime)
                     .Include("Chair").Include("Room").Include("User")
                     .Select(x => new BookingDTO()
-                {
-                    Id = x.Id,
-                    Date = x.DateTime.Date.ToString(),
-                    Description = x.Description,
-                    StartTime = x.StartTime,
-                    EndTime = x.EndTime,
-                    ChairId = x.ChairId,
-                    RoomId = x.RoomId,
-                    UserId = x.UserId
-                });
+                    {
+                        Id = x.Id,
+                        Date = x.DateTime.Date.ToString(),
+                        Description = x.Description,
+                        StartTime = x.StartTime,
+                        EndTime = x.EndTime,
+                        ChairId = x.ChairId,
+                        RoomId = x.RoomId,
+                        UserId = x.UserId
+                    });
                 return Ok(bookingsDT);
             }
 
@@ -101,7 +101,7 @@ namespace OfficeManagerAPI.Controllers
 
             var rooms = await _context.Rooms.ToListAsync();
 
-            if (CheckParameters(bookingPostDTO, chairs, rooms, bookingsToday))
+            if (CheckParametersPut(bookingPostDTO, chairs, rooms, bookingsToday))
             {
                 _context.Entry(new Booking()
                 {
@@ -152,10 +152,10 @@ namespace OfficeManagerAPI.Controllers
                 var rooms = await _context.Rooms.ToListAsync();
 
                 // Comprovem que els paràmetres de la reserva sigui correcta
-                if (CheckParameters(bookingPostDTO, chairs, rooms, bookingsToday))
+                if (CheckParametersPost(bookingPostDTO, chairs, rooms, bookingsToday))
                 {
                     var users = await _context.Users.ToListAsync();
-                    
+
                     // Afegim la reserva a la base de dades
                     _context.Bookings.Add(new Booking()
                     {
@@ -173,13 +173,13 @@ namespace OfficeManagerAPI.Controllers
                 }
 
             }
-            
+
             return BadRequest();
 
             // return CreatedAtAction("GetBooking", booking);
         }
 
-        private static bool CheckParameters(BookingPostDTO bookingPostDTO, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsToday)
+        private static bool CheckParametersPost(BookingPostDTO bookingPostDTO, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsToday)
         {
             bool isCorrect = false;
             bool chairIsSet = bookingPostDTO.ChairId != null;
@@ -188,10 +188,49 @@ namespace OfficeManagerAPI.Controllers
             bool dateTimesCorrect = CheckBookingDateTimes(bookingPostDTO, bookingsToday);
 
             // Variables per proves dels condicionals
-            // var a = bookingsToday.Any(x => x.ChairId == bookingPostDTO.ChairId);
-            // var b = bookingsToday.Any(x => x.RoomId == bookingPostDTO.RoomId);
-            // var c = chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true);
-            // var d = rooms.Any(x => x.Id == bookingPostDTO.RoomId && x.Available == true);
+            var a = bookingsToday.Any(x => x.ChairId == bookingPostDTO.ChairId);
+            var b = bookingsToday.Any(x => x.RoomId == bookingPostDTO.RoomId);
+            var c = chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true);
+            var d = rooms.Any(x => x.Id == bookingPostDTO.RoomId && x.Available == true);
+
+            if (chairIsSet && roomIsSet && dateTimesCorrect && startEndIsSet &&
+                chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true) &&
+                rooms.Any(x => x.Id == bookingPostDTO.RoomId && x.Available == true) &&
+                !bookingsToday.Any(x => x.ChairId == bookingPostDTO.ChairId) &&
+                !bookingsToday.Any(x => x.RoomId == bookingPostDTO.RoomId))
+            {
+                isCorrect = true;
+            }
+            else if (chairIsSet && dateTimesCorrect &&
+                    chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true) &&
+                    !bookingsToday.Any(x => x.ChairId == bookingPostDTO.ChairId) &&
+                    bookingPostDTO.StartTime == null && bookingPostDTO.EndTime == null)
+            {
+                isCorrect = true;
+            }
+            else if (roomIsSet && dateTimesCorrect &&
+                    rooms.Any(x => x.Id == bookingPostDTO.RoomId && x.Available == true) &&
+                    !bookingsToday.Any(x => x.Room.Id == bookingPostDTO.RoomId) &&
+                    bookingPostDTO.StartTime != null && bookingPostDTO.EndTime != null)
+            {
+                isCorrect = true;
+            }
+
+            return isCorrect;
+        }
+        private static bool CheckParametersPut(BookingPostDTO bookingPostDTO, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsToday)
+        {
+            bool isCorrect = false;
+            bool chairIsSet = bookingPostDTO.ChairId != null;
+            bool roomIsSet = bookingPostDTO.RoomId != null;
+            bool startEndIsSet = bookingPostDTO.StartTime != null && bookingPostDTO.EndTime != null;
+            bool dateTimesCorrect = CheckBookingDateTimes(bookingPostDTO, bookingsToday);
+
+            // Variables per proves dels condicionals
+            var a = bookingsToday.Any(x => x.ChairId == bookingPostDTO.ChairId);
+            var b = bookingsToday.Any(x => x.RoomId == bookingPostDTO.RoomId);
+            var c = chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true);
+            var d = rooms.Any(x => x.Id == bookingPostDTO.RoomId && x.Available == true);
 
             if (chairIsSet && roomIsSet && dateTimesCorrect && startEndIsSet &&
                 chairs.Any(x => x.Id == bookingPostDTO.ChairId && x.Available == true) &&
@@ -222,11 +261,11 @@ namespace OfficeManagerAPI.Controllers
         private static bool CheckBookingDateTimes(BookingPostDTO bookingPostDTO, List<Booking> bookingsToday)
         {
             bool validDateTime = false;
-            
+
             if (bookingPostDTO.ChairId != null && bookingPostDTO.RoomId != null &&
                 DateTime.Parse(bookingPostDTO.Date).Date >= DateTime.Now.Date &&
                 bookingPostDTO.StartTime.ToString().Substring(0, 10)
-                    .Equals(bookingPostDTO.EndTime.ToString().Substring(0, 10)) && 
+                    .Equals(bookingPostDTO.EndTime.ToString().Substring(0, 10)) &&
                 bookingPostDTO.StartTime < bookingPostDTO.EndTime
                 && TimeZoneAvailable(bookingPostDTO, bookingsToday))
             {
