@@ -6,7 +6,7 @@ namespace OfficeManagerAPI.Data
     public class BookingDTO
     {
         public int Id { get; set; }
-        public DateOnly DateTime { get; set; }
+        public string Date { get; set; }
         public string? Description { get; set; } = string.Empty;
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
