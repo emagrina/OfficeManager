@@ -53,7 +53,15 @@ namespace OfficeManagerAPI.Controllers
                 return NotFound();
             }
 
-            _context.Entry(_context.Users.FindAsync(id)).State = EntityState.Modified;
+            _context.Entry(new User()
+            {
+                Id = id,
+                FirstName = userPostDTO.FirstName,
+                LastName = userPostDTO.LastName,
+                IsAdmin = userPostDTO.IsAdmin,
+                Email = userPostDTO.Email,
+                Passw = userPostDTO.Passw
+            }).State = EntityState.Modified;
 
             try
             {
