@@ -19,7 +19,7 @@ const ExportButton = (users: any) => {
     
     return(
         <div className='exportButton'>
-        <button  onClick={() => exportToCSV() }> Exportat usuarios <FontAwesomeIcon icon={faFileExport}/> </button>
+        <button  onClick={() => exportToCSV() }> Exportar usuarios <FontAwesomeIcon icon={faFileExport}/> </button>
         </div>
     )
 };
