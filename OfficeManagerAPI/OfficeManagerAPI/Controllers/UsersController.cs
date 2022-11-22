@@ -46,11 +46,11 @@ namespace OfficeManagerAPI.Controllers
         // PUT: api/Admin/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, UserPostDTO userDTO)
+        public async Task<IActionResult> PutUser(int id, UserPostDTO userPostDTO)
         {
-            if (id != userDTO.Id)
+            if (!UserExists(id))
             {
-                return BadRequest();
+                return NotFound();
             }
 
             _context.Entry(_context.Users.FindAsync(id)).State = EntityState.Modified;
@@ -61,14 +61,7 @@ namespace OfficeManagerAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();

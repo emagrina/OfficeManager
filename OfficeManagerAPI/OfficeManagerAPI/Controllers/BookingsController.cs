@@ -30,7 +30,9 @@ namespace OfficeManagerAPI.Controllers
         {
             if (dateTime.HasValue)
             {
-                var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+                var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime)
+                    .Include("Chair").Include("Room").Include("User")
+                    .Select(x => new BookingDTO()
                 {
                     Id = x.Id,
                     DateTime = x.DateTime,
