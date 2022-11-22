@@ -10,8 +10,8 @@ namespace OfficeManagerAPI.Models.DataModels
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
         public string? Description { get; set; } = string.Empty;
-        public TimeSpan? StartTime { get; set; }
-        public TimeSpan? EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
 
         public virtual Chair Chair { get; set; }

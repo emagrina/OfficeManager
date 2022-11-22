@@ -80,9 +80,9 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.DateTime).HasColumnType("datetime").IsRequired();
 
-                entity.Property(x => x.StartTime).HasColumnType("time(7)").IsRequired(false);
+                entity.Property(x => x.StartTime).HasColumnType("datetime").IsRequired(false);
 
-                entity.Property(x => x.EndTime).HasColumnType("time(7)").IsRequired(false);
+                entity.Property(x => x.EndTime).HasColumnType("datetime").IsRequired(false);
             });
 
             modelBuilder.Entity<Chair>()
