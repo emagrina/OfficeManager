@@ -76,7 +76,7 @@ namespace OfficeManagerAPI.DBAccess
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).HasConversion<DateTime>().HasColumnType("datetime").IsRequired();
+                entity.Property(x => x.DateTime).HasColumnType("datetime").IsRequired();
 
                 entity.Property(x => x.StartTime).HasColumnType("datetime").IsRequired(false);
 

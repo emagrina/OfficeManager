@@ -32,10 +32,10 @@ namespace OfficeManagerAPI.Controllers
             {
                 var bookingsDT = _context.Bookings.Where(x => x.DateTime == dateTime)
                     .Include("Chair").Include("Room").Include("User")
-                    .Select(x => new BookingDTO()
+                    .Select(x => new BookingGetDTO()
                     {
                         Id = x.Id,
-                        Date = x.DateTime.Date.ToString(),
+                        Date = x.DateTime.Date,
                         Description = x.Description,
                         StartTime = x.StartTime,
                         EndTime = x.EndTime,
@@ -46,10 +46,10 @@ namespace OfficeManagerAPI.Controllers
                 return Ok(bookingsDT);
             }
 
-            return Ok(_context.Bookings.Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+            return Ok(_context.Bookings.Include("Chair").Include("Room").Include("User").Select(x => new BookingGetDTO()
             {
                 Id = x.Id,
-                Date = x.DateTime.Date.ToString(),
+                Date = x.DateTime.Date,
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
@@ -63,10 +63,10 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
-            var booking = _context.Bookings.Where(x => x.Id == id).Include("Chair").Include("Room").Include("User").Select(x => new BookingDTO()
+            var booking = _context.Bookings.Where(x => x.Id == id).Include("Chair").Include("Room").Include("User").Select(x => new BookingGetDTO()
             {
                 Id = x.Id,
-                Date = x.DateTime.Date.ToString(),
+                Date = x.DateTime.Date,
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,

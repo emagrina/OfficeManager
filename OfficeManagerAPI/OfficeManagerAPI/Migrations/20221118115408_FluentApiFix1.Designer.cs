@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.DBAccess;
 
@@ -11,9 +12,10 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    partial class OfficeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221118115408_FluentApiFix1")]
+    partial class FluentApiFix1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,21 +35,20 @@ namespace OfficeManagerAPI.Migrations
                     b.Property<int?>("ChairId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateTime")
-                        .IsRequired()
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeSpan?>("EndTime")
+                        .HasColumnType("time(7)");
 
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeSpan?>("StartTime")
+                        .HasColumnType("time(7)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

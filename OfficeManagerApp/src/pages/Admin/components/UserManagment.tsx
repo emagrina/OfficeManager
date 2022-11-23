@@ -3,6 +3,7 @@ import axios from 'axios';
 import AddUserButton from './AddUserButton';
 import ShowManagmentTable from './ShowManagmentTable';
 import ExportButton from './ExportButton';
+import ImportButton from './ImportButton';
 
 const UserManagment = () => {
 	const url = "https://localhost:7016/api/Users";
@@ -92,6 +93,7 @@ const UserManagment = () => {
 					</div>
 					<ShowManagmentTable data={users} pages={maxPages} buttons={true}/>
 					<ExportButton users={users}/>
+					<ImportButton></ImportButton>
 				</div>
 			);
 		}
