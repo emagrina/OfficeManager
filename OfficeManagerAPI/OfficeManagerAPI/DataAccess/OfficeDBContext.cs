@@ -29,8 +29,6 @@ namespace OfficeManagerAPI.DBAccess
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }*/
 
-
-
             modelBuilder.Entity<Chair>(entity =>
             {
                 entity.HasKey(x => x.Id);
