@@ -1,6 +1,6 @@
 @import "../abstracts/variables";
 
-.exportButton button{
+.exportButton button, .importButton button, .blueButton{
 	padding: 0.8em;
 	color: white;
 	border-radius: 10px;
@@ -9,4 +9,8 @@
 	border-color: transparent ;
 	cursor: pointer;
 	outline: none;
+}
+
+.blueButton{
+	margin-bottom: 2em;
 }

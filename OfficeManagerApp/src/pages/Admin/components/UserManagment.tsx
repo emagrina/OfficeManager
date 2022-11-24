@@ -17,8 +17,8 @@ const UserManagment = () => {
 	const [maxPages, setMaxPages] = useState(0);
 
 	useEffect(() => {
-		getUsersPrueba();
-		//getUsers();
+		//getUsersPrueba();
+		getUsers();
 
 	  }, []);
 
@@ -92,8 +92,10 @@ const UserManagment = () => {
 						<AddUserButton></AddUserButton>
 					</div>
 					<ShowManagmentTable data={users} pages={maxPages} buttons={true}/>
-					<ExportButton users={users}/>
-					<ImportButton></ImportButton>
+					<div className='downTable'>
+						<ExportButton users={users}/>
+						<ImportButton></ImportButton>
+					</div>
 				</div>
 			);
 		}

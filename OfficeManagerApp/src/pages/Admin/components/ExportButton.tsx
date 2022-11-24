@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,20 @@ const ExportButton = (users: any) => {
     const fileExtension = '.xlsx';
 
     const exportToCSV = () =>{
-        const ws = XLSX.utils.json_to_sheet(users.users);
+        let formatedUsers: any = []
+        users.users.forEach((element: any) => {
+            let name = element.Name.split(" ");
+            let newElement = {
+                firstName: name[0],
+                lastName: name[1],
+                isAdmin: element.Admin == "Si" ? "true" : "false",
+                email: element.Email,
+            }
+            formatedUsers.push(newElement);
+        });
+
+
+        const ws = XLSX.utils.json_to_sheet(formatedUsers);
         const wb = { Sheets: { 'data': ws}, SheetNames: ['data']};
         const excelBuffer = XLSX.write(wb, { bookType:'xlsx', type: 'array' });
         const data = new Blob([excelBuffer], {type: fileType});
