@@ -13,6 +13,7 @@ namespace OfficeManagerAPI.Models.DataModels
         public string Email { get; set; } = string.Empty;
         public string Passw { get; set; } = string.Empty;
 
-        public virtual ICollection<Booking> Booking { get; set; }
+        public virtual ICollection<ChairBooking> ChairBooking { get; set; }
+        public virtual ICollection<RoomBooking> RoomBooking { get; set; }
     }
 }

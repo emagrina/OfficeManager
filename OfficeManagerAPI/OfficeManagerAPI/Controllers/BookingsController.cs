@@ -35,7 +35,7 @@ namespace OfficeManagerAPI.Controllers
                     .Select(x => new BookingGetDTO()
                     {
                         Id = x.Id,
-                        Date = x.DateTime.Date,
+                        Date = x.DateTime,
                         Description = x.Description,
                         StartTime = x.StartTime,
                         EndTime = x.EndTime,
@@ -49,7 +49,7 @@ namespace OfficeManagerAPI.Controllers
             return Ok(_context.Bookings.Include("Chair").Include("Room").Include("User").Select(x => new BookingGetDTO()
             {
                 Id = x.Id,
-                Date = x.DateTime.Date,
+                Date = x.DateTime,
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
@@ -66,7 +66,7 @@ namespace OfficeManagerAPI.Controllers
             var booking = _context.Bookings.Where(x => x.Id == id).Include("Chair").Include("Room").Include("User").Select(x => new BookingGetDTO()
             {
                 Id = x.Id,
-                Date = x.DateTime.Date,
+                Date = x.DateTime,
                 Description = x.Description,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
@@ -187,7 +187,7 @@ namespace OfficeManagerAPI.Controllers
             if (DateTime.Parse(bookingPostDTO.Date).Date >= DateTime.Now.Date)
             {
                 var bookingsToday = (from x in bookings
-                                     where x.DateTime.Date == DateTime.Parse(bookingPostDTO.Date)
+                                     where x.DateTime == DateTime.Parse(bookingPostDTO.Date)
                                      select x).ToList();
 
                 var chairs = await _context.Chairs.ToListAsync();
@@ -261,6 +261,7 @@ namespace OfficeManagerAPI.Controllers
 
             return isCorrect;
         }
+
         private static bool CheckParametersPut(BookingPostDTO bookingPostDTO, List<Chair> chairs, List<Room> rooms, List<Booking> bookingsOnSelectedDays)
         {
             bool isCorrect = false;

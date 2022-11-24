@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OfficeManagerAPI.Models.DataModels;
+using System;
 
 namespace OfficeManagerAPI.DBAccess
 {
@@ -14,8 +15,10 @@ namespace OfficeManagerAPI.DBAccess
         // Tables of the DataBase
         public DbSet<Chair> Chairs { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<ChairBooking> ChairBookings { get; set; }
+        public DbSet<RoomBooking> RoomBookings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -70,36 +73,51 @@ namespace OfficeManagerAPI.DBAccess
                 entity.Property(x => x.Passw).IsRequired().HasMaxLength(100);
             });
 
-            modelBuilder.Entity<Booking>(entity =>
+            modelBuilder.Entity<ChairBooking>(entity =>
             {
                 entity.HasKey(x => x.Id);
 
                 entity.Property(x => x.Id).ValueGeneratedOnAdd();
 
-                entity.Property(x => x.DateTime).HasColumnType("datetime").IsRequired();
+                entity.Property(x => x.DateTime).IsRequired();
 
-                entity.Property(x => x.StartTime).HasColumnType("datetime").IsRequired(false);
+                entity.Property(x => x.ChairId).IsRequired();
 
-                entity.Property(x => x.EndTime).HasColumnType("datetime").IsRequired(false);
+                entity.Property(x => x.UserId).IsRequired();
             });
 
-            modelBuilder.Entity<Chair>()
-                .HasMany(x => x.Booking)
-                .WithOne(x => x.Chair)
-                .HasForeignKey("ChairId")
-                .IsRequired(false);
+            modelBuilder.Entity<ChairBooking>()
+                .HasOne(x => x.Chair)
+                .WithMany(x => x.ChairBooking);
 
-            modelBuilder.Entity<Room>()
-                .HasMany(x => x.Booking)
-                .WithOne(x => x.Room)
-                .HasForeignKey("RoomId")
-                .IsRequired(false);
+            modelBuilder.Entity<ChairBooking>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.ChairBooking);
 
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.Booking)
-                .WithOne(x => x.User)
-                .HasForeignKey("UserId")
+            modelBuilder.Entity<RoomBooking>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+
+                entity.Property(x => x.Id).ValueGeneratedOnAdd();
+
+                entity.Property(x => x.StartTime).IsRequired();
+
+                entity.Property(x => x.EndTime).IsRequired();
+
+                entity.Property(x => x.Description).HasMaxLength(100).IsRequired();
+            });
+
+            modelBuilder.Entity<RoomBooking>()
+                .HasOne(x => x.Room)
+                .WithMany(x => x.RoomBooking)
+                .IsRequired();
+
+            modelBuilder.Entity<RoomBooking>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.RoomBooking)
                 .IsRequired();
         }
+
+        public DbSet<OfficeManagerAPI.Models.DataModels.ChairBooking> ChairBooking { get; set; }
     }
 }
