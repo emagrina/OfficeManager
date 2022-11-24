@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OfficeManagerAPI.Data
 {
-    public class BookingDTO
+    public class BookingGetDTO
     {
         public int Id { get; set; }
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
         public string? Description { get; set; } = string.Empty;
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
