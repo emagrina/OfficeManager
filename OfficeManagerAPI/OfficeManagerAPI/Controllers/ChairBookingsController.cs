@@ -78,13 +78,13 @@ namespace OfficeManagerAPI.Controllers
                 return BadRequest();
             }
 
-            var bookingsOnSelectedDay = (from x in _context.ChairBookings
-                                      where x.DateTime == chairBookingDTO.DateTime && x.Id != id
-                                      select x).ToList();
+            var chairBookingsOnSelectedDay = await (from x in _context.ChairBookings
+                                        where x.DateTime == chairBookingDTO.DateTime && x.Id != id
+                                        select x).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
 
-            if (CheckChairBookingParameters(chairBookingDTO, chairs, bookingsOnSelectedDay))
+            if (CheckChairBookingParameters(chairBookingDTO, chairs, chairBookingsOnSelectedDay))
             {
                 _context.Entry(new ChairBooking()
                 {
@@ -123,15 +123,16 @@ namespace OfficeManagerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<ChairBooking>> PostChairBooking(ChairBookingDTO chairBookingDTO)
         {
-            var bookingsOnSelectedDay = await _context.ChairBookings.Where(x => x.DateTime == chairBookingDTO.DateTime).ToListAsync();
+            var chairBookingsOnSelectedDay = await _context.ChairBookings
+                .Where(x => x.DateTime == chairBookingDTO.DateTime).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
 
-            if (CheckChairBookingParameters(chairBookingDTO, chairs, bookingsOnSelectedDay))
+            if (CheckChairBookingParameters(chairBookingDTO, chairs, chairBookingsOnSelectedDay))
             {
                 var users = await _context.Users.ToListAsync();
 
-                _context.ChairBooking.Add(new ChairBooking()
+                _context.ChairBookings.Add(new ChairBooking()
                 {
                     DateTime = chairBookingDTO.DateTime,
                     ChairId = chairBookingDTO.ChairId,
@@ -161,20 +162,20 @@ namespace OfficeManagerAPI.Controllers
             return NoContent();
         }
 
-        private bool CheckChairBookingParameters(ChairBookingDTO chairBookingDTO, List<Chair> chairs, List<ChairBooking> bookingsOnSelectedDay)
+        private bool CheckChairBookingParameters(ChairBookingDTO chairBookingDTO, List<Chair> chairs, List<ChairBooking> chairBookingsOnSelectedDay)
         {
-            bool isCorrect = false;
+            bool isValid = false;
 
             if (chairBookingDTO.ChairId != null &&
                 chairs.Any(x => x.Id == chairBookingDTO.ChairId && x.Available == true) &&
                 chairBookingDTO.DateTime.Date >= DateTime.Now.Date &&
-                !bookingsOnSelectedDay.Any(x => x.ChairId == chairBookingDTO.ChairId) &&
+                !chairBookingsOnSelectedDay.Any(x => x.ChairId == chairBookingDTO.ChairId) &&
                 _context.Users.Any(x => x.Id == chairBookingDTO.UserId))
             {
-                isCorrect = true;
+                isValid = true;
             }
 
-            return isCorrect;
+            return isValid;
         }
 
         private bool ChairBookingExists(int id)
