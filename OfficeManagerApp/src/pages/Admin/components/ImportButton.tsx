@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons';
+import { faFileImport, faFileArrowDown} from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
-import { AnyArray } from 'immer/dist/internal';
 import axios from 'axios';
 
 
@@ -16,6 +15,7 @@ const ImportButton = (users: any) => {
 
     const [importStatus, setImportStatus] = useState(0);
     const [invalidFile, setInvalidFile] = useState(false);
+    const [fileName, setFileName] = useState("Ningun archivo seleccionado");
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -109,6 +109,7 @@ const ImportButton = (users: any) => {
     const readFile = (event: any) =>{
         event.preventDefault();
         if(event.target.files){
+            setFileName(event.target.value.split(/(\\|\/)/g).pop());
             const reader = new FileReader();
 
             reader.onload = (event: any) => {
@@ -163,8 +164,8 @@ const ImportButton = (users: any) => {
                        }
 
                        if(correctInfo){
-                            console.log("users:" + users)
                             setData(users);
+                            setInvalidFile(false)
                        }else{
                             setInvalidFile(true);
                        }
@@ -180,12 +181,19 @@ const ImportButton = (users: any) => {
     const form = () => {
         return(
             <>
-            El archivo debe seguir el formato de la plantilla:
-                        <button className='blueButton' onClick={() => exportExemple() }> Plantilla <FontAwesomeIcon icon={faFileExport}/> </button>
-                        
-                        <input type="file" onChange={event => readFile(event)}></input>
-                        {invalidFile ? <span className='invalid'>El archivo no sigue el formato o hay algún dato incorrecto</span> : "" }
-            </>
+                El archivo debe seguir el formato de la plantilla:
+                <button className='blueButton' onClick={() => exportExemple() }> Plantilla <span><FontAwesomeIcon icon={faFileArrowDown}/></span> </button>
+                <div className='inputImport'>
+                    <span className='fileName'>
+                        {fileName}
+                    </span>
+                    <label htmlFor="import" className='import'>
+                        Seleccionar archivo
+                    </label>
+                </div>
+                <input type="file" onChange={event => readFile(event)} id="import"></input>
+                {invalidFile ? <span className='invalid'>El archivo no sigue el formato o hay algún dato incorrecto</span> : "" }
+    </>
         )
     }
     

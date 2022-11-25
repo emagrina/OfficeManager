@@ -14,3 +14,37 @@
 .blueButton{
 	margin-bottom: 2em;
 }
+
+#import{
+	position: absolute; left: -99999rem;
+}
+
+.import{
+	padding: 0.5em 1em;
+	color: white;
+	border-width: 1px;
+	background-color: $color-secondary;
+	border-color: transparent ;
+	cursor: pointer;
+	outline: none;
+	width: min-content;
+	white-space: nowrap;
+	font-size: normal;
+}
+
+.inputImport{
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: $color-secondary;
+	margin-bottom: 0.5em;
+}
+
+.fileName{
+	font-size: smaller;
+	padding: 0em 2em;
+}
