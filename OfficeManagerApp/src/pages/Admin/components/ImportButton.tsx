@@ -15,7 +15,10 @@ const ImportButton = (users: any) => {
 
     const [importStatus, setImportStatus] = useState(0);
     const [invalidFile, setInvalidFile] = useState(false);
+    const [errorRow, setErrorRow] = useState(0);
     const [fileName, setFileName] = useState("Ningun archivo seleccionado");
+
+    const [prova, setProva] = useState(true)
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -28,8 +31,8 @@ const ImportButton = (users: any) => {
 	  });
 
     const exportExemple = () =>{
-        let ex = [{firstName: "Nombre1", lastName: "Apellido1", isAdmin: "true", email:"ejemplo1@inetum.com", passw:"constaseña1"},
-                  {firstName: "Nombre2", lastName: "Apellido1", isAdmin: "false", email:"ejemplo2@inetum.com", passw:"constaseña2"}]
+        let ex = [{firstName: "", lastName: "", isAdmin: "", email:"", passw:""},
+                  {firstName: "", lastName: "", isAdmin: "", email:"", passw:""}]
         const ws = XLSX.utils.json_to_sheet(ex);
         const wb = { Sheets: { 'ejemplo': ws}, SheetNames: ['ejemplo']};
         const excelBuffer = XLSX.write(wb, { bookType:'xlsx', type: 'array' });
@@ -70,16 +73,22 @@ const ImportButton = (users: any) => {
         return true;
     }
 
-    const addAllUsers = () =>{
-        console.log("d:" + data)
-        let i = 0;
-        while (importStatus != -1 && i < data.length) {
-            console.log(importStatus);
-            addUser(data[i]);
-            i++;
-        }
-        if (importStatus == 0) {
-            setImportStatus(1);
+    const addAllUsers = async () =>{
+        if(invalidFile == false){
+            console.log(data);
+            let i = 0;
+            let status = 0;
+            while (i < data.length && status == 0 ) {
+                console.log(i);
+                if(await addUser(data[i])){
+                    status = -1;
+                    setErrorRow(i + 1);
+                }
+                i++;
+            }
+            if (status == 0) {
+                setImportStatus(1);
+            }
         }
     }
 
@@ -97,13 +106,15 @@ const ImportButton = (users: any) => {
 				},
 			})
 			.then(response => {		
-                console.log(response.data)
-                
+                console.log(response.data + " " + user[0])
+                return true;
 			})
 			.catch(error => {
 				console.log(error);
                 setImportStatus(-1);
+                return false;
 			});
+        return true;
     }
 
     const readFile = (event: any) =>{
@@ -120,20 +131,21 @@ const ImportButton = (users: any) => {
                     let largestCell = maxArray(Object.keys(worksheet));
                     const lastRow: any = largestCell.slice(1);
                     const lastColumn = largestCell.slice(0,1);
+
                     
                     var keys = [];
+
                     for (let column = 'A'; column <= lastColumn; column = nextChar(column)) {
                         let key = worksheet[`${column}${1}`]['v']
                         keys.push(key);
                     }
                     keys.sort();
 
-                    if(areKeysCorrect(keys)){
+                    if(areKeysCorrect(keys) && lastRow > 1){
                         let correctInfo = true;
                         let users = []
                         for (let row = 2; row <= lastRow && correctInfo ; row++) {
                             let user = ["firstName", "lastName", "email", "passw", true];
-
                             for (let column = 'A'; column <= lastColumn && correctInfo; column = nextChar(column)) {
                                 let cellValue = worksheet[`${column}${row}`]['v']
                                 if(worksheet[`${column}${1}`]['v'] == "firstName"){
@@ -147,7 +159,7 @@ const ImportButton = (users: any) => {
                                         correctInfo = false;
                                     }
                                 }else if(worksheet[`${column}${1}`]['v'] == "passw"){
-                                    user[3] = cellValue;
+                                    user[3] = cellValue + "";
                                 }else if(worksheet[`${column}${1}`]['v'] == "isAdmin"){
                                     if(cellValue.toLowerCase() == "true"){
                                         user[4] = true;
@@ -165,7 +177,7 @@ const ImportButton = (users: any) => {
 
                        if(correctInfo){
                             setData(users);
-                            setInvalidFile(false)
+                            setInvalidFile(false);
                        }else{
                             setInvalidFile(true);
                        }
@@ -192,8 +204,16 @@ const ImportButton = (users: any) => {
                     </label>
                 </div>
                 <input type="file" onChange={event => readFile(event)} id="import"></input>
-                {invalidFile ? <span className='invalid'>El archivo no sigue el formato o hay algún dato incorrecto</span> : "" }
-    </>
+                {invalidFile ? <span className='invalid'>El archivo no sigue el formato, esta vacio o hay algún dato incorrecto</span> : "" }
+            </>
+        )
+    }
+
+    const error = () => {
+        return(
+            <>
+                Se ha producido un error en la fila {errorRow}, las filas anteriores se han importado correctamente, recarga la pagina para verlo
+            </>
         )
     }
     
@@ -212,7 +232,7 @@ const ImportButton = (users: any) => {
                         <h3> Importar Usuarios: </h3>
                     </div>
                     <div className='info'>
-                        {importStatus == 0 ? form() : importStatus == -1 ? "error" : ""}
+                        {importStatus == 0 ? form() : importStatus == -1 ? error() : "Se ha importado correctamente"}
                     </div>
                     <div className="actions"> 
                         <button className='blue' onClick={() => {addAllUsers()}} >

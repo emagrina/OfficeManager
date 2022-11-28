@@ -52,7 +52,8 @@ const AddUserButton = () => {
 				},
 			})
 			.then(response => {		
-                console.log(response.data)
+                console.log(response.data);
+                console.log(value);
                 setAddStatus(1);
 			})
 			.catch(error => {
