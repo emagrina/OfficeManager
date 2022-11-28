@@ -44,7 +44,7 @@ namespace OfficeManagerAPI.Controllers
 
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int id, Room room)
         {
             if (id != room.Id)
@@ -103,6 +103,6 @@ namespace OfficeManagerAPI.Controllers
         private bool RoomExists(int id)
         {
             return _context.Rooms.Any(e => e.Id == id);
-        }*/
+        }
     }
 }

@@ -24,15 +24,15 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/ChairBookings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ChairBookingGetDTO>>> GetChairBooking([FromQuery] DateTime? dateTime)
+        public async Task<ActionResult<IEnumerable<ChairBookingGetDTO>>> GetChairBooking([FromQuery] string? date)
         {
-            if (dateTime.HasValue)
+            if (!String.IsNullOrEmpty(date))
             {
-                var bookingsDT = _context.ChairBooking.Where(x => x.DateTime == dateTime)
+                var bookingsDT = _context.ChairBooking.Where(x => x.DateTime == ToMinDateTime(date))
                      .Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
                      {
                          Id = x.Id,
-                         DateTime = x.DateTime.Date,
+                         DateTime = x.DateTime.Date.ToString(),
                          ChairId = x.ChairId,
                          UserId = x.UserId
                      });
@@ -42,7 +42,7 @@ namespace OfficeManagerAPI.Controllers
             return await _context.ChairBooking.Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
             {
                 Id = x.Id,
-                DateTime = x.DateTime.Date,
+                DateTime = x.DateTime.Date.ToString(),
                 ChairId = x.ChairId,
                 UserId = x.UserId
             }).ToListAsync();
@@ -61,7 +61,7 @@ namespace OfficeManagerAPI.Controllers
 
             return Ok(new ChairBookingDTO()
             {
-                DateTime = chairBooking.DateTime,
+                Date = chairBooking.DateTime.ToString(),
                 ChairId = chairBooking.Id,
                 UserId = chairBooking.UserId
 
@@ -79,7 +79,7 @@ namespace OfficeManagerAPI.Controllers
             }
 
             var chairBookingsOnSelectedDay = await (from x in _context.ChairBookings
-                                        where x.DateTime == chairBookingDTO.DateTime && x.Id != id
+                                        where x.DateTime == ToMinDateTime(chairBookingDTO.Date) && x.Id != id
                                         select x).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
@@ -89,7 +89,7 @@ namespace OfficeManagerAPI.Controllers
                 _context.Entry(new ChairBooking()
                 {
                     Id = id,
-                    DateTime = chairBookingDTO.DateTime,
+                    DateTime = ToMinDateTime(chairBookingDTO.Date),
                     ChairId = chairBookingDTO.ChairId,
                     UserId = chairBookingDTO.UserId
                 }).State = EntityState.Modified;
@@ -124,7 +124,7 @@ namespace OfficeManagerAPI.Controllers
         public async Task<ActionResult<ChairBooking>> PostChairBooking(ChairBookingDTO chairBookingDTO)
         {
             var chairBookingsOnSelectedDay = await _context.ChairBookings
-                .Where(x => x.DateTime == chairBookingDTO.DateTime).ToListAsync();
+                .Where(x => x.DateTime == ToMinDateTime(chairBookingDTO.Date)).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
 
@@ -134,7 +134,7 @@ namespace OfficeManagerAPI.Controllers
 
                 _context.ChairBookings.Add(new ChairBooking()
                 {
-                    DateTime = chairBookingDTO.DateTime,
+                    DateTime = ToMinDateTime(chairBookingDTO.Date),
                     ChairId = chairBookingDTO.ChairId,
                     UserId = chairBookingDTO.UserId
                 });
@@ -168,7 +168,7 @@ namespace OfficeManagerAPI.Controllers
 
             if (chairBookingDTO.ChairId != null &&
                 chairs.Any(x => x.Id == chairBookingDTO.ChairId && x.Available == true) &&
-                chairBookingDTO.DateTime.Date >= DateTime.Now.Date &&
+                ToMinDateTime(chairBookingDTO.Date) >= DateTime.Now.Date &&
                 !chairBookingsOnSelectedDay.Any(x => x.ChairId == chairBookingDTO.ChairId) &&
                 _context.Users.Any(x => x.Id == chairBookingDTO.UserId))
             {
@@ -176,6 +176,11 @@ namespace OfficeManagerAPI.Controllers
             }
 
             return isValid;
+        }
+
+        private DateTime ToMinDateTime(string date)
+        {
+            return DateTime.Parse(date + " " + TimeOnly.MinValue);
         }
 
         private bool ChairBookingExists(int id)
