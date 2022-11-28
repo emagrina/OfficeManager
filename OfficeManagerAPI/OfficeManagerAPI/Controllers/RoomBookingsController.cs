@@ -26,10 +26,10 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomBookingGetDTO>>> GetRoomBookings([FromQuery] string? dateTime)
         {
-            if (string.IsNullOrEmpty(dateTime))
+            if (!string.IsNullOrEmpty(dateTime))
             {
                 var bookingsDT = _context.RoomBookings.Where(x => x.StartTime.Date == ToMinDateTime(dateTime))
-                     .Include("Chair").Include("User").Select(x => new RoomBookingGetDTO()
+                     .Include("Room").Include("User").Select(x => new RoomBookingGetDTO()
                      {
                          Id = x.Id,
                          StartTime = x.StartTime,
