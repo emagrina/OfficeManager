@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeManagerAPI.Data;
 using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Models.DataModels;
 
@@ -24,14 +25,21 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/Chairs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Chair>>> GetChairs()
+        public async Task<ActionResult<IEnumerable<ChairGetDTO>>> GetChairs()
         {
-            return await _context.Chairs.ToListAsync();
+            var chairs = _context.Chairs.Select(x => new ChairGetDTO()
+            {
+                Id = x.Id,
+                Position = x.Position,
+                Available = x.Available
+            });
+
+            return Ok(chairs);
         }
 
         // GET: api/Chairs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Chair>> GetChair(int id)
+        public async Task<ActionResult<ChairGetDTO>> GetChair(int id)
         {
             var chair = await _context.Chairs.FindAsync(id);
 
@@ -40,7 +48,12 @@ namespace OfficeManagerAPI.Controllers
                 return NotFound();
             }
 
-            return chair;
+            return Ok(new ChairGetDTO()
+            {
+                Id = chair.Id,
+                Position = chair.Position,
+                Available = chair.Available
+            });
         }
 
         // PUT: api/Chairs/5

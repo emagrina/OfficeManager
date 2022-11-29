@@ -28,7 +28,7 @@ namespace OfficeManagerAPI.Controllers
         {
             if (!String.IsNullOrEmpty(date))
             {
-                var bookingsDT = _context.ChairBooking.Where(x => x.DateTime == ToMinDateTime(date))
+                var bookingsDT = _context.ChairBooking.Where(x => x.DateTime.Date == ToMinDateTime(date))
                      .Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
                      {
                          Id = x.Id,
