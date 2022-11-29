@@ -1,18 +1,13 @@
-﻿# STEP 1 BUILD OF REACT PROJECT
-FROM node:12-alpine3.12 AS build
-
+﻿# build step
+FROM node:16.13.2-alpine as build
 WORKDIR /app
-
-COPY . /app
-
-ENV NODE_ENV=production
-
-RUN npm i
-
-RUN npm i --production
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
-COPY . .
+COPY package.json ./
+RUN npm install
+COPY . ./
 RUN npm run build
+
+# release step
+FROM nginx:1.21.5-alpine as release
+COPY --from=build /app/build /usr/share/nginx/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
