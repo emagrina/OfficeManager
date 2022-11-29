@@ -93,8 +93,8 @@ namespace OfficeManagerAPI.Controllers
                 _context.Entry(new RoomBooking()
                 {
                     Id = id,
-                    StartTime = ToMinDateTime(roomBookingDTO.StartTime),
-                    EndTime= ToMinDateTime(roomBookingDTO.EndTime),
+                    StartTime = roomBookingDTO.StartTime,
+                    EndTime= roomBookingDTO.EndTime,
                     Description= roomBookingDTO.Description,
                     RoomId= roomBookingDTO.RoomId,
                     UserId= roomBookingDTO.UserId
@@ -126,7 +126,7 @@ namespace OfficeManagerAPI.Controllers
         public async Task<ActionResult<RoomBooking>> PostRoomBooking(RoomBookingDTO roomBookingDTO)
         {
             var roomBookingsOnSelectedDay = await _context.RoomBookings
-                .Where(x => x.StartTime.Date == ToMinDateTime(roomBookingDTO.StartTime)).ToListAsync();
+                .Where(x => x.StartTime.Date == roomBookingDTO.StartTime).ToListAsync();
 
             var rooms = await _context.Rooms.ToListAsync();
 
@@ -136,8 +136,8 @@ namespace OfficeManagerAPI.Controllers
 
                 _context.RoomBookings.Add(new RoomBooking()
                 {
-                    StartTime = ToMinDateTime(roomBookingDTO.StartTime),
-                    EndTime = ToMinDateTime(roomBookingDTO.EndTime),
+                    StartTime = roomBookingDTO.StartTime,
+                    EndTime = roomBookingDTO.EndTime,
                     Description = roomBookingDTO.Description,
                     RoomId = roomBookingDTO.RoomId,
                     UserId = roomBookingDTO.UserId
@@ -172,8 +172,8 @@ namespace OfficeManagerAPI.Controllers
 
             if (roomBookingDTO.RoomId != null &&
                 rooms.Any(x => x.Id == roomBookingDTO.RoomId && x.Available == true) &&
-                ToMinDateTime(roomBookingDTO.StartTime).Equals(ToMinDateTime(roomBookingDTO.EndTime)) &&
-                ToMinDateTime(roomBookingDTO.StartTime).Date >= DateTime.Now.Date &&
+                roomBookingDTO.StartTime.Date.Equals(roomBookingDTO.EndTime.Date) &&
+                roomBookingDTO.StartTime.Date >= DateTime.Now.Date &&
                 !roomBookingsOnSelectedDay.Any(x => x.RoomId == roomBookingDTO.RoomId) &&
                 _context.Users.Any(x => x.Id == roomBookingDTO.UserId))
             {

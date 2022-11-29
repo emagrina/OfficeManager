@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace OfficeManagerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserGetDTO>>> GetUsers()
         {
-            return await _context.Users.Include("ChairBookings").Include("RoomBookings").Select(x => new UserGetDTO()
+            return await _context.Users.Include("ChairBooking").Include("RoomBooking").Select(x => new UserGetDTO()
             {
                 Id = x.Id,
                 FirstName = x.FirstName,

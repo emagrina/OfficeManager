@@ -61,7 +61,7 @@ namespace OfficeManagerAPI.Controllers
 
             return Ok(new ChairBookingDTO()
             {
-                Date = chairBooking.DateTime.ToString(),
+                Date = chairBooking.DateTime.Date.ToString("d"),
                 ChairId = chairBooking.Id,
                 UserId = chairBooking.UserId
 
@@ -180,6 +180,7 @@ namespace OfficeManagerAPI.Controllers
 
         private DateTime ToMinDateTime(string date)
         {
+            // TODO: Controll if the given string length is < 10
             return DateTime.Parse(date + " " + TimeOnly.MinValue);
         }
 
