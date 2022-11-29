@@ -91,7 +91,7 @@ const UserManagment = () => {
 						<h2> Gestor de usuarios</h2> 
 						<AddUserButton></AddUserButton>
 					</div>
-					<ShowManagmentTable data={users} pages={maxPages} buttons={true}/>
+					<ShowManagmentTable data={users} pages={maxPages} buttons={2}/>
 					<div className='downTable'>
 						<ExportButton users={users}/>
 						<ImportButton></ImportButton>

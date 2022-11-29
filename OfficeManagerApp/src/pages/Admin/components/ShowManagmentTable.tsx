@@ -65,6 +65,16 @@ const ShowManagmentTable = ({data, pages, buttons}) => {
         )
     }
 
+    const changeAvailability = ({index, item}) => {
+        return(
+            <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
+                <div className='edit'> 
+                <EditButton item={item}></EditButton>
+                </div> 
+            </td>
+        )
+    }
+
     return(
         <div className='table'>
             <table>
@@ -80,7 +90,7 @@ const ShowManagmentTable = ({data, pages, buttons}) => {
                         {Object.values(item).map((val) => (
                             <td>{val}</td>
                         ))}
-                        {buttons ? showButtons({index, item}) : ""}
+                        {buttons == 2 ? showButtons({index, item}) : buttons == 1 ? changeAvailability({index, item}) : ""}
                         </tr>
                         
                     ))}
