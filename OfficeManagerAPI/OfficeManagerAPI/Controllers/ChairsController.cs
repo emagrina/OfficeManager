@@ -90,7 +90,7 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Chairs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chair>> PostChair(Chair chair)
+        public async Task<ActionResult<ChairDTO>> PostChair(Chair chair)
         {
             _context.Chairs.Add(chair);
             await _context.SaveChangesAsync();

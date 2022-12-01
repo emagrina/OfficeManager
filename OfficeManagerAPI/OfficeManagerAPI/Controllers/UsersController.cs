@@ -39,7 +39,7 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/Admin/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserGetDTO>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -48,7 +48,14 @@ namespace OfficeManagerAPI.Controllers
                 return NotFound();
             }
 
-            return user;
+            return new UserGetDTO()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IsAdmin = user.IsAdmin,
+                Email = user.Email,
+                Passw = user.Passw
+            };
         }
 
         // PUT: api/Admin/5
@@ -93,7 +100,7 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Admin
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(UserDTO userDTO)
+        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDTO)
         {
             if (repeatedEmail(userDTO))
             {

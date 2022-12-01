@@ -117,7 +117,5 @@ namespace OfficeManagerAPI.DBAccess
                 .WithMany(x => x.RoomBooking)
                 .IsRequired();
         }
-
-        public DbSet<OfficeManagerAPI.Models.DataModels.ChairBooking> ChairBooking { get; set; }
     }
 }

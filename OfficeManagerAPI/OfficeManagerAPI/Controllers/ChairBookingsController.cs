@@ -28,7 +28,7 @@ namespace OfficeManagerAPI.Controllers
         {
             if (!String.IsNullOrEmpty(date))
             {
-                var bookingsDT = _context.ChairBooking.Where(x => x.DateTime.Date == ToMinDateTime(date))
+                var bookingsDT = _context.ChairBookings.Where(x => x.DateTime.Date == ToMinDateTime(date))
                      .Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
                      {
                          Id = x.Id,
@@ -39,7 +39,7 @@ namespace OfficeManagerAPI.Controllers
                 return Ok(bookingsDT);
             }
 
-            return await _context.ChairBooking.Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
+            return await _context.ChairBookings.Include("Chair").Include("User").Select(x => new ChairBookingGetDTO()
             {
                 Id = x.Id,
                 DateTime = x.DateTime.Date.ToString(),
@@ -50,9 +50,9 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/ChairBookings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ChairBooking>> GetChairBooking(int id)
+        public async Task<ActionResult<ChairBookingGetDTO>> GetChairBooking(int id)
         {
-            var chairBooking = await _context.ChairBooking.FindAsync(id);
+            var chairBooking = await _context.ChairBookings.FindAsync(id);
 
             if (chairBooking == null)
             {
@@ -72,7 +72,7 @@ namespace OfficeManagerAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChairBooking(int id, ChairBookingDTO chairBookingDTO)
-        {
+         {
             if (!ChairBookingExists(id))
             {
                 return BadRequest();
@@ -121,7 +121,7 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/ChairBookings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ChairBooking>> PostChairBooking(ChairBookingDTO chairBookingDTO)
+        public async Task<ActionResult<ChairBookingDTO>> PostChairBooking(ChairBookingDTO chairBookingDTO)
         {
             var chairBookingsOnSelectedDay = await _context.ChairBookings
                 .Where(x => x.DateTime == ToMinDateTime(chairBookingDTO.Date)).ToListAsync();
@@ -150,13 +150,13 @@ namespace OfficeManagerAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChairBooking(int id)
         {
-            var chairBooking = await _context.ChairBooking.FindAsync(id);
+            var chairBooking = await _context.ChairBookings.FindAsync(id);
             if (chairBooking == null)
             {
                 return NotFound();
             }
 
-            _context.ChairBooking.Remove(chairBooking);
+            _context.ChairBookings.Remove(chairBooking);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -165,6 +165,11 @@ namespace OfficeManagerAPI.Controllers
         private bool CheckChairBookingParameters(ChairBookingDTO chairBookingDTO, List<Chair> chairs, List<ChairBooking> chairBookingsOnSelectedDay)
         {
             bool isValid = false;
+
+            bool a = chairs.Any(x => x.Id == chairBookingDTO.ChairId && x.Available == true);
+            bool b = ToMinDateTime(chairBookingDTO.Date) >= DateTime.Now.Date;
+            bool c = !chairBookingsOnSelectedDay.Any(x => x.ChairId == chairBookingDTO.ChairId);
+            bool d = _context.Users.Any(x => x.Id == chairBookingDTO.UserId);
 
             if (chairBookingDTO.ChairId != null &&
                 chairs.Any(x => x.Id == chairBookingDTO.ChairId && x.Available == true) &&
@@ -186,7 +191,7 @@ namespace OfficeManagerAPI.Controllers
 
         private bool ChairBookingExists(int id)
         {
-            return _context.ChairBooking.Any(e => e.Id == id);
+            return _context.ChairBookings.Any(e => e.Id == id);
         }
     }
 }
