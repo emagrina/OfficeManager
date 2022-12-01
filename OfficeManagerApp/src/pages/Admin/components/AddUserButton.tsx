@@ -25,7 +25,6 @@ const AddUserButton = () => {
     useEffect(() => {
 		if(addStatus == 1){
             window.location.reload();
-            console.log("reload")
         }
 		
 	  })
@@ -53,7 +52,8 @@ const AddUserButton = () => {
 				},
 			})
 			.then(response => {		
-                console.log(response.data)
+                console.log(response.data);
+                console.log(value);
                 setAddStatus(1);
 			})
 			.catch(error => {
@@ -94,7 +94,7 @@ const AddUserButton = () => {
                 <label> <input type="radio" value="true" name="isAdmin" checked={value.isAdmin}/> Si </label>
                 <label> <input type="radio" value="false" name="isAdmin" checked={!value.isAdmin} /> No </label>
             </div> 
-            {validEmail ? "" : <span className='invalidEmail'> Por favor, pon un email válido </span>}
+            {validEmail ? "" : <span className='invalid'> Por favor, pon un email válido </span>}
             </>
         )
     }

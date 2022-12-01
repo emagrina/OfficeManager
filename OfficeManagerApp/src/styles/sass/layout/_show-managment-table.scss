@@ -108,7 +108,7 @@
 }
 
 .modalDelete .info{
-    margin: 2vh 6vw;
+    margin: 2vh 5vw;
     display: flex;
     flex-direction: column;
 
@@ -136,7 +136,7 @@
         justify-content: space-around;
     }
 
-    .invalidEmail {
+    .invalid {
         color: $color-danger;
         font-size: small;
     }        

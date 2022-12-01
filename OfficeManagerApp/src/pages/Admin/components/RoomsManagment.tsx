@@ -6,8 +6,8 @@ import ShowManagmentTable from './ShowManagmentTable';
 const RoomsManagment = () => {
 	const url = "https://localhost:7016/api/Rooms";
 	const roomsStart = [
-		{ID: 1, Name: '', Size: 1},
-		{ID: 1, Name: '', Size: 1}
+		{ID: 1, Name: '', Size: 1, Avaiable: "Si"},
+		{ID: 1, Name: '', Size: 1, Avaiable: "Si"}
 	]
 	const [rooms, setRooms] = useState(roomsStart);
 	const [hasLoaded, setHasLoaded] = useState('noLoaded');
@@ -29,7 +29,7 @@ const RoomsManagment = () => {
 				
 				let dbRooms = [];
 				for (const room of response.data) {
-					dbRooms.push({ID: room.id, Name: room.name, Size: room.size})
+					dbRooms.push({ID: room.id, Name: room.name, Size: room.size, Avaiable: room.avaiable ? "Si" : "No"})
 					
 				}
 				setMaxPages(Math.trunc(dbRooms.length / 10));
@@ -58,7 +58,7 @@ const RoomsManagment = () => {
 					<div className='upTable'>
 						<h2> Gestor de salas </h2>
 					</div>
-					<ShowManagmentTable data={rooms} pages={maxPages} buttons={false}/>
+					<ShowManagmentTable data={rooms} pages={maxPages} buttons={1}/>
 				</div>
 			);
 		}
