@@ -72,15 +72,15 @@ namespace OfficeManagerAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChairBooking(int id, ChairBookingDTO chairBookingDTO)
-         {
+        {
             if (!ChairBookingExists(id))
             {
                 return BadRequest();
             }
 
             var chairBookingsOnSelectedDay = await (from x in _context.ChairBookings
-                                        where x.DateTime == ToMinDateTime(chairBookingDTO.Date) && x.Id != id
-                                        select x).ToListAsync();
+                                                    where x.DateTime == ToMinDateTime(chairBookingDTO.Date) && x.Id != id
+                                                    select x).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
 
@@ -123,8 +123,10 @@ namespace OfficeManagerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<ChairBookingDTO>> PostChairBooking(ChairBookingDTO chairBookingDTO)
         {
-            var chairBookingsOnSelectedDay = await _context.ChairBookings
-                .Where(x => x.DateTime == ToMinDateTime(chairBookingDTO.Date)).ToListAsync();
+
+            var chairBookingsOnSelectedDay = await (from x in _context.ChairBookings
+                                                    where x.DateTime == ToMinDateTime(chairBookingDTO.Date)
+                                                    select x).ToListAsync();
 
             var chairs = await _context.Chairs.ToListAsync();
 

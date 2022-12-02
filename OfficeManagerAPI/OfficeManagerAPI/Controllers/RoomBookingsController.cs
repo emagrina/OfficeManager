@@ -24,11 +24,11 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/RoomBookings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomBookingGetDTO>>> GetRoomBookings([FromQuery] string? dateTime)
+        public async Task<ActionResult<IEnumerable<RoomBookingGetDTO>>> GetRoomBookings([FromQuery] string? date)
         {
-            if (!string.IsNullOrEmpty(dateTime))
+            if (!string.IsNullOrEmpty(date))
             {
-                var bookingsDT = _context.RoomBookings.Where(x => x.StartTime.Date == ToMinDateTime(dateTime))
+                var bookingsDT = _context.RoomBookings.Where(x => x.StartTime.Date == ToMinDateTime(date))
                      .Include("Room").Include("User").Select(x => new RoomBookingGetDTO()
                      {
                          Id = x.Id,
@@ -84,11 +84,14 @@ namespace OfficeManagerAPI.Controllers
                 return BadRequest();
             }
 
-            var roomBookingsOnSelectedDay = await _context.RoomBookings.Where(x => x.Id == id).ToListAsync();
+            var roomBookingsOnSelectedDayForSelectedRoom = await (from x in _context.RoomBookings
+                                                           where x.StartTime.Date.Equals(roomBookingDTO.StartTime.Date) &&
+                                                           x.Id != id
+                                                           select x).ToListAsync();
 
             var rooms = await _context.Rooms.ToListAsync();
 
-            if (CheckRoomBookingParameters(roomBookingDTO, rooms, roomBookingsOnSelectedDay))
+            if (CheckRoomBookingParameters(roomBookingDTO, rooms, roomBookingsOnSelectedDayForSelectedRoom))
             {
                 _context.Entry(new RoomBooking()
                 {
@@ -125,8 +128,10 @@ namespace OfficeManagerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<RoomBookingDTO>> PostRoomBooking(RoomBookingDTO roomBookingDTO)
         {
-            var roomBookingsOnSelectedDayForSelectedRoom = await _context.RoomBookings
-                .Where(x => x.StartTime.Date.Equals(roomBookingDTO.StartTime.Date) && x.RoomId == roomBookingDTO.RoomId).ToListAsync();
+            var roomBookingsOnSelectedDayForSelectedRoom = await (from x in _context.RoomBookings
+                                                                  where x.StartTime.Date.Equals(roomBookingDTO.StartTime.Date) &&
+                                                                  x.RoomId == roomBookingDTO.RoomId
+                                                                  select x).ToListAsync();
 
             var rooms = await _context.Rooms.ToListAsync();
 
@@ -198,7 +203,7 @@ namespace OfficeManagerAPI.Controllers
         private bool CheckRoomBookingTimeZone(RoomBookingDTO roomBookingDTO, List<RoomBooking> roomBookingsOnSelectedDayForSelectedRoom)
         {
             return !roomBookingsOnSelectedDayForSelectedRoom.Any(x => x.StartTime > roomBookingDTO.StartTime && x.StartTime < roomBookingDTO.EndTime ||
-                x.EndTime > roomBookingDTO.StartTime && x.EndTime < roomBookingDTO.EndTime);
+                x.EndTime >= roomBookingDTO.StartTime && x.EndTime <= roomBookingDTO.EndTime);
         }
 
         private bool RoomBookingExists(int id)
