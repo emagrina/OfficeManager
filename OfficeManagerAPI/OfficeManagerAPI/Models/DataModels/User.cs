@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
-    public class User: BaseEntity
+    public class User
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;

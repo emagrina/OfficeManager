@@ -114,14 +114,7 @@ namespace OfficeManagerAPI.Controllers
                     LastName = userDTO.LastName,
                     IsAdmin = userDTO.IsAdmin,
                     Email = userDTO.Email,
-                    Passw = userDTO.Passw,
-                    CreatedBy = userDTO.CreatedBy,
-                    CreatedAt = userDTO.CreatedAt,
-                    UpdatedBy = userDTO.UpdatedBy,
-                    UpdatedAt = userDTO.UpdatedAt,
-                    DelatedBy = userDTO.DelatedBy,
-                    DelatedAt = userDTO.DelatedAt,
-                    IsDeleted = userDTO.IsDeleted
+                    Passw = userDTO.Passw
                 });
 
                 await _context.SaveChangesAsync();

@@ -2,7 +2,7 @@
 
 namespace OfficeManagerAPI.Data
 {
-    public class UserGetDTO: BaseEntity
+    public class UserGetDTO
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
