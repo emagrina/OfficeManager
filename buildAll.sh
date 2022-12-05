@@ -1,5 +1,9 @@
-﻿# Start Docker image
-cd ./FrontOffice
-docker build -t front-office:1.0 .
+﻿#!/bin/bash
 
-docker run -p 80:3000 prueba
+echo "+------------------------------------------------------+"
+echo "|                      Docker                          |"
+echo "+------------------------------------------------------+"
+
+docker-compose up
+docker ps
+docker images -a

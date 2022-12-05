@@ -16,13 +16,17 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
     },
   },
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-  },
   plugins: [
     react(),
     reactRefresh(),
     viteCompression({ verbose: true, algorithm: 'gzip', ext: '.gz',deleteOriginFile: true })
   ],
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    strictPort: true,
+    port: 3000, // you can replace this port with any port
+  }
 })
