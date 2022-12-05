@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.DBAccess;
 
@@ -11,9 +12,10 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    partial class OfficeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221203090406_delete inheritance of base enity for users")]
+    partial class deleteinheritanceofbaseenityforusers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OfficeManagerAPI.Models.DataModels
 {
-    public class User: BaseEntity
+    public class User
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
@@ -13,6 +13,7 @@ namespace OfficeManagerAPI.Models.DataModels
         public string Email { get; set; } = string.Empty;
         public string Passw { get; set; } = string.Empty;
 
-        public virtual ICollection<Booking> Booking { get; set; }
+        public virtual ICollection<ChairBooking> ChairBooking { get; set; }
+        public virtual ICollection<RoomBooking> RoomBooking { get; set; }
     }
 }

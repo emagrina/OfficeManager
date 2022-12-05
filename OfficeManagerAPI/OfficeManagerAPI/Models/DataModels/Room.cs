@@ -11,6 +11,6 @@ namespace OfficeManagerAPI.Models.DataModels
         public string Position { get; set; }
         public bool Available { get; set; }
 
-        public virtual ICollection<Booking> Booking { get; set; }
+        public virtual ICollection<RoomBooking> RoomBooking { get; set; }
     }
 }

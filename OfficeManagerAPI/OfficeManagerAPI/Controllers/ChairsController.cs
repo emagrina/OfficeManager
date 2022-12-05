@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeManagerAPI.Data;
 using OfficeManagerAPI.DBAccess;
 using OfficeManagerAPI.Models.DataModels;
 
@@ -24,14 +25,21 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/Chairs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Chair>>> GetChairs()
+        public async Task<ActionResult<IEnumerable<ChairGetDTO>>> GetChairs()
         {
-            return await _context.Chairs.ToListAsync();
+            var chairs = _context.Chairs.Select(x => new ChairGetDTO()
+            {
+                Id = x.Id,
+                Position = x.Position,
+                Available = x.Available
+            });
+
+            return Ok(chairs);
         }
 
         // GET: api/Chairs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Chair>> GetChair(int id)
+        public async Task<ActionResult<ChairGetDTO>> GetChair(int id)
         {
             var chair = await _context.Chairs.FindAsync(id);
 
@@ -40,20 +48,30 @@ namespace OfficeManagerAPI.Controllers
                 return NotFound();
             }
 
-            return chair;
+            return Ok(new ChairGetDTO()
+            {
+                Id = chair.Id,
+                Position = chair.Position,
+                Available = chair.Available
+            });
         }
 
         // PUT: api/Chairs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChair(int id, Chair chair)
+        public async Task<IActionResult> PutChair(int id, ChairDTO chairDTO)
         {
-            if (id != chair.Id)
+            if (!ChairExists(id))
             {
                 return BadRequest();
             }
 
-            _context.Entry(chair).State = EntityState.Modified;
+            _context.Entry(new Chair()
+            {
+                Id = id,
+                Position = chairDTO.Position,
+                Available = chairDTO.Available
+            }).State = EntityState.Modified;
 
             try
             {
@@ -77,12 +95,16 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Chairs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chair>> PostChair(Chair chair)
+        public async Task<ActionResult<ChairDTO>> PostChair(ChairDTO chairDTO)
         {
-            _context.Chairs.Add(chair);
+            _context.Chairs.Add(new Chair()
+            {
+                Position = chairDTO.Position,
+                Available = chairDTO.Available
+            });
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetChair", new { id = chair.Id }, chair);
+            
+            return CreatedAtAction("GetChair", chairDTO);
         }
 
         // DELETE: api/Chairs/5

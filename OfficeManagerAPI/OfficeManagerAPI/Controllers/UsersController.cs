@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,14 +24,22 @@ namespace OfficeManagerAPI.Controllers
 
         // GET: api/Admin
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserGetDTO>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include("ChairBooking").Include("RoomBooking").Select(x => new UserGetDTO()
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                IsAdmin = x.IsAdmin,
+                Email = x.Email,
+                Passw = x.Passw
+            }).ToListAsync();
         }
 
         // GET: api/Admin/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserGetDTO>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -40,36 +48,50 @@ namespace OfficeManagerAPI.Controllers
                 return NotFound();
             }
 
-            return user;
+            return new UserGetDTO()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IsAdmin = user.IsAdmin,
+                Email = user.Email,
+                Passw = user.Passw
+            };
         }
 
         // PUT: api/Admin/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, UserPostDTO userPostDTO)
+        public async Task<IActionResult> PutUser(int id, UserDTO userDTO)
         {
             if (!UserExists(id))
             {
                 return NotFound();
             }
 
-            _context.Entry(new User()
+            if (repeatedEmail(userDTO))
             {
-                Id = id,
-                FirstName = userPostDTO.FirstName,
-                LastName = userPostDTO.LastName,
-                IsAdmin = userPostDTO.IsAdmin,
-                Email = userPostDTO.Email,
-                Passw = userPostDTO.Passw
-            }).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
+                BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                throw;
+                _context.Entry(new User()
+                {
+                    Id = id,
+                    FirstName = userDTO.FirstName,
+                    LastName = userDTO.LastName,
+                    IsAdmin = userDTO.IsAdmin,
+                    Email = userDTO.Email,
+                    Passw = userDTO.Passw
+                }).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
             }
 
             return NoContent();
@@ -78,26 +100,26 @@ namespace OfficeManagerAPI.Controllers
         // POST: api/Admin
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(UserPostDTO userDTO)
+        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDTO)
         {
-            _context.Users.Add(new User()
+            if (repeatedEmail(userDTO))
             {
-                FirstName = userDTO.FirstName,
-                LastName = userDTO.LastName,
-                IsAdmin = userDTO.IsAdmin,
-                Email = userDTO.Email,
-                Passw = userDTO.Passw,
-                CreatedBy = userDTO.CreatedBy,
-                CreatedAt = userDTO.CreatedAt,
-                UpdatedBy = userDTO.UpdatedBy,
-                UpdatedAt = userDTO.UpdatedAt,
-                DelatedBy = userDTO.DelatedBy,
-                DelatedAt = userDTO.DelatedAt,
-                IsDeleted = userDTO.IsDeleted                
-            });
-            await _context.SaveChangesAsync();
+                return BadRequest();
+            }
+            else
+            {
+                _context.Users.Add(new User()
+                {
+                    FirstName = userDTO.FirstName,
+                    LastName = userDTO.LastName,
+                    IsAdmin = userDTO.IsAdmin,
+                    Email = userDTO.Email,
+                    Passw = userDTO.Passw
+                });
 
-            return Ok("Created User");
+                await _context.SaveChangesAsync();
+                return Ok("Created User");
+            }
         }
 
         // DELETE: api/Admin/5
@@ -114,6 +136,11 @@ namespace OfficeManagerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        private bool repeatedEmail(UserDTO userDTO)
+        {
+            return _context.Users.Any(x => x.Email.Equals(userDTO.Email));
         }
 
         private bool UserExists(int id)

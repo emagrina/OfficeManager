@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeManagerAPI.DBAccess;
 
@@ -11,9 +12,10 @@ using OfficeManagerAPI.DBAccess;
 namespace OfficeManagerAPI.Migrations
 {
     [DbContext(typeof(OfficeDBContext))]
-    partial class OfficeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221124123813_removed description")]
+    partial class removeddescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,7 @@ namespace OfficeManagerAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChairBookings");
+                    b.ToTable("ChairBooking");
                 });
 
             modelBuilder.Entity("OfficeManagerAPI.Models.DataModels.Room", b =>
@@ -137,6 +139,19 @@ namespace OfficeManagerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DelatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DelatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,6 +166,9 @@ namespace OfficeManagerAPI.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -160,6 +178,12 @@ namespace OfficeManagerAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
