@@ -3,11 +3,13 @@ import { Admin, Auth, Home } from '../pages';
 import React from 'react';
 import UserManagment from '@pages/Admin/components/UserManagment';
 import RoomsManagment from '@pages/Admin/components/RoomsManagment';
-import BookingsManagment from '@pages/Admin/components/BookingsManagment';
 import PageNotFound from '@pages/PageNotFound/PageNotFound';
 import Profile from '@pages/Profile/Profile';
 import ProfileData from '@pages/Profile/components/ProfileData/ProfileData';
 import ProfileAccount from '@pages/Profile/components/ProfileAccount/ProfileAccount';
+import ChairBookingsManagment from '@pages/Admin/components/ChairBookingsManagment';
+import RoomBookingsManagment from '@pages/Admin/components/RoomBookingsManagment';
+import ChairManagment from '@pages/Admin/components/ChairManagment';
 
 function Routers() {
 	return (
@@ -21,10 +23,9 @@ function Routers() {
 					children={[
 						<Route path='/admin/roomsManagment' element={<RoomsManagment />} />,
 						<Route path='/admin/userManagment' element={<UserManagment />} />,
-						<Route
-							path='/admin/bookingsManagment'
-							element={<BookingsManagment />}
-						/>,
+						<Route path='/admin/ChairBookingsManagment' element={<ChairBookingsManagment />} />,
+						<Route path='/admin/RoomBookingsManagment' element={<RoomBookingsManagment />} />,
+						<Route path='/admin/ChairManagment' element={<ChairManagment />} />,
 					]}
 				/>
 				<Route

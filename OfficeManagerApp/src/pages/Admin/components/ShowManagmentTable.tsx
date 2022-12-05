@@ -4,6 +4,7 @@ import { faChevronLeft, faChevronRight, faPen, faXmark } from '@fortawesome/free
 import Popup from 'reactjs-popup';
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
+import AvailabilityButton from './AvailabilityButton';
 
 
 
@@ -69,7 +70,7 @@ const ShowManagmentTable = ({data, pages, buttons}) => {
         return(
             <td className='noBorder icons' style={{'visibility': `${isActive[index] ? 'visible' : 'hidden' }`}}>
                 <div className='edit'> 
-                <EditButton item={item}></EditButton>
+                <AvailabilityButton item={item}></AvailabilityButton>
                 </div> 
             </td>
         )

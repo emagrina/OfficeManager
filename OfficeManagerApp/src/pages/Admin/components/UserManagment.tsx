@@ -111,7 +111,10 @@ const UserManagment = () => {
 	}else{
 		return (
 			<div className='userManagment'>
-				Error
+				<div className='upTable'>
+					<h2> Gestor de usuarios</h2> 
+				</div>
+				Error en la BD
 			</div>
 		);
 	}

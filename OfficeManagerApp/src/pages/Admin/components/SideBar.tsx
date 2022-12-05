@@ -27,7 +27,18 @@ const SideBar = () => {
 					</div>
 					<div className='marcador'>
 						<li>
-							<NavLink to={'./BookingsManagment'}> Gestor de reservas </NavLink>
+							<NavLink to={'./ChairManagment'}> Gestor de sillas </NavLink>
+						</li>
+					</div>
+					Gestores de Reservas:
+					<div className='marcador'>
+						<li>
+							<NavLink to={'./RoomBookingsManagment'}> Salas </NavLink>
+						</li>
+					</div>
+					<div className='marcador'>
+						<li>
+							<NavLink to={'./ChairBookingsManagment'}> Sillas </NavLink>
 						</li>
 					</div>
 				</ul>

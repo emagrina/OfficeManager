@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const EditButton = (item: any) => {
+const AvailabilityButton = (item: any) => {
     var room: any = {};
     Object.keys(item).map((k) => {
         room = item[k];
@@ -13,9 +13,6 @@ const EditButton = (item: any) => {
     const url = `https://localhost:7016/api/Rooms/${room['ID']}`;
     
     const [editStatus, setEditStatus] = useState(0)
-
-    const [open, setOpen] = useState(false);
-    const closePopup = () => setOpen(false);
 
     useEffect(() => {
 		if(editStatus == 1){
@@ -53,4 +50,4 @@ const EditButton = (item: any) => {
 
 }
 
-export default EditButton;
+export default AvailabilityButton;

@@ -25,8 +25,6 @@ const RoomsManagment = () => {
 				},
 			})
 			.then(response => {
-				console.log(response.data);		
-				
 				let dbRooms = [];
 				for (const room of response.data) {
 					dbRooms.push({ID: room.id, Name: room.name, Size: room.size, Avaiable: room.avaiable ? "Si" : "No"})
@@ -74,7 +72,10 @@ const RoomsManagment = () => {
 	}else{
 		return (
 			<div className='roomManagment'>
-				Error
+				<div className='upTable'>
+					<h2> Gestor de salas </h2>
+				</div>
+				Error en la BD
 			</div>
 		);
 	}
