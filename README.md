@@ -3,7 +3,7 @@
 ![Inicio](.screenshots/Home.png)
 
 <a title="LanguagesUsed" target="_blank" href="#">
-<img align="center" alt="Icon of HTML5" src="https://skillicons.dev/icons?i=dotnet,cs,rxjs,redux,react,vite,ts,sass,docker,firebase,jest,figma&theme=light">
+<img align="center" alt="Icon of HTML5" src="https://skillicons.dev/icons?i=dotnet,cs,rxjs,redux,react,vite,ts,sass,vercel,docker,firebase,jest,figma&theme=light">
 </a>
 
 ***Languages***

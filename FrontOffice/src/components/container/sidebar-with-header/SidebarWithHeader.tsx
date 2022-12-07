@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ReactText } from 'react';
 import {
     IconButton,
     Avatar,
@@ -20,7 +20,7 @@ import {
     MenuButton,
     MenuDivider,
     MenuItem,
-    MenuList,
+    MenuList, Img,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -33,7 +33,9 @@ import {
     FiChevronDown,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import { ReactText } from 'react';
+
+// @ts-ignore
+import LargeLogo from '@assets/img/large-logo.svg';
 
 interface LinkItemProps {
     name: string;
@@ -47,11 +49,7 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Settings', icon: FiSettings },
 ];
 
-export default function SidebarWithHeader({
-                                              children,
-                                          }: {
-    children: ReactNode;
-}) {
+export default function SidebarWithHeader({children,}: { children: ReactNode; }){
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -71,6 +69,7 @@ export default function SidebarWithHeader({
                     <SidebarContent onClose={onClose} />
                 </DrawerContent>
             </Drawer>
+            
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
             <Box ml={{ base: 0, md: 60 }} p="4">
@@ -90,15 +89,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             transition="3s ease"
             bg={useColorModeValue('white', 'gray.900')}
             borderRight="1px"
+            
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Logo
-                </Text>
+                <Img src={LargeLogo} alt={'Logo Inetum'} width={150}/>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
@@ -167,15 +165,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 aria-label="open menu"
                 icon={<FiMenu />}
             />
-
-            <Text
+            
+            <Img
                 display={{ base: 'flex', md: 'none' }}
-                fontSize="2xl"
-                fontFamily="monospace"
-                fontWeight="bold">
-                Logo
-            </Text>
-
+                src={LargeLogo} 
+                alt={'Logo Inetum'} 
+                width={150}/>
             <HStack spacing={{ base: '0', md: '6' }}>
                 <IconButton
                     size="lg"
@@ -183,6 +178,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     aria-label="open menu"
                     icon={<FiBell />}
                 />
+                
                 <Flex alignItems={'center'}>
                     <Menu>
                         <MenuButton
@@ -193,7 +189,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                                 <Avatar
                                     size={'sm'}
                                     src={
-                                        'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                                        'https://images.unsplash.com/photo-1544502062-f82887f03d1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80'
                                     }
                                 />
                                 <VStack
@@ -201,13 +197,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Justina Clark</Text>
+                                    <Text fontSize="sm">Ernest Magriñá</Text>
                                     <Text fontSize="xs" color="gray.600">
-                                        Admin
+                                        Personal interno
                                     </Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
-                                    <FiChevronDown />
+                                     <FiChevronDown />
                                 </Box>
                             </HStack>
                         </MenuButton>

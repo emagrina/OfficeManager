@@ -1,1 +1,2 @@
-export { default as Header } from './header/Header';
+export { default as SidebarWithHeader } from './sidebar-with-header/SidebarWithHeader';
+export { default as Cards } from './cards/Cards';

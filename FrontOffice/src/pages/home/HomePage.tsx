@@ -1,10 +1,12 @@
 ﻿import React from 'react';
-import { Header } from "@components/container/index";
+import { SidebarWithHeader, Cards } from "@components/container/index";
 
 const HomePage = () => {
 	return (
 		<>
-			<Header/>
+			<SidebarWithHeader children={
+				<Cards></Cards>
+			}/>
 		</>
 	)
 };
