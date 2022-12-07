@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import AppRoutes from './routes/AppRoutes';
 import { ChakraProvider } from '@chakra-ui/react';
-import { inject } from '@vercel/analytics';
-inject();
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<ChakraProvider>
+			<Analytics />
 			<AppRoutes />
 		</ChakraProvider>
 	</React.StrictMode>
