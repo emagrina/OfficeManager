@@ -2,10 +2,9 @@
 
 services:
   dev:
+    image: "sample:dev"
     build:
-      context: ./
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/app
+      context: ./FrontOffice
+      dockerfile: ./Dockerfile
     ports:
-      - '3000:3000'
+      - '80:80'

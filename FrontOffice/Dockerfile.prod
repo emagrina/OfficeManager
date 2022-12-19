@@ -1,0 +1,23 @@
+﻿# Build stage
+FROM node:16.17.1-alpine as builder
+
+# set working directory
+WORKDIR /app
+
+# install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# add app
+COPY . ./
+
+# Build app
+RUN npm run build
+
+# Production stage
+FROM nginx:1.22.1
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
